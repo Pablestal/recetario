@@ -1,0 +1,39 @@
+.ingredients-form {
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  padding: 10px;
+
+  &__header {
+    padding-left: 108px;
+  }
+
+  &__inputs {
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+  }
+
+  &__add-button {
+    height: 48px;
+    width: 83px;
+    flex-shrink: 0;
+  }
+
+  &__input-group {
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+    flex-grow: 1;
+    flex-wrap: wrap;
+  }
+
+  &__list {
+    margin-top: 20px;
+    padding-left: 88px;
+    display: flex;
+    flex-direction: column;
+    gap: 1px;
+    list-style: none;
+  }
+}

@@ -36,7 +36,7 @@ const theme = createTheme({
     },
   },
   typography: {
-    fontFamily: '"Nunito", "Roboto", "Helvetica", "Arial", sans-serif',
+    fontFamily: '"Open Sans", "Roboto", "Helvetica", "Arial", sans-serif',
     h1: {
       fontWeight: 700,
     },

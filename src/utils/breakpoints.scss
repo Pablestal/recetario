@@ -1,0 +1,79 @@
+$mobile: 360px; // La mayoría de smartphones modernos
+$mobile-large: 480px; // Móviles grandes y landscape
+$tablet: 768px; // iPads y tablets estándar
+$desktop: 1024px; // Laptops y monitores pequeños
+$large-desktop: 1440px; // Monitores estándar
+$extra-large-desktop: 1920px; // Monitores grandes
+
+@mixin mobile {
+  @media (max-width: #{$mobile - 1px}) {
+    @content;
+  }
+}
+
+@mixin mobile-up {
+  @media (min-width: #{$mobile}) {
+    @content;
+  }
+}
+
+@mixin tablet {
+  @media (min-width: #{$tablet}) {
+    @content;
+  }
+}
+
+@mixin tablet-only {
+  @media (min-width: #{$tablet}) and (max-width: #{$desktop - 1px}) {
+    @content;
+  }
+}
+
+@mixin desktop {
+  @media (min-width: #{$desktop}) {
+    @content;
+  }
+}
+
+@mixin desktop-only {
+  @media (min-width: #{$desktop}) and (max-width: #{$large-desktop - 1px}) {
+    @content;
+  }
+}
+
+@mixin large-desktop {
+  @media (min-width: #{$large-desktop}) {
+    @content;
+  }
+}
+
+@mixin large-desktop-only {
+  @media (min-width: #{$large-desktop}) and (max-width: #{$extra-large-desktop - 1px}) {
+    @content;
+  }
+}
+
+@mixin extra-large-desktop {
+  @media (min-width: #{$extra-large-desktop}) {
+    @content;
+  }
+}
+
+// Mixins personalizados para rangos específicos
+@mixin between($min, $max) {
+  @media (min-width: #{$min}) and (max-width: #{$max - 1px}) {
+    @content;
+  }
+}
+
+@mixin from($breakpoint) {
+  @media (min-width: #{$breakpoint}) {
+    @content;
+  }
+}
+
+@mixin until($breakpoint) {
+  @media (max-width: #{$breakpoint - 1px}) {
+    @content;
+  }
+}
