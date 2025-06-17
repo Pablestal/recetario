@@ -1,5 +1,9 @@
 .images-form {
   margin-bottom: 30px;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  padding: 10px;
 
   &__inputs {
     display: flex;
@@ -24,7 +28,7 @@
   }
 
   &__list-item {
-    position: relative; /* ← Añadir esto */
-    display: inline-block; /* ← Añadir esto */
+    position: relative;
+    display: inline-block;
   }
 }

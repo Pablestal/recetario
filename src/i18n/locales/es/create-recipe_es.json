@@ -1,0 +1,126 @@
+{
+  "title": "Crear una nueva receta",
+  "fields": {
+    "name": {
+      "label": "Nombre",
+      "placeholder": "Ingresa el nombre de la receta"
+    },
+    "description": {
+      "label": "Descripción",
+      "placeholder": "Describe tu receta"
+    },
+    "prepTime": {
+      "label": "Preparación"
+    },
+    "servings": {
+      "label": "Raciones"
+    },
+    "difficulty": {
+      "label": "Dificultad"
+    }
+  },
+  "validation": {
+    "name": {
+      "required": "El nombre de la receta es obligatorio",
+      "minLength": "El nombre debe tener al menos 3 caracteres",
+      "maxLength": "El nombre no puede exceder {{max}} caracteres"
+    },
+    "description": {
+      "maxLength": "La descripción no puede exceder {{max}} caracteres"
+    },
+    "prepTime": {
+      "required": "El tiempo de preparación es obligatorio",
+      "invalid": "Debe ser un número válido",
+      "min": "El tiempo debe ser mayor a 0 minutos",
+      "max": "El tiempo no puede exceder 999 minutos"
+    },
+    "servings": {
+      "required": "El número de porciones es obligatorio",
+      "invalid": "Debe ser un número válido",
+      "min": "Debe servir al menos 1 porción",
+      "max": "No puede exceder 99 porciones"
+    },
+    "difficulty": {
+      "required": "Por favor selecciona la dificultad de la receta",
+      "max": "La dificultad no puede ser mayor a 5"
+    },
+    "ingredients": {
+      "required": "Agrega al menos un ingrediente"
+    },
+    "steps": {
+      "required": "Agrega al menos un paso"
+    }
+  },
+  "ingredients": {
+    "title": "Ingredientes",
+    "subtitle": "Agrega ingredientes con su cantidad. Los ingredientes opcionales pueden ser marcados.",
+    "fields": {
+      "name": {
+        "label": "Nombre del Ingrediente",
+        "placeholder": "Ingresa el nombre del ingrediente"
+      },
+      "amount": {
+        "label": "Cantidad",
+        "placeholder": "ej., 2 tazas, 500g"
+      },
+      "optional": {
+        "label": "Opcional",
+        "yes": "Sí",
+        "no": "No"
+      }
+    },
+    "buttons": {
+      "add": "Añadir"
+    },
+    "list": {
+      "optional": "(Opcional)",
+      "delete": "Eliminar ingrediente"
+    }
+  },
+  "steps": {
+    "title": "Pasos",
+    "subtitle": "Agrega un paso con una descripción y un consejo opcional",
+    "fields": {
+      "description": {
+        "label": "Descripción del paso",
+        "placeholder": "Describe qué hacer en este paso"
+      },
+      "tip": {
+        "label": "Consejo",
+        "placeholder": "Consejo de cocina opcional o recomendación"
+      }
+    },
+    "buttons": {
+      "add": "Añadir"
+    },
+    "list": {
+      "delete": "Eliminar paso"
+    }
+  },
+  "images": {
+    "title": "Imágenes",
+    "subtitle": "Inserta la URL de la imagen",
+    "fields": {
+      "url": {
+        "label": "URL de la Imagen",
+        "placeholder": "URL de la imagen de la receta"
+      }
+    },
+    "buttons": {
+      "add": "Agregar"
+    },
+    "list": {
+      "alt": "Imagen de Receta {{number}}",
+      "delete": "Eliminar imagen"
+    }
+  },
+  "buttons": {
+    "save": "Guardar Receta",
+    "cancel": "Cancelar"
+  },
+  "messages": {
+    "success": "¡Receta creada exitosamente!",
+    "error": "Por favor, corrige los errores en el formulario antes de continuar.",
+    "characters": "{{current}}/{{max}} caracteres"
+  }
+}
