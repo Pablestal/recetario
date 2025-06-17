@@ -1,8 +1,8 @@
 @use "../utils/breakpoints" as bp;
 
 .create-recipe {
-  @include bp.mobile-up {
-    margin: 0 20px;
+  @include bp.mobile {
+    margin: 0 10px;
   }
 
   @include bp.desktop {

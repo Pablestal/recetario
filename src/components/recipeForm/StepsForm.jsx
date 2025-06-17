@@ -23,21 +23,11 @@ function IngredientForm(props) {
     <div className="steps-form">
       <div className="steps-form__header">
         <h2 className="steps-form__title">Steps</h2>
-        <p>Add a step with a description and an optional tip</p>
+        <p className="steps-form__subtitle">
+          Add a step with a description and an optional tip
+        </p>
       </div>
       <div className="steps-form__inputs">
-        <Button
-          className="steps-form__add-button"
-          variant="contained"
-          color="secondary"
-          onClick={() => {
-            handleStepsUpdate(newStep);
-            setNewStep(stepTempalte);
-          }}
-          startIcon={<AddIcon />}
-        >
-          Add
-        </Button>
         <div className="steps-form__input-group">
           <TextField
             id="description"
@@ -68,6 +58,18 @@ function IngredientForm(props) {
             }}
           />
         </div>
+        <Button
+          className="steps-form__add-button"
+          variant="contained"
+          color="secondary"
+          onClick={() => {
+            handleStepsUpdate(newStep);
+            setNewStep(stepTempalte);
+          }}
+          startIcon={<AddIcon />}
+        >
+          Add
+        </Button>
       </div>
       <ul className="steps-form__list">
         {recipe.steps.map((ingredient, index) => (

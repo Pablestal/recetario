@@ -1,13 +1,11 @@
 import "./ingredientsForm.scss";
-import {
-  Button,
-  IconButton,
-  TextField,
-  FormControl,
-  InputLabel,
-  Select,
-  MenuItem,
-} from "@mui/material";
+import Button from "@mui/material/Button";
+import IconButton from "@mui/material/IconButton";
+import TextField from "@mui/material/TextField";
+import FormControl from "@mui/material/FormControl";
+import InputLabel from "@mui/material/InputLabel";
+import Select from "@mui/material/Select";
+import MenuItem from "@mui/material/MenuItem";
 import AddIcon from "@mui/icons-material/Add";
 import RemoveCircleOutlineIcon from "@mui/icons-material/RemoveCircleOutline";
 import { useState } from "react";
@@ -46,18 +44,6 @@ function IngredientForm(props) {
         </p>
       </div>
       <div className="ingredients-form__inputs">
-        <Button
-          variant="contained"
-          color="secondary"
-          className="ingredients-form__add-button"
-          onClick={() => {
-            handleIngredientUpdate(newIngredient);
-            setNewIngredient(ingredientTemplate);
-          }}
-          startIcon={<AddIcon />}
-        >
-          Add
-        </Button>
         <div className="ingredients-form__input-group">
           <TextField
             id="name"
@@ -75,6 +61,7 @@ function IngredientForm(props) {
             label="Amount"
             variant="filled"
             onChange={handleNewIngredientUpdate}
+            className="ingredients-form__amount-input"
           />
           <FormControl id="optional" size="small" sx={{ minWidth: 80 }}>
             <InputLabel>Optional</InputLabel>
@@ -91,6 +78,18 @@ function IngredientForm(props) {
             </Select>
           </FormControl>
         </div>
+        <Button
+          variant="contained"
+          color="secondary"
+          className="ingredients-form__add-button"
+          onClick={() => {
+            handleIngredientUpdate(newIngredient);
+            setNewIngredient(ingredientTemplate);
+          }}
+          startIcon={<AddIcon />}
+        >
+          Add
+        </Button>
       </div>
       <ul className="ingredients-form__list">
         {recipe.ingredients.map((ingredient, index) => (

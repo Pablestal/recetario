@@ -20,6 +20,15 @@ function ImagesForm(props) {
       <h2 className="images-form__title">Images</h2>
       <p>Insert image URL</p>
       <div className="images-form__inputs">
+        <TextField
+          id="imageUrl"
+          label="Image URL"
+          value={newImage.url}
+          size="small"
+          fullWidth
+          variant="filled"
+          onChange={handleNewImageUpdate}
+        />
         <Button
           variant="contained"
           color="secondary"
@@ -32,15 +41,6 @@ function ImagesForm(props) {
         >
           Add
         </Button>
-        <TextField
-          id="imageUrl"
-          label="Image URL"
-          value={newImage.url}
-          size="small"
-          fullWidth
-          variant="filled"
-          onChange={handleNewImageUpdate}
-        />
       </div>
       <ul className="images-form__list">
         {recipe.images.map((image, index) => (

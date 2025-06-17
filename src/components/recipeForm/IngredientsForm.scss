@@ -1,3 +1,5 @@
+@use "../../utils/breakpoints" as bp;
+
 .ingredients-form {
   border: 1px solid #ccc;
   border-radius: 10px;
@@ -5,13 +7,30 @@
   padding: 10px;
 
   &__header {
-    padding-left: 108px;
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    align-items: baseline;
+    gap: 10px;
+  }
+
+  &__subtitle {
+    font-size: 16px;
+    color: #858383;
+
+    @include bp.mobile {
+      margin-top: 0;
+    }
   }
 
   &__inputs {
     display: flex;
     flex-direction: row;
     gap: 20px;
+  }
+
+  &__amount-input {
+    max-width: 100px;
   }
 
   &__add-button {
