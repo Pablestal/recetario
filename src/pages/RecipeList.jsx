@@ -8,7 +8,7 @@ function RecipeList() {
 
   useEffect(() => {
     getRecipes();
-  }, []);
+  }, [getRecipes]);
 
   const recipeCards = recipes.map((recipe) => (
     <li key={recipe.id}>{recipe.name}</li>

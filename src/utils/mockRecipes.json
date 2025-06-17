@@ -12,35 +12,30 @@
           "id": 1,
           "name": "Patatas",
           "quantity": 500,
-          "unit": "g",
           "optional": false
         },
         {
           "id": 2,
           "name": "Cebolla",
           "quantity": 1,
-          "unit": "unidad",
           "optional": false
         },
         {
           "id": 3,
           "name": "Huevos",
           "quantity": 6,
-          "unit": "unidades",
           "optional": false
         },
         {
           "id": 4,
           "name": "Aceite de oliva",
           "quantity": 100,
-          "unit": "ml",
           "optional": false
         },
         {
           "id": 5,
           "name": "Sal",
           "quantity": 5,
-          "unit": "g",
           "optional": false
         }
       ],
@@ -102,70 +97,60 @@
           "id": 1,
           "name": "Arroz bomba",
           "quantity": 400,
-          "unit": "g",
           "optional": false
         },
         {
           "id": 2,
           "name": "Pollo",
           "quantity": 500,
-          "unit": "g",
           "optional": false
         },
         {
           "id": 3,
           "name": "Conejo",
           "quantity": 300,
-          "unit": "g",
           "optional": true
         },
         {
           "id": 4,
           "name": "Judías verdes",
           "quantity": 150,
-          "unit": "g",
           "optional": false
         },
         {
           "id": 5,
           "name": "Garrofón",
           "quantity": 100,
-          "unit": "g",
           "optional": true
         },
         {
           "id": 6,
           "name": "Tomate maduro",
           "quantity": 2,
-          "unit": "unidades",
           "optional": false
         },
         {
           "id": 7,
           "name": "Pimentón dulce",
           "quantity": 10,
-          "unit": "g",
           "optional": false
         },
         {
           "id": 8,
           "name": "Azafrán",
           "quantity": 1,
-          "unit": "sobre",
           "optional": false
         },
         {
           "id": 9,
           "name": "Aceite de oliva",
           "quantity": 60,
-          "unit": "ml",
           "optional": false
         },
         {
           "id": 10,
           "name": "Caldo de pollo",
           "quantity": 1,
-          "unit": "l",
           "optional": false
         }
       ],
@@ -233,56 +218,48 @@
           "id": 1,
           "name": "Tomates maduros",
           "quantity": 1,
-          "unit": "kg",
           "optional": false
         },
         {
           "id": 2,
           "name": "Pimiento verde",
           "quantity": 1,
-          "unit": "unidad",
           "optional": false
         },
         {
           "id": 3,
           "name": "Pepino",
           "quantity": 0.5,
-          "unit": "unidad",
           "optional": false
         },
         {
           "id": 4,
           "name": "Diente de ajo",
           "quantity": 1,
-          "unit": "unidad",
           "optional": false
         },
         {
           "id": 5,
           "name": "Aceite de oliva virgen extra",
           "quantity": 50,
-          "unit": "ml",
           "optional": false
         },
         {
           "id": 6,
           "name": "Vinagre de Jerez",
           "quantity": 15,
-          "unit": "ml",
           "optional": false
         },
         {
           "id": 7,
           "name": "Sal",
           "quantity": 5,
-          "unit": "g",
           "optional": false
         },
         {
           "id": 8,
           "name": "Pan duro",
           "quantity": 50,
-          "unit": "g",
           "optional": true
         }
       ],
@@ -345,63 +322,54 @@
           "id": 1,
           "name": "Mantequilla",
           "quantity": 80,
-          "unit": "g",
           "optional": false
         },
         {
           "id": 2,
           "name": "Harina",
           "quantity": 100,
-          "unit": "g",
           "optional": false
         },
         {
           "id": 3,
           "name": "Leche entera",
           "quantity": 750,
-          "unit": "ml",
           "optional": false
         },
         {
           "id": 4,
           "name": "Jamón serrano",
           "quantity": 150,
-          "unit": "g",
           "optional": false
         },
         {
           "id": 5,
           "name": "Cebolla",
           "quantity": 0.5,
-          "unit": "unidad",
           "optional": false
         },
         {
           "id": 6,
           "name": "Huevos",
           "quantity": 2,
-          "unit": "unidades",
           "optional": false
         },
         {
           "id": 7,
           "name": "Pan rallado",
           "quantity": 150,
-          "unit": "g",
           "optional": false
         },
         {
           "id": 8,
           "name": "Nuez moscada",
           "quantity": 2,
-          "unit": "g",
           "optional": true
         },
         {
           "id": 9,
           "name": "Aceite para freír",
           "quantity": 500,
-          "unit": "ml",
           "optional": false
         }
       ],
@@ -478,42 +446,36 @@
           "id": 1,
           "name": "Pulpo",
           "quantity": 1.5,
-          "unit": "kg",
           "optional": false
         },
         {
           "id": 2,
           "name": "Patatas",
           "quantity": 500,
-          "unit": "g",
           "optional": false
         },
         {
           "id": 3,
           "name": "Pimentón dulce",
           "quantity": 15,
-          "unit": "g",
           "optional": false
         },
         {
           "id": 4,
           "name": "Sal gorda",
           "quantity": 20,
-          "unit": "g",
           "optional": false
         },
         {
           "id": 5,
           "name": "Aceite de oliva virgen extra",
           "quantity": 60,
-          "unit": "ml",
           "optional": false
         },
         {
           "id": 6,
           "name": "Laurel",
           "quantity": 2,
-          "unit": "hojas",
           "optional": true
         }
       ],
@@ -592,63 +554,54 @@
           "id": 1,
           "name": "Fabes asturianas",
           "quantity": 500,
-          "unit": "g",
           "optional": false
         },
         {
           "id": 2,
           "name": "Morcilla asturiana",
           "quantity": 200,
-          "unit": "g",
           "optional": false
         },
         {
           "id": 3,
           "name": "Chorizo",
           "quantity": 200,
-          "unit": "g",
           "optional": false
         },
         {
           "id": 4,
           "name": "Panceta o lacón",
           "quantity": 150,
-          "unit": "g",
           "optional": false
         },
         {
           "id": 5,
           "name": "Cebolla",
           "quantity": 1,
-          "unit": "unidad",
           "optional": false
         },
         {
           "id": 6,
           "name": "Dientes de ajo",
           "quantity": 2,
-          "unit": "unidades",
           "optional": false
         },
         {
           "id": 7,
           "name": "Pimentón dulce",
           "quantity": 5,
-          "unit": "g",
           "optional": false
         },
         {
           "id": 8,
           "name": "Azafrán",
           "quantity": 1,
-          "unit": "sobre",
           "optional": true
         },
         {
           "id": 9,
           "name": "Sal",
           "quantity": 5,
-          "unit": "g",
           "optional": false
         }
       ],
@@ -715,56 +668,48 @@
           "id": 1,
           "name": "Leche entera",
           "quantity": 500,
-          "unit": "ml",
           "optional": false
         },
         {
           "id": 2,
           "name": "Yemas de huevo",
           "quantity": 6,
-          "unit": "unidades",
           "optional": false
         },
         {
           "id": 3,
           "name": "Azúcar",
           "quantity": 100,
-          "unit": "g",
           "optional": false
         },
         {
           "id": 4,
           "name": "Piel de limón",
           "quantity": 1,
-          "unit": "unidad",
           "optional": false
         },
         {
           "id": 5,
           "name": "Piel de naranja",
           "quantity": 1,
-          "unit": "unidad",
           "optional": false
         },
         {
           "id": 6,
           "name": "Canela en rama",
           "quantity": 1,
-          "unit": "unidad",
           "optional": false
         },
         {
           "id": 7,
           "name": "Maizena o fécula de maíz",
           "quantity": 20,
-          "unit": "g",
           "optional": false
         },
         {
           "id": 8,
           "name": "Azúcar para caramelizar",
           "quantity": 60,
-          "unit": "g",
           "optional": false
         }
       ],
@@ -836,70 +781,60 @@
           "id": 1,
           "name": "Calabacín",
           "quantity": 2,
-          "unit": "unidades",
           "optional": false
         },
         {
           "id": 2,
           "name": "Berenjena",
           "quantity": 1,
-          "unit": "unidad",
           "optional": false
         },
         {
           "id": 3,
           "name": "Pimiento rojo",
           "quantity": 1,
-          "unit": "unidad",
           "optional": false
         },
         {
           "id": 4,
           "name": "Pimiento verde",
           "quantity": 1,
-          "unit": "unidad",
           "optional": false
         },
         {
           "id": 5,
           "name": "Cebolla",
           "quantity": 1,
-          "unit": "unidad",
           "optional": false
         },
         {
           "id": 6,
           "name": "Tomates maduros",
           "quantity": 4,
-          "unit": "unidades",
           "optional": false
         },
         {
           "id": 7,
           "name": "Dientes de ajo",
           "quantity": 2,
-          "unit": "unidades",
           "optional": false
         },
         {
           "id": 8,
           "name": "Aceite de oliva virgen extra",
           "quantity": 60,
-          "unit": "ml",
           "optional": false
         },
         {
           "id": 9,
           "name": "Sal",
           "quantity": 5,
-          "unit": "g",
           "optional": false
         },
         {
           "id": 10,
           "name": "Huevos",
           "quantity": 4,
-          "unit": "unidades",
           "optional": true
         }
       ],
@@ -968,63 +903,54 @@
           "id": 1,
           "name": "Patatas",
           "quantity": 600,
-          "unit": "g",
           "optional": false
         },
         {
           "id": 2,
           "name": "Zanahorias",
           "quantity": 2,
-          "unit": "unidades",
           "optional": false
         },
         {
           "id": 3,
           "name": "Guisantes",
           "quantity": 150,
-          "unit": "g",
           "optional": false
         },
         {
           "id": 4,
           "name": "Huevos",
           "quantity": 3,
-          "unit": "unidades",
           "optional": false
         },
         {
           "id": 5,
           "name": "Atún en aceite",
           "quantity": 200,
-          "unit": "g",
           "optional": true
         },
         {
           "id": 6,
           "name": "Aceitunas rellenas",
           "quantity": 100,
-          "unit": "g",
           "optional": false
         },
         {
           "id": 7,
           "name": "Mayonesa casera",
           "quantity": 250,
-          "unit": "ml",
           "optional": false
         },
         {
           "id": 8,
           "name": "Pimiento del piquillo",
           "quantity": 2,
-          "unit": "unidades",
           "optional": true
         },
         {
           "id": 9,
           "name": "Sal",
           "quantity": 5,
-          "unit": "g",
           "optional": false
         }
       ],
@@ -1095,70 +1021,60 @@
           "id": 1,
           "name": "Leche entera",
           "quantity": 500,
-          "unit": "ml",
           "optional": false
         },
         {
           "id": 2,
           "name": "Azúcar",
           "quantity": 125,
-          "unit": "g",
           "optional": false
         },
         {
           "id": 3,
           "name": "Maizena o harina de maíz",
           "quantity": 75,
-          "unit": "g",
           "optional": false
         },
         {
           "id": 4,
           "name": "Cáscara de limón",
           "quantity": 1,
-          "unit": "unidad",
           "optional": false
         },
         {
           "id": 5,
           "name": "Canela en rama",
           "quantity": 1,
-          "unit": "unidad",
           "optional": false
         },
         {
           "id": 6,
           "name": "Canela en polvo",
           "quantity": 5,
-          "unit": "g",
           "optional": false
         },
         {
           "id": 7,
           "name": "Huevos",
           "quantity": 2,
-          "unit": "unidades",
           "optional": false
         },
         {
           "id": 8,
           "name": "Harina",
           "quantity": 100,
-          "unit": "g",
           "optional": false
         },
         {
           "id": 9,
           "name": "Aceite para freír",
           "quantity": 500,
-          "unit": "ml",
           "optional": false
         },
         {
           "id": 10,
           "name": "Azúcar para espolvorear",
           "quantity": 50,
-          "unit": "g",
           "optional": false
         }
       ],
