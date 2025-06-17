@@ -1,0 +1,30 @@
+.images-form {
+  margin-bottom: 30px;
+
+  &__inputs {
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+  }
+
+  &__add-button {
+    height: 48px;
+    width: 83px;
+    flex-shrink: 0;
+  }
+
+  &__list {
+    margin-top: 20px;
+    padding-left: 103px;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 20px;
+    list-style: none;
+  }
+
+  &__list-item {
+    position: relative; /* ← Añadir esto */
+    display: inline-block; /* ← Añadir esto */
+  }
+}

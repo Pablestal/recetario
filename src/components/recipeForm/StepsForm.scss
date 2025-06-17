@@ -1,0 +1,67 @@
+@use "../../utils/breakpoints" as bp;
+
+.steps-form {
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  padding: 10px;
+
+  &__header {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: 10px;
+  }
+
+  &__subtitle {
+    font-size: 16px;
+    color: #858383;
+
+    @include bp.mobile {
+      margin-top: 0;
+    }
+  }
+
+  &__inputs {
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+  }
+
+  &__add-button {
+    height: 48px;
+  }
+
+  &__input-group {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    gap: 10px;
+  }
+
+  &__list {
+    margin-top: 20px;
+    padding-left: 88px;
+    display: flex;
+    flex-direction: column;
+    gap: 1px;
+    list-style: none;
+  }
+
+  &__list-item {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 10px;
+  }
+
+  &__list-item-description {
+    font-size: 14px;
+    font-weight: bold;
+  }
+
+  &__list-item-tip {
+    color: #3d3b3b66;
+  }
+}

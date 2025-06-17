@@ -1,0 +1,62 @@
+@use "../utils/breakpoints" as bp;
+
+.create-recipe {
+  @include bp.mobile {
+    margin: 0 10px;
+  }
+
+  @include bp.desktop {
+    margin: 0 100px;
+  }
+
+  @include bp.large-desktop {
+    margin: 0 300px;
+  }
+
+  &__title {
+    margin: 30px 50px 20px 0;
+    font-size: 40px;
+    font-weight: bold;
+  }
+
+  &__numeric-inputs {
+    margin-bottom: 30px;
+    margin-right: 40px;
+    margin-left: 40px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 80px;
+  }
+
+  &__difficulty-label {
+    margin: 0;
+  }
+
+  &__ingredients-steps {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    gap: 20px;
+  }
+}
+
+.submit-container {
+  margin-bottom: 30px;
+  text-align: center;
+
+  &__button {
+    margin: 20px 50px;
+    width: 60%;
+    height: 50px;
+    font-size: 20px;
+    font-weight: bold;
+    background-color: #4caf50;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    text-transform: capitalize;
+  }
+}

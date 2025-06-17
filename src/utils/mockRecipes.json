@@ -1,0 +1,1148 @@
+{
+  "recipes": [
+    {
+      "id": 1,
+      "name": "Tortilla Española",
+      "description": "La auténtica tortilla española con patatas y cebolla, perfecta para cualquier momento del día.",
+      "prepTime": 30,
+      "servings": 4,
+      "difficulty": 2,
+      "ingredients": [
+        {
+          "id": 1,
+          "name": "Patatas",
+          "quantity": 500,
+          "optional": false
+        },
+        {
+          "id": 2,
+          "name": "Cebolla",
+          "quantity": 1,
+          "optional": false
+        },
+        {
+          "id": 3,
+          "name": "Huevos",
+          "quantity": 6,
+          "optional": false
+        },
+        {
+          "id": 4,
+          "name": "Aceite de oliva",
+          "quantity": 100,
+          "optional": false
+        },
+        {
+          "id": 5,
+          "name": "Sal",
+          "quantity": 5,
+          "optional": false
+        }
+      ],
+      "steps": [
+        {
+          "number": 1,
+          "description": "Pelar y cortar las patatas en rodajas finas.",
+          "tip": "Procura que las rodajas sean de grosor similar para que se cocinen uniformemente."
+        },
+        {
+          "number": 2,
+          "description": "Pelar y cortar la cebolla en juliana.",
+          "tip": null
+        },
+        {
+          "number": 3,
+          "description": "Calentar el aceite en una sartén y añadir las patatas y la cebolla. Cocinar a fuego medio-bajo durante unos 20 minutos.",
+          "tip": "No es necesario que se doren, solo que queden tiernas."
+        },
+        {
+          "number": 4,
+          "description": "Escurrir las patatas y la cebolla, reservando un poco del aceite.",
+          "tip": "Puedes guardar el aceite restante para otras preparaciones."
+        },
+        {
+          "number": 5,
+          "description": "Batir los huevos en un bol grande, añadir sal al gusto y mezclar con las patatas y la cebolla.",
+          "tip": "Deja reposar la mezcla unos minutos para que los sabores se integren."
+        },
+        {
+          "number": 6,
+          "description": "Calentar un poco del aceite reservado en una sartén y verter la mezcla. Cocinar a fuego medio durante unos 3 minutos.",
+          "tip": null
+        },
+        {
+          "number": 7,
+          "description": "Dar la vuelta a la tortilla con ayuda de un plato y cocinar por el otro lado durante 2-3 minutos más.",
+          "tip": "Si prefieres la tortilla más jugosa, reduce el tiempo de cocción."
+        }
+      ],
+      "tags": ["española", "tradicional", "huevos", "vegetariana", "tapa"],
+      "imagesUrls": [
+        "https://example.com/tortilla_1.jpg",
+        "https://example.com/tortilla_2.jpg",
+        "https://example.com/tortilla_3.jpg"
+      ],
+      "authorId": "MariaGarcia",
+      "createdAt": "2024-05-10T14:30:00.000Z"
+    },
+    {
+      "id": 2,
+      "name": "Paella Valenciana",
+      "description": "La auténtica paella valenciana con pollo, conejo y verduras de temporada.",
+      "prepTime": 60,
+      "servings": 6,
+      "difficulty": 4,
+      "ingredients": [
+        {
+          "id": 1,
+          "name": "Arroz bomba",
+          "quantity": 400,
+          "optional": false
+        },
+        {
+          "id": 2,
+          "name": "Pollo",
+          "quantity": 500,
+          "optional": false
+        },
+        {
+          "id": 3,
+          "name": "Conejo",
+          "quantity": 300,
+          "optional": true
+        },
+        {
+          "id": 4,
+          "name": "Judías verdes",
+          "quantity": 150,
+          "optional": false
+        },
+        {
+          "id": 5,
+          "name": "Garrofón",
+          "quantity": 100,
+          "optional": true
+        },
+        {
+          "id": 6,
+          "name": "Tomate maduro",
+          "quantity": 2,
+          "optional": false
+        },
+        {
+          "id": 7,
+          "name": "Pimentón dulce",
+          "quantity": 10,
+          "optional": false
+        },
+        {
+          "id": 8,
+          "name": "Azafrán",
+          "quantity": 1,
+          "optional": false
+        },
+        {
+          "id": 9,
+          "name": "Aceite de oliva",
+          "quantity": 60,
+          "optional": false
+        },
+        {
+          "id": 10,
+          "name": "Caldo de pollo",
+          "quantity": 1,
+          "optional": false
+        }
+      ],
+      "steps": [
+        {
+          "number": 1,
+          "description": "Calentar el aceite en la paellera y dorar el pollo y el conejo cortados en trozos pequeños.",
+          "tip": "El secreto está en dorar bien la carne para que aporte sabor a la paella."
+        },
+        {
+          "number": 2,
+          "description": "Añadir las judías verdes y el garrofón, y cocinar durante 5 minutos más.",
+          "tip": null
+        },
+        {
+          "number": 3,
+          "description": "Incorporar el tomate rallado y cocinar hasta que se evapore el agua.",
+          "tip": null
+        },
+        {
+          "number": 4,
+          "description": "Añadir el pimentón, remover rápidamente y agregar el caldo caliente.",
+          "tip": "No dejes que el pimentón se queme o dará un sabor amargo."
+        },
+        {
+          "number": 5,
+          "description": "Cocinar todo junto durante 5 minutos a fuego fuerte.",
+          "tip": null
+        },
+        {
+          "number": 6,
+          "description": "Añadir el arroz, distribuyéndolo uniformemente, y el azafrán.",
+          "tip": "A partir de este momento, no remover más el arroz."
+        },
+        {
+          "number": 7,
+          "description": "Cocinar a fuego fuerte durante 10 minutos y luego reducir a fuego medio-bajo durante otros 8 minutos.",
+          "tip": null
+        },
+        {
+          "number": 8,
+          "description": "Apagar el fuego, cubrir la paella con un paño limpio y dejar reposar 5 minutos antes de servir.",
+          "tip": "Este reposo es esencial para que el arroz absorba los últimos jugos."
+        }
+      ],
+      "tags": ["española", "valenciana", "arroz", "tradicional", "domingo"],
+      "imagesUrls": [
+        "https://example.com/paella_1.jpg",
+        "https://example.com/paella_2.jpg",
+        "https://example.com/paella_3.jpg",
+        "https://example.com/paella_4.jpg"
+      ],
+      "authorId": "VicenteNavarro",
+      "createdAt": "2024-04-15T18:45:00.000Z"
+    },
+    {
+      "id": 3,
+      "name": "Gazpacho Andaluz",
+      "description": "Sopa fría de tomate y verduras, perfecta para los días calurosos de verano.",
+      "prepTime": 20,
+      "servings": 4,
+      "difficulty": 1,
+      "ingredients": [
+        {
+          "id": 1,
+          "name": "Tomates maduros",
+          "quantity": 1,
+          "optional": false
+        },
+        {
+          "id": 2,
+          "name": "Pimiento verde",
+          "quantity": 1,
+          "optional": false
+        },
+        {
+          "id": 3,
+          "name": "Pepino",
+          "quantity": 0.5,
+          "optional": false
+        },
+        {
+          "id": 4,
+          "name": "Diente de ajo",
+          "quantity": 1,
+          "optional": false
+        },
+        {
+          "id": 5,
+          "name": "Aceite de oliva virgen extra",
+          "quantity": 50,
+          "optional": false
+        },
+        {
+          "id": 6,
+          "name": "Vinagre de Jerez",
+          "quantity": 15,
+          "optional": false
+        },
+        {
+          "id": 7,
+          "name": "Sal",
+          "quantity": 5,
+          "optional": false
+        },
+        {
+          "id": 8,
+          "name": "Pan duro",
+          "quantity": 50,
+          "optional": true
+        }
+      ],
+      "steps": [
+        {
+          "number": 1,
+          "description": "Lavar y trocear todas las verduras.",
+          "tip": "No es necesario pelar los tomates si son de buena calidad."
+        },
+        {
+          "number": 2,
+          "description": "Si usas pan, remojarlo en agua durante unos minutos y escurrirlo bien.",
+          "tip": "El pan aporta textura y ayuda a espesar el gazpacho."
+        },
+        {
+          "number": 3,
+          "description": "Colocar todos los ingredientes en el vaso de la batidora y triturar hasta obtener una textura homogénea.",
+          "tip": "Si prefieres un gazpacho más ligero, añade un poco de agua fría."
+        },
+        {
+          "number": 4,
+          "description": "Pasar la mezcla por un colador fino para eliminar pieles y semillas.",
+          "tip": "Este paso es opcional, pero le da una textura más fina."
+        },
+        {
+          "number": 5,
+          "description": "Rectificar de sal y vinagre al gusto.",
+          "tip": null
+        },
+        {
+          "number": 6,
+          "description": "Refrigerar durante al menos 2 horas antes de servir.",
+          "tip": "Cuanto más tiempo repose en la nevera, mejor sabor tendrá."
+        }
+      ],
+      "tags": [
+        "española",
+        "andaluza",
+        "sopa fría",
+        "vegetariana",
+        "verano",
+        "sin gluten"
+      ],
+      "imagesUrls": [
+        "https://example.com/gazpacho_1.jpg",
+        "https://example.com/gazpacho_2.jpg"
+      ],
+      "authorId": "CarmenRuiz",
+      "createdAt": "2024-05-02T10:15:00.000Z"
+    },
+    {
+      "id": 4,
+      "name": "Croquetas de Jamón",
+      "description": "Cremosas croquetas caseras con jamón serrano, perfectas como aperitivo o tapa.",
+      "prepTime": 45,
+      "servings": 6,
+      "difficulty": 3,
+      "ingredients": [
+        {
+          "id": 1,
+          "name": "Mantequilla",
+          "quantity": 80,
+          "optional": false
+        },
+        {
+          "id": 2,
+          "name": "Harina",
+          "quantity": 100,
+          "optional": false
+        },
+        {
+          "id": 3,
+          "name": "Leche entera",
+          "quantity": 750,
+          "optional": false
+        },
+        {
+          "id": 4,
+          "name": "Jamón serrano",
+          "quantity": 150,
+          "optional": false
+        },
+        {
+          "id": 5,
+          "name": "Cebolla",
+          "quantity": 0.5,
+          "optional": false
+        },
+        {
+          "id": 6,
+          "name": "Huevos",
+          "quantity": 2,
+          "optional": false
+        },
+        {
+          "id": 7,
+          "name": "Pan rallado",
+          "quantity": 150,
+          "optional": false
+        },
+        {
+          "id": 8,
+          "name": "Nuez moscada",
+          "quantity": 2,
+          "optional": true
+        },
+        {
+          "id": 9,
+          "name": "Aceite para freír",
+          "quantity": 500,
+          "optional": false
+        }
+      ],
+      "steps": [
+        {
+          "number": 1,
+          "description": "Picar finamente la cebolla y el jamón.",
+          "tip": "Cuanto más fino sea el picado, mejor textura tendrán las croquetas."
+        },
+        {
+          "number": 2,
+          "description": "Derretir la mantequilla en una cazuela y pochar la cebolla a fuego lento hasta que esté transparente.",
+          "tip": "No dejes que la cebolla se dore."
+        },
+        {
+          "number": 3,
+          "description": "Añadir el jamón y cocinar durante un minuto más.",
+          "tip": null
+        },
+        {
+          "number": 4,
+          "description": "Incorporar la harina y cocinar, removiendo constantemente, durante 2-3 minutos hasta formar una roux.",
+          "tip": "Es importante cocinar bien la harina para eliminar su sabor crudo."
+        },
+        {
+          "number": 5,
+          "description": "Añadir la leche caliente poco a poco, sin dejar de remover, hasta obtener una bechamel espesa.",
+          "tip": "Calentar previamente la leche facilita la integración y evita grumos."
+        },
+        {
+          "number": 6,
+          "description": "Añadir nuez moscada, sal y pimienta al gusto, y cocinar a fuego lento durante 10 minutos, removiendo ocasionalmente.",
+          "tip": null
+        },
+        {
+          "number": 7,
+          "description": "Verter la masa en una fuente, cubrir con film transparente en contacto con la superficie y refrigerar durante al menos 3 horas.",
+          "tip": "La masa debe estar completamente fría y firme para poder formar las croquetas."
+        },
+        {
+          "number": 8,
+          "description": "Formar las croquetas, pasarlas por harina, huevo batido y pan rallado.",
+          "tip": "Humedece tus manos con agua fría para que la masa no se pegue al formar las croquetas."
+        },
+        {
+          "number": 9,
+          "description": "Freír en aceite abundante y caliente hasta que estén doradas.",
+          "tip": "No pongas demasiadas croquetas a la vez para mantener la temperatura del aceite."
+        },
+        {
+          "number": 10,
+          "description": "Escurrir sobre papel absorbente y servir calientes.",
+          "tip": null
+        }
+      ],
+      "tags": ["española", "tapa", "aperitivo", "jamón", "frito"],
+      "imagesUrls": [
+        "https://example.com/croquetas_1.jpg",
+        "https://example.com/croquetas_2.jpg",
+        "https://example.com/croquetas_3.jpg"
+      ],
+      "authorId": "PedroSánchez",
+      "createdAt": "2024-03-20T16:30:00.000Z"
+    },
+    {
+      "id": 5,
+      "name": "Pulpo a la Gallega",
+      "description": "Delicioso pulpo cocido y aliñado con aceite de oliva, pimentón y sal gorda, típico de Galicia.",
+      "prepTime": 75,
+      "servings": 4,
+      "difficulty": 3,
+      "ingredients": [
+        {
+          "id": 1,
+          "name": "Pulpo",
+          "quantity": 1.5,
+          "optional": false
+        },
+        {
+          "id": 2,
+          "name": "Patatas",
+          "quantity": 500,
+          "optional": false
+        },
+        {
+          "id": 3,
+          "name": "Pimentón dulce",
+          "quantity": 15,
+          "optional": false
+        },
+        {
+          "id": 4,
+          "name": "Sal gorda",
+          "quantity": 20,
+          "optional": false
+        },
+        {
+          "id": 5,
+          "name": "Aceite de oliva virgen extra",
+          "quantity": 60,
+          "optional": false
+        },
+        {
+          "id": 6,
+          "name": "Laurel",
+          "quantity": 2,
+          "optional": true
+        }
+      ],
+      "steps": [
+        {
+          "number": 1,
+          "description": "Si el pulpo es fresco, congelarlo previamente durante al menos 48 horas.",
+          "tip": "La congelación ayuda a romper las fibras y a que quede más tierno."
+        },
+        {
+          "number": 2,
+          "description": "Llenar una olla grande con agua y llevarla a ebullición.",
+          "tip": null
+        },
+        {
+          "number": 3,
+          "description": "Con el agua hirviendo, introducir y sacar el pulpo tres veces (asustarlo).",
+          "tip": "Este proceso hace que la piel se adhiera mejor al pulpo."
+        },
+        {
+          "number": 4,
+          "description": "Sumergir completamente el pulpo y añadir las hojas de laurel. Cocinar a fuego medio-bajo durante aproximadamente 40-50 minutos.",
+          "tip": "El tiempo exacto dependerá del tamaño del pulpo."
+        },
+        {
+          "number": 5,
+          "description": "Mientras tanto, pelar y cortar las patatas en rodajas gruesas.",
+          "tip": null
+        },
+        {
+          "number": 6,
+          "description": "Comprobar que el pulpo está tierno pinchándolo con un tenedor. Cuando esté listo, retirarlo del agua y dejarlo reposar unos minutos.",
+          "tip": null
+        },
+        {
+          "number": 7,
+          "description": "Cocer las patatas en la misma agua del pulpo durante unos 20 minutos o hasta que estén tiernas.",
+          "tip": "Cocinar las patatas en el agua del pulpo les aporta sabor."
+        },
+        {
+          "number": 8,
+          "description": "Cortar el pulpo en rodajas con unas tijeras.",
+          "tip": "Las tijeras son mejores que el cuchillo para cortar el pulpo."
+        },
+        {
+          "number": 9,
+          "description": "Servir el pulpo sobre las patatas, espolvorear con pimentón y sal gorda, y regar con aceite de oliva.",
+          "tip": "Servir inmediatamente para disfrutar del contraste entre el pulpo caliente y el aceite frío."
+        }
+      ],
+      "tags": [
+        "española",
+        "gallega",
+        "marisco",
+        "sin gluten",
+        "plato principal"
+      ],
+      "imagesUrls": [
+        "https://example.com/pulpo_1.jpg",
+        "https://example.com/pulpo_2.jpg",
+        "https://example.com/pulpo_3.jpg",
+        "https://example.com/pulpo_4.jpg"
+      ],
+      "authorId": "LuciaFernandez",
+      "createdAt": "2024-04-05T19:20:00.000Z"
+    },
+    {
+      "id": 6,
+      "name": "Fabada Asturiana",
+      "description": "El plato típico de Asturias, un guiso reconfortante de alubias con embutidos tradicionales.",
+      "prepTime": 90,
+      "servings": 6,
+      "difficulty": 3,
+      "ingredients": [
+        {
+          "id": 1,
+          "name": "Fabes asturianas",
+          "quantity": 500,
+          "optional": false
+        },
+        {
+          "id": 2,
+          "name": "Morcilla asturiana",
+          "quantity": 200,
+          "optional": false
+        },
+        {
+          "id": 3,
+          "name": "Chorizo",
+          "quantity": 200,
+          "optional": false
+        },
+        {
+          "id": 4,
+          "name": "Panceta o lacón",
+          "quantity": 150,
+          "optional": false
+        },
+        {
+          "id": 5,
+          "name": "Cebolla",
+          "quantity": 1,
+          "optional": false
+        },
+        {
+          "id": 6,
+          "name": "Dientes de ajo",
+          "quantity": 2,
+          "optional": false
+        },
+        {
+          "id": 7,
+          "name": "Pimentón dulce",
+          "quantity": 5,
+          "optional": false
+        },
+        {
+          "id": 8,
+          "name": "Azafrán",
+          "quantity": 1,
+          "optional": true
+        },
+        {
+          "id": 9,
+          "name": "Sal",
+          "quantity": 5,
+          "optional": false
+        }
+      ],
+      "steps": [
+        {
+          "number": 1,
+          "description": "Poner las fabes en remojo la noche anterior, al menos 12 horas.",
+          "tip": "Usa agua fría y cambia el agua al menos una vez durante el remojo."
+        },
+        {
+          "number": 2,
+          "description": "Escurrir las fabes y ponerlas en una olla grande con agua fría que las cubra unos 3 cm por encima.",
+          "tip": null
+        },
+        {
+          "number": 3,
+          "description": "Añadir la cebolla entera y pelada, los ajos y un poco de sal.",
+          "tip": "No añadas demasiada sal al principio, ya que los embutidos aportarán su propio sabor salado."
+        },
+        {
+          "number": 4,
+          "description": "Llevar a ebullición y cuando rompa a hervir, bajar el fuego y cocinar a fuego lento durante unos 45 minutos.",
+          "tip": "Retira la espuma que se forme en la superficie con una espumadera."
+        },
+        {
+          "number": 5,
+          "description": "Añadir el chorizo, la morcilla y la panceta. Seguir cocinando a fuego lento durante otros 45 minutos.",
+          "tip": "Pincha los embutidos con un tenedor para que suelten su sabor."
+        },
+        {
+          "number": 6,
+          "description": "En una sartén pequeña, calentar un poco de aceite y añadir el pimentón, remover unos segundos y verter sobre las fabes.",
+          "tip": "Este paso se llama 'hacer el refrito' y es crucial para el sabor del plato."
+        },
+        {
+          "number": 7,
+          "description": "Añadir el azafrán si se usa, y terminar de cocinar durante unos 15 minutos más hasta que las fabes estén tiernas.",
+          "tip": "La fabada debe quedar melosa, no muy caldosa ni seca."
+        },
+        {
+          "number": 8,
+          "description": "Retirar la cebolla y dejar reposar antes de servir, preferiblemente de un día para otro.",
+          "tip": "Como muchos guisos, la fabada está mejor al día siguiente cuando los sabores se han integrado completamente."
+        }
+      ],
+      "tags": ["asturiana", "guiso", "legumbres", "tradicional", "invierno"],
+      "imagesUrls": [
+        "https://example.com/fabada_1.jpg",
+        "https://example.com/fabada_2.jpg",
+        "https://example.com/fabada_3.jpg"
+      ],
+      "authorId": "CarmenAlvarez",
+      "createdAt": "2024-05-05T11:20:00.000Z"
+    },
+    {
+      "id": 7,
+      "name": "Crema Catalana",
+      "description": "Postre tradicional catalán similar a la crème brûlée, con una cremosa base de natillas y una capa crujiente de azúcar caramelizado.",
+      "prepTime": 40,
+      "servings": 6,
+      "difficulty": 2,
+      "ingredients": [
+        {
+          "id": 1,
+          "name": "Leche entera",
+          "quantity": 500,
+          "optional": false
+        },
+        {
+          "id": 2,
+          "name": "Yemas de huevo",
+          "quantity": 6,
+          "optional": false
+        },
+        {
+          "id": 3,
+          "name": "Azúcar",
+          "quantity": 100,
+          "optional": false
+        },
+        {
+          "id": 4,
+          "name": "Piel de limón",
+          "quantity": 1,
+          "optional": false
+        },
+        {
+          "id": 5,
+          "name": "Piel de naranja",
+          "quantity": 1,
+          "optional": false
+        },
+        {
+          "id": 6,
+          "name": "Canela en rama",
+          "quantity": 1,
+          "optional": false
+        },
+        {
+          "id": 7,
+          "name": "Maizena o fécula de maíz",
+          "quantity": 20,
+          "optional": false
+        },
+        {
+          "id": 8,
+          "name": "Azúcar para caramelizar",
+          "quantity": 60,
+          "optional": false
+        }
+      ],
+      "steps": [
+        {
+          "number": 1,
+          "description": "En una olla, calentar la leche con la piel de limón, la piel de naranja y la canela en rama.",
+          "tip": "Asegúrate de que solo utilizas la parte amarilla de la piel del limón y la naranja, sin la parte blanca que puede amargar."
+        },
+        {
+          "number": 2,
+          "description": "Dejar que la leche hierva y luego apagar el fuego. Tapar y dejar infusionar durante 10 minutos.",
+          "tip": null
+        },
+        {
+          "number": 3,
+          "description": "En un bol grande, batir las yemas con el azúcar hasta que la mezcla blanquee.",
+          "tip": "Es importante batir bien hasta que la mezcla tome un color más claro y aumente su volumen."
+        },
+        {
+          "number": 4,
+          "description": "Añadir la maizena y mezclar bien.",
+          "tip": "La maizena ayuda a espesar la crema, pero no debe notarse en la textura final."
+        },
+        {
+          "number": 5,
+          "description": "Colar la leche infusionada y añadirla poco a poco a la mezcla de yemas, sin dejar de remover.",
+          "tip": "Añade la leche poco a poco para evitar que las yemas se cuajen."
+        },
+        {
+          "number": 6,
+          "description": "Verter la mezcla en una olla limpia y cocinar a fuego medio-bajo, removiendo constantemente, hasta que espese.",
+          "tip": "No dejes de remover ni permitas que hierva o la crema se cortará."
+        },
+        {
+          "number": 7,
+          "description": "Verter la crema en 6 recipientes individuales y dejar enfriar. Refrigerar durante al menos 2 horas.",
+          "tip": "Para evitar que se forme una piel en la superficie, puedes cubrir cada recipiente con film transparente en contacto con la crema."
+        },
+        {
+          "number": 8,
+          "description": "Antes de servir, espolvorear una capa fina de azúcar sobre cada crema y caramelizar con un quemador de cocina o bajo el grill del horno.",
+          "tip": "El azúcar debe quedar dorado, no quemado. Si usas el grill, vigila constantemente para que no se queme."
+        }
+      ],
+      "tags": [
+        "catalana",
+        "postre",
+        "tradicional",
+        "vegetariana",
+        "sin gluten"
+      ],
+      "imagesUrls": [
+        "https://example.com/crema_catalana_1.jpg",
+        "https://example.com/crema_catalana_2.jpg"
+      ],
+      "authorId": "JordiPuig",
+      "createdAt": "2024-04-22T15:10:00.000Z"
+    },
+    {
+      "id": 8,
+      "name": "Pisto Manchego",
+      "description": "Un plato vegetariano tradicional de La Mancha, similar al ratatouille francés, elaborado con verduras de temporada salteadas.",
+      "prepTime": 35,
+      "servings": 4,
+      "difficulty": 1,
+      "ingredients": [
+        {
+          "id": 1,
+          "name": "Calabacín",
+          "quantity": 2,
+          "optional": false
+        },
+        {
+          "id": 2,
+          "name": "Berenjena",
+          "quantity": 1,
+          "optional": false
+        },
+        {
+          "id": 3,
+          "name": "Pimiento rojo",
+          "quantity": 1,
+          "optional": false
+        },
+        {
+          "id": 4,
+          "name": "Pimiento verde",
+          "quantity": 1,
+          "optional": false
+        },
+        {
+          "id": 5,
+          "name": "Cebolla",
+          "quantity": 1,
+          "optional": false
+        },
+        {
+          "id": 6,
+          "name": "Tomates maduros",
+          "quantity": 4,
+          "optional": false
+        },
+        {
+          "id": 7,
+          "name": "Dientes de ajo",
+          "quantity": 2,
+          "optional": false
+        },
+        {
+          "id": 8,
+          "name": "Aceite de oliva virgen extra",
+          "quantity": 60,
+          "optional": false
+        },
+        {
+          "id": 9,
+          "name": "Sal",
+          "quantity": 5,
+          "optional": false
+        },
+        {
+          "id": 10,
+          "name": "Huevos",
+          "quantity": 4,
+          "optional": true
+        }
+      ],
+      "steps": [
+        {
+          "number": 1,
+          "description": "Lavar y cortar todas las verduras en cubos de tamaño uniforme.",
+          "tip": "Procura que todos los trozos tengan un tamaño similar para que se cocinen de manera uniforme."
+        },
+        {
+          "number": 2,
+          "description": "En una sartén grande, calentar aceite de oliva y añadir los ajos picados y la cebolla. Pochar a fuego medio hasta que estén transparentes.",
+          "tip": null
+        },
+        {
+          "number": 3,
+          "description": "Añadir los pimientos y cocinar durante 5 minutos más.",
+          "tip": "Los pimientos necesitan un poco más de tiempo de cocción que el calabacín y la berenjena."
+        },
+        {
+          "number": 4,
+          "description": "Incorporar la berenjena y el calabacín, y cocinar todo junto durante unos 10 minutos, removiendo ocasionalmente.",
+          "tip": "Si la berenjena absorbe demasiado aceite, puedes añadir un poco más."
+        },
+        {
+          "number": 5,
+          "description": "Mientras tanto, escaldar los tomates en agua hirviendo durante 1 minuto, pelarlos y cortarlos en cubos.",
+          "tip": "Hacer un corte en cruz en la base de los tomates facilita su pelado tras el escaldado."
+        },
+        {
+          "number": 6,
+          "description": "Añadir los tomates a la sartén, salar al gusto y cocinar a fuego medio-bajo durante unos 15 minutos más, hasta que las verduras estén tiernas y el exceso de líquido se haya evaporado.",
+          "tip": "El pisto debe quedar jugoso pero no demasiado líquido."
+        },
+        {
+          "number": 7,
+          "description": "Si se desea, hacer un hueco en el pisto y romper un huevo en cada uno. Tapar y cocinar hasta que las claras estén cuajadas y las yemas a punto.",
+          "tip": "Este paso es opcional, pero los huevos son un acompañamiento tradicional del pisto manchego."
+        }
+      ],
+      "tags": [
+        "manchega",
+        "vegetariana",
+        "sin gluten",
+        "verduras",
+        "guarnición",
+        "plato principal"
+      ],
+      "imagesUrls": [
+        "https://example.com/pisto_1.jpg",
+        "https://example.com/pisto_2.jpg",
+        "https://example.com/pisto_3.jpg"
+      ],
+      "authorId": "IsabelMartinez",
+      "createdAt": "2024-05-08T09:45:00.000Z"
+    },
+    {
+      "id": 9,
+      "name": "Ensaladilla Rusa",
+      "description": "Deliciosa ensalada fría de patatas con mayonesa, perfecta como tapa o entrante. Una versión típica española de la ensalada rusa.",
+      "prepTime": 45,
+      "servings": 6,
+      "difficulty": 2,
+      "ingredients": [
+        {
+          "id": 1,
+          "name": "Patatas",
+          "quantity": 600,
+          "optional": false
+        },
+        {
+          "id": 2,
+          "name": "Zanahorias",
+          "quantity": 2,
+          "optional": false
+        },
+        {
+          "id": 3,
+          "name": "Guisantes",
+          "quantity": 150,
+          "optional": false
+        },
+        {
+          "id": 4,
+          "name": "Huevos",
+          "quantity": 3,
+          "optional": false
+        },
+        {
+          "id": 5,
+          "name": "Atún en aceite",
+          "quantity": 200,
+          "optional": true
+        },
+        {
+          "id": 6,
+          "name": "Aceitunas rellenas",
+          "quantity": 100,
+          "optional": false
+        },
+        {
+          "id": 7,
+          "name": "Mayonesa casera",
+          "quantity": 250,
+          "optional": false
+        },
+        {
+          "id": 8,
+          "name": "Pimiento del piquillo",
+          "quantity": 2,
+          "optional": true
+        },
+        {
+          "id": 9,
+          "name": "Sal",
+          "quantity": 5,
+          "optional": false
+        }
+      ],
+      "steps": [
+        {
+          "number": 1,
+          "description": "Pelar y cortar las patatas en cubos medianos. Cocer en agua con sal hasta que estén tiernas, aproximadamente 15 minutos.",
+          "tip": "La patata debe estar cocida pero firme, no demasiado blanda para que no se deshaga al mezclar."
+        },
+        {
+          "number": 2,
+          "description": "Pelar y cortar las zanahorias en cubos pequeños y cocerlas hasta que estén tiernas.",
+          "tip": "Puedes cocer las zanahorias junto con las patatas, añadiéndolas un poco después ya que necesitan menos tiempo."
+        },
+        {
+          "number": 3,
+          "description": "Cocer los guisantes durante 5 minutos si son frescos o descongelar si son congelados.",
+          "tip": null
+        },
+        {
+          "number": 4,
+          "description": "Cocer los huevos durante 10 minutos desde que el agua rompe a hervir. Enfriar, pelar y picar en cubos.",
+          "tip": "Para pelar fácilmente los huevos duros, sumergirlos en agua fría inmediatamente después de la cocción."
+        },
+        {
+          "number": 5,
+          "description": "En un bol grande, mezclar las patatas, zanahorias, guisantes y huevos picados.",
+          "tip": "Asegúrate de que todos los ingredientes estén fríos antes de mezclarlos para que la mayonesa no se corte."
+        },
+        {
+          "number": 6,
+          "description": "Escurrir bien el atún y desmenuzarlo con un tenedor antes de añadirlo a la mezcla.",
+          "tip": "Si prefieres una versión vegetariana, puedes omitir el atún."
+        },
+        {
+          "number": 7,
+          "description": "Añadir la mayonesa y mezclar con cuidado para no romper los ingredientes.",
+          "tip": "La cantidad de mayonesa puede ajustarse según el gusto personal."
+        },
+        {
+          "number": 8,
+          "description": "Refrigerar durante al menos 2 horas antes de servir.",
+          "tip": "La ensaladilla está más rica si reposa unas horas o incluso de un día para otro."
+        },
+        {
+          "number": 9,
+          "description": "Decorar con aceitunas rellenas y tiras de pimiento del piquillo antes de servir.",
+          "tip": "La presentación tradicional incluye aceitunas en la parte superior y a veces huevo rallado."
+        }
+      ],
+      "tags": ["española", "tapa", "ensalada", "patatas", "entrante", "verano"],
+      "imagesUrls": [
+        "https://example.com/ensaladilla_1.jpg",
+        "https://example.com/ensaladilla_2.jpg"
+      ],
+      "authorId": "AntonioLopez",
+      "createdAt": "2024-04-10T14:25:00.000Z"
+    },
+    {
+      "id": 10,
+      "name": "Leche Frita",
+      "description": "Postre tradicional español elaborado con leche cuajada, rebozada y frita, espolvoreada con azúcar y canela.",
+      "prepTime": 50,
+      "servings": 6,
+      "difficulty": 3,
+      "ingredients": [
+        {
+          "id": 1,
+          "name": "Leche entera",
+          "quantity": 500,
+          "optional": false
+        },
+        {
+          "id": 2,
+          "name": "Azúcar",
+          "quantity": 125,
+          "optional": false
+        },
+        {
+          "id": 3,
+          "name": "Maizena o harina de maíz",
+          "quantity": 75,
+          "optional": false
+        },
+        {
+          "id": 4,
+          "name": "Cáscara de limón",
+          "quantity": 1,
+          "optional": false
+        },
+        {
+          "id": 5,
+          "name": "Canela en rama",
+          "quantity": 1,
+          "optional": false
+        },
+        {
+          "id": 6,
+          "name": "Canela en polvo",
+          "quantity": 5,
+          "optional": false
+        },
+        {
+          "id": 7,
+          "name": "Huevos",
+          "quantity": 2,
+          "optional": false
+        },
+        {
+          "id": 8,
+          "name": "Harina",
+          "quantity": 100,
+          "optional": false
+        },
+        {
+          "id": 9,
+          "name": "Aceite para freír",
+          "quantity": 500,
+          "optional": false
+        },
+        {
+          "id": 10,
+          "name": "Azúcar para espolvorear",
+          "quantity": 50,
+          "optional": false
+        }
+      ],
+      "steps": [
+        {
+          "number": 1,
+          "description": "En un cazo, calentar 400 ml de leche con la cáscara de limón, la canela en rama y 100 g de azúcar. Llevar a ebullición y apagar el fuego. Dejar infusionar 10 minutos.",
+          "tip": "Es importante que la leche se infusione con los aromas pero no hierva demasiado tiempo."
+        },
+        {
+          "number": 2,
+          "description": "En un bol, disolver la maizena en los 100 ml de leche restante (fría) hasta que no queden grumos.",
+          "tip": "Asegúrate de que la maizena se disuelva completamente para evitar grumos en la mezcla final."
+        },
+        {
+          "number": 3,
+          "description": "Retirar la cáscara de limón y la canela en rama de la leche infusionada. Volver a poner el cazo a fuego medio.",
+          "tip": null
+        },
+        {
+          "number": 4,
+          "description": "Añadir la mezcla de maizena a la leche caliente, removiendo constantemente con unas varillas. Cocinar hasta que espese y forme una crema densa, unos 5-7 minutos.",
+          "tip": "No dejes de remover para evitar que se formen grumos o se pegue al fondo."
+        },
+        {
+          "number": 5,
+          "description": "Añadir los 25 g de azúcar restantes y mezclar bien.",
+          "tip": null
+        },
+        {
+          "number": 6,
+          "description": "Verter la mezcla en una fuente rectangular untada ligeramente con aceite. La capa debe tener aproximadamente 2 cm de grosor.",
+          "tip": "Puedes utilizar un molde de silicona para facilitar el desmoldado."
+        },
+        {
+          "number": 7,
+          "description": "Dejar enfriar a temperatura ambiente y luego refrigerar durante al menos 3 horas, o preferiblemente toda la noche.",
+          "tip": "La mezcla debe estar completamente fría y firme antes de cortarla."
+        },
+        {
+          "number": 8,
+          "description": "Una vez cuajada, cortar en cuadrados o rectángulos de unos 5x5 cm.",
+          "tip": "Un cuchillo humedecido en agua caliente facilita el corte limpio."
+        },
+        {
+          "number": 9,
+          "description": "Batir los huevos en un plato hondo. Pasar cada porción por harina, luego por huevo batido.",
+          "tip": "Asegúrate de que cada porción esté bien cubierta con el rebozado."
+        },
+        {
+          "number": 10,
+          "description": "Freír en aceite abundante y caliente hasta que estén doradas por todos los lados, aproximadamente 1 minuto por cada lado.",
+          "tip": "El aceite debe estar muy caliente (pero sin humear) para que se forme rápidamente una costra y el interior no se derrita."
+        },
+        {
+          "number": 11,
+          "description": "Escurrir sobre papel absorbente y, mientras aún están calientes, espolvorear con una mezcla de azúcar y canela en polvo.",
+          "tip": "Sirve inmediatamente para disfrutar del contraste entre el exterior crujiente y el interior cremoso."
+        }
+      ],
+      "tags": ["postre", "frito", "tradicional", "dulce", "castilla"],
+      "imagesUrls": [
+        "https://example.com/leche_frita_1.jpg",
+        "https://example.com/leche_frita_2.jpg",
+        "https://example.com/leche_frita_3.jpg"
+      ],
+      "authorId": "RosaMoreno",
+      "createdAt": "2024-03-15T12:40:00.000Z"
+    }
+  ]
+}
