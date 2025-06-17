@@ -1,0 +1,10 @@
+{
+  "navigation": {
+    "recipes": "Recetas",
+    "shoppingList": "Lista de la compra",
+    "weeklyMenu": "Menú semanal",
+    "profile": "Perfil",
+    "account": "Cuenta",
+    "logout": "Cerrar sesión"
+  }
+}
