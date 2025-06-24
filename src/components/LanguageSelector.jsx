@@ -1,17 +1,10 @@
 import "./LanguageSelector.scss";
 import { useTranslation } from "react-i18next";
-import {
-  Select,
-  MenuItem,
-  FormControl,
-  InputLabel,
-  Box,
-  Typography,
-} from "@mui/material";
+import { Select, MenuItem, FormControl, Box } from "@mui/material";
 
 const languages = [
-  { code: "en", name: "English", flag: "🇺🇸" },
-  { code: "es", name: "Español", flag: "🇪🇸" },
+  { code: "en", name: "English", flag: "fi fi-gb" },
+  { code: "es", name: "Español", flag: "fi fi-es" },
 ];
 
 const LanguageSelector = () => {
@@ -23,18 +16,18 @@ const LanguageSelector = () => {
   };
 
   return (
-    <Box sx={{ marginRight: 1 }}>
-      <FormControl size="small" sx={{ minWidth: 120 }}>
+    <Box sx={{ marginRight: 2 }}>
+      <FormControl size="small">
         <Select
           value={i18n.language}
           onChange={handleLanguageChange}
-          sx={{ backgroundColor: "white", maxWidth: 100 }}
+          sx={{ maxWidth: 100 }}
+          variant="standard"
+          IconComponent={null}
         >
           {languages.map((language) => (
             <MenuItem key={language.code} value={language.code}>
-              <Box sx={{ display: "flex", alignItems: "center" }}>
-                <Typography variant="body2">{language.name}</Typography>
-              </Box>
+              <span className={language.flag}></span>
             </MenuItem>
           ))}
         </Select>

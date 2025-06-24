@@ -100,22 +100,23 @@ const StepsForm = (props) => {
             </IconButton>
 
             <div className="steps-form__list-item-content">
-              <span className="steps-form__list-item-number">{index + 1}.</span>
-              <div className="steps-form__list-item-text">
-                <span className="steps-form__list-item-description">
-                  {step.description}
-                </span>
-                {step.tip && (
-                  <span className="steps-form__list-item-tip">
-                    <LightbulbOutlineIcon
-                      fontSize="small"
-                      sx={{ mr: 0.5, color: "warning.main" }}
-                    />
-                    {step.tip}
-                  </span>
-                )}
-              </div>
+              <span className="steps-form__list-item-number">{index + 1}.</span>{" "}
+              <span className="steps-form__list-item-description">
+                {step.description}
+              </span>{" "}
             </div>
+            <span>
+              {step.tip && (
+                <span className="steps-form__list-item-tip">
+                  -{" "}
+                  <LightbulbOutlineIcon
+                    fontSize="small"
+                    sx={{ mr: 0.5, color: "warning.main" }}
+                  />
+                  {step.tip}
+                </span>
+              )}
+            </span>
           </li>
         ))}
       </ul>

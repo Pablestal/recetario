@@ -12,10 +12,12 @@ import LocalDiningOutlinedIcon from "@mui/icons-material/LocalDiningOutlined";
 import RestaurantIcon from "@mui/icons-material/Restaurant";
 import { styled } from "@mui/material/styles";
 import { useState } from "react";
+import TagForm from "../components/recipeForm/TagsForm";
 import IngredientForm from "../components/recipeForm/IngredientsForm";
 import StepsForm from "../components/recipeForm/StepsForm";
 import ImagesForm from "../components/recipeForm/ImagesForm";
 import { useTranslation } from "react-i18next";
+import { useRecipeStore } from "../stores/useRecipeStore";
 
 const NAME_MAX_LENGTH = 100;
 const DESCRIPTION_MAX_LENGTH = 500;
@@ -23,6 +25,7 @@ const NUMERIC_MAX_LENGTH = 3;
 
 const CreateRecipe = () => {
   const { t } = useTranslation("createRecipe");
+  const { addRecipe, loading } = useRecipeStore();
 
   const validationRules = {
     name: (value) => {
@@ -101,8 +104,8 @@ const CreateRecipe = () => {
   const [errors, setErrors] = useState({});
   const [touched, setTouched] = useState({});
   const [submitAttempted, setSubmitAttempted] = useState(false);
+  const [submitSuccess, setSubmitSuccess] = useState(false);
 
-  // Validar un campo específico
   const validateField = (fieldName, value) => {
     if (validationRules[fieldName]) {
       return validationRules[fieldName](value);
@@ -110,11 +113,9 @@ const CreateRecipe = () => {
     return null;
   };
 
-  // Validar todo el formulario
   const validateForm = () => {
     const newErrors = {};
 
-    // Validar campos básicos
     Object.keys(validationRules).forEach((field) => {
       if (field === "ingredients" || field === "steps") {
         const error = validationRules[field](recipeForm[field]);
@@ -129,22 +130,30 @@ const CreateRecipe = () => {
     return Object.keys(newErrors).length === 0;
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     setSubmitAttempted(true);
 
     if (validateForm()) {
-      // Aquí irían las acciones de envío (API call, etc.)
+      try {
+        const recipeToSubmit = {
+          ...recipeForm,
+          createdDate: new Date().toISOString(),
+        };
 
-      // Reset del formulario después del envío exitoso
-      setRecipeForm(recipe);
-      setErrors({});
-      setTouched({});
-      setSubmitAttempted(false);
+        await addRecipe(recipeToSubmit);
+        setSubmitSuccess(true);
 
-      console.log("Recipe submitted:", recipeForm);
+        setRecipeForm(recipe);
+        setErrors({});
+        setTouched({});
+        setSubmitAttempted(false);
+        setTimeout(() => setSubmitSuccess(false), 5000);
+        console.log("Recipe submitted:", recipeForm);
+      } catch (error) {
+        console.error("Error submitting recipe:", error);
+      }
     } else {
-      // Marcar todos los campos como "touched" para mostrar errores
       const allFields = Object.keys(validationRules);
       const newTouched = {};
       allFields.forEach((field) => (newTouched[field] = true));
@@ -157,7 +166,6 @@ const CreateRecipe = () => {
 
     setRecipeForm({ ...recipeForm, [id]: value });
 
-    // Validar en tiempo real si el campo ya fue tocado o si se intentó enviar
     if (touched[id] || submitAttempted) {
       const error = validateField(id, value);
       setErrors((prev) => ({
@@ -177,6 +185,14 @@ const CreateRecipe = () => {
     }));
   };
 
+  const handleTagsUpdate = (tags) => {
+    setRecipeForm({ ...recipeForm, tags });
+
+    if (tags.length > 0 && errors.tags) {
+      setErrors((prev) => ({ ...prev, tags: null }));
+    }
+  };
+
   const handleIngredientUpdate = (ingredient) => {
     const newIngredients = [...recipeForm.ingredients, ingredient];
     setRecipeForm({
@@ -193,7 +209,6 @@ const CreateRecipe = () => {
     const newSteps = [...recipeForm.steps, step];
     setRecipeForm({ ...recipeForm, steps: newSteps });
 
-    // Limpiar error de pasos si ahora hay al menos uno
     if (newSteps.length > 0 && errors.steps) {
       setErrors((prev) => ({ ...prev, steps: null }));
     }
@@ -206,7 +221,6 @@ const CreateRecipe = () => {
   const handleDifficultyChange = (event, newValue) => {
     setRecipeForm({ ...recipeForm, difficulty: newValue });
 
-    // Validar dificultad inmediatamente
     if (touched.difficulty || submitAttempted) {
       const error = validateField("difficulty", newValue);
       setErrors((prev) => ({ ...prev, difficulty: error }));
@@ -222,7 +236,6 @@ const CreateRecipe = () => {
     },
   });
 
-  // Verificar si hay errores generales para mostrar alerta
   const hasErrors = Object.values(errors).some((error) => error !== null);
 
   return (
@@ -233,6 +246,12 @@ const CreateRecipe = () => {
         {submitAttempted && hasErrors && (
           <Alert severity="error" sx={{ mb: 3 }}>
             {t("messages.error")}
+          </Alert>
+        )}
+
+        {submitSuccess && (
+          <Alert severity="success" sx={{ mb: 3 }}>
+            {t("messages.success")}
           </Alert>
         )}
 
@@ -360,6 +379,7 @@ const CreateRecipe = () => {
                   flexDirection: "column",
                   justifyContent: "center",
                   alignItems: "center",
+                  alignSelf: "baseline",
                 }}
               >
                 <p className="create-recipe__difficulty-label">
@@ -397,6 +417,11 @@ const CreateRecipe = () => {
                   </p>
                 )}
               </Box>
+
+              <TagForm
+                recipe={recipeForm}
+                handleTagsUpdate={handleTagsUpdate}
+              />
             </div>
 
             <div className="create-recipe__ingredients-steps">
@@ -432,6 +457,7 @@ const CreateRecipe = () => {
             <div className="submit-container">
               <Button
                 sx={{ mt: 3 }}
+                disabled={loading}
                 type="submit"
                 variant="contained"
                 size="large"

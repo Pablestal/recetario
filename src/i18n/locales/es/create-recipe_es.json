@@ -17,6 +17,10 @@
     },
     "difficulty": {
       "label": "Dificultad"
+    },
+    "tags": {
+      "label": "Etiquetas",
+      "numberLabel": "etiquetas"
     }
   },
   "validation": {

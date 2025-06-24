@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { Link } from "react-router-dom";
-import { useRecipeStore } from "../utils/useRecipeStore";
+import { useRecipeStore } from "../stores/useRecipeStore";
 
 const RecipeList = () => {
   const recipes = useRecipeStore((state) => state.recipes);
@@ -10,16 +10,16 @@ const RecipeList = () => {
     getRecipes();
   }, [getRecipes]);
 
-  const recipeCards = recipes.map((recipe) => (
-    <li key={recipe.id}>{recipe.name}</li>
-  ));
-
   return (
     <>
       <section>
         <h2>Recipes</h2>
         <Link to="/recipe-creation">Crear receta</Link>
-        <ul>{recipeCards}</ul>
+        <ul>
+          {recipes.map((recipe) => (
+            <li key={recipe.id}>{recipe.name}</li>
+          ))}
+        </ul>
       </section>
     </>
   );

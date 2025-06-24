@@ -1,9 +1,8 @@
-// src/i18n/index.js
 import i18n from "i18next";
 import { initReactI18next } from "react-i18next";
 import LanguageDetector from "i18next-browser-languagedetector";
 
-// Importar archivos de traducción
+// Import translation files
 import commonEN from "./locales/en/common_en.json";
 import commonES from "./locales/es/common_es.json";
 import navigationEN from "./locales/en/navigation_en.json";
@@ -11,7 +10,7 @@ import navigationES from "./locales/es/navigation_es.json";
 import createRecipeEN from "./locales/en/create-recipe_en.json";
 import createRecipeES from "./locales/es/create-recipe_es.json";
 
-// Configuración de recursos de traducción
+// Configure translation resources
 const resources = {
   en: {
     common: commonEN,
@@ -26,46 +25,46 @@ const resources = {
 };
 
 i18n
-  // Detectar idioma del navegador
+  // Use browser language detector
   .use(LanguageDetector)
-  // Conectar con React
+  // Connect to React
   .use(initReactI18next)
-  // Inicializar i18next
+  // Init i18next
   .init({
     resources,
 
-    // Idioma por defecto si no se detecta ninguno
+    // Default language
     fallbackLng: "en",
 
-    // Idiomas disponibles
+    // Available languages
     supportedLngs: ["en", "es"],
 
-    // Configuración del detector de idioma
+    // Language detection options
     detection: {
-      // Orden de detección: localStorage -> navigator -> htmlTag
+      // Detection order: localStorage -> navigator -> htmlTag
       order: ["localStorage", "navigator", "htmlTag"],
-      // Caché en localStorage
+      // LocalStorage cache key
       caches: ["localStorage"],
     },
 
-    // Opciones de interpolación
+    // Interpolation options
     interpolation: {
-      // React ya escapa por defecto
+      // React escape values by default
       escapeValue: false,
     },
 
     debug: true,
 
-    // Configuración de namespaces (opcional)
+    // Namespace configuration (optional)
     defaultNS: "common",
 
     ns: ["common", "navigation", "createRecipe"],
 
-    // Configuración de pluralización
+    // Pluralization options
     pluralSeparator: "_",
     contextSeparator: "_",
 
-    // Fallback entre namespaces
+    // Fallback namespace
     fallbackNS: "common",
   });
 
