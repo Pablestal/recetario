@@ -11,7 +11,7 @@ import RemoveCircleOutlineIcon from "@mui/icons-material/RemoveCircleOutline";
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
 
-function IngredientForm(props) {
+const IngredientForm = (props) => {
   const { recipe, setRecipe, handleIngredientUpdate } = props;
   const { t } = useTranslation("createRecipe");
 
@@ -136,6 +136,6 @@ function IngredientForm(props) {
       </ul>
     </div>
   );
-}
+};
 
 export default IngredientForm;

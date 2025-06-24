@@ -1,7 +1,5 @@
-function ShoppingList() {
-  return (
-    <div>ShoppingList</div>
-  )
-}
+const ShoppingList = () => {
+  return <div>ShoppingList</div>;
+};
 
-export default ShoppingList
+export default ShoppingList;

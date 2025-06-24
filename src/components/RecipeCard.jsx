@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 
-function RecipeCard(props) {
+const RecipeCard = (props) => {
   const [recipe, setRecipe] = useState();
 
   useEffect(() => {
@@ -8,6 +8,6 @@ function RecipeCard(props) {
   }, [props.recipe]);
 
   return <div>{recipe.name}</div>;
-}
+};
 
 export default RecipeCard;

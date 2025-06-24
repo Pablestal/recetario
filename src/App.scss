@@ -1,3 +1,19 @@
+@use "./utils/breakpoints" as bp;
+
 * {
   font-family: "Open Sans", "Roboto", "Helvetica", "Arial", sans-serif;
+}
+
+.content {
+  @include bp.mobile {
+    margin: 0 10px;
+  }
+
+  @include bp.desktop {
+    margin: 0 100px;
+  }
+
+  @include bp.large-desktop {
+    margin: 0 300px;
+  }
 }

@@ -1,7 +1,5 @@
-function WeeklyMenu() {
-  return (
-    <div>WeeklyMenu</div>
-  )
-}
+const WeeklyMenu = () => {
+  return <div>WeeklyMenu</div>;
+};
 
-export default WeeklyMenu
+export default WeeklyMenu;
