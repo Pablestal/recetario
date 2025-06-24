@@ -6,7 +6,7 @@ import RemoveCircleOutlineIcon from "@mui/icons-material/RemoveCircleOutline";
 import { useTranslation } from "react-i18next";
 import fallbackImage from "../../assets/image-fallback.jpg";
 
-function ImagesForm(props) {
+const ImagesForm = (props) => {
   const { recipe, setRecipe, handleImagesUpdate } = props;
   const { t } = useTranslation("createRecipe");
 
@@ -99,6 +99,6 @@ function ImagesForm(props) {
       </ul>
     </div>
   );
-}
+};
 
 export default ImagesForm;

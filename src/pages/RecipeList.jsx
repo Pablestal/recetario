@@ -2,7 +2,7 @@ import { useEffect } from "react";
 import { Link } from "react-router-dom";
 import { useRecipeStore } from "../utils/useRecipeStore";
 
-function RecipeList() {
+const RecipeList = () => {
   const recipes = useRecipeStore((state) => state.recipes);
   const getRecipes = useRecipeStore((state) => state.getRecipes);
 
@@ -23,6 +23,6 @@ function RecipeList() {
       </section>
     </>
   );
-}
+};
 
 export default RecipeList;

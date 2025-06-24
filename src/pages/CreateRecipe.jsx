@@ -21,7 +21,7 @@ const NAME_MAX_LENGTH = 100;
 const DESCRIPTION_MAX_LENGTH = 500;
 const NUMERIC_MAX_LENGTH = 3;
 
-function CreateRecipe() {
+const CreateRecipe = () => {
   const { t } = useTranslation("createRecipe");
 
   const validationRules = {
@@ -445,5 +445,5 @@ function CreateRecipe() {
       </section>
     </>
   );
-}
+};
 export default CreateRecipe;

@@ -6,7 +6,7 @@ import LightbulbOutlineIcon from "@mui/icons-material/LightbulbOutline";
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
 
-function StepsForm(props) {
+const StepsForm = (props) => {
   const { recipe, setRecipe, handleStepsUpdate } = props;
   const { t } = useTranslation("createRecipe");
 
@@ -121,6 +121,6 @@ function StepsForm(props) {
       </ul>
     </div>
   );
-}
+};
 
 export default StepsForm;

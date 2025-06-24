@@ -9,7 +9,7 @@ import { ThemeProvider } from "@mui/material/styles";
 import theme from "./MuiTheme";
 import CreateRecipe from "./pages/CreateRecipe";
 
-function App() {
+const App = () => {
   return (
     <>
       <ThemeProvider theme={theme}>
@@ -24,6 +24,6 @@ function App() {
       </ThemeProvider>
     </>
   );
-}
+};
 
 export default App;

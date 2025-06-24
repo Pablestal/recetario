@@ -24,7 +24,7 @@ const pages = [
 ];
 const settings = ["profile", "account", "logout"];
 
-function ResponsiveAppBar() {
+const TopMenu = () => {
   const { t } = useTranslation("navigation");
 
   const [anchorElNav, setAnchorElNav] = React.useState(null);
@@ -179,5 +179,5 @@ function ResponsiveAppBar() {
       </Container>
     </AppBar>
   );
-}
-export default ResponsiveAppBar;
+};
+export default TopMenu;
