@@ -1,0 +1,90 @@
+import "./RecipeCard.scss";
+import Card from "@mui/material/Card";
+import CardHeader from "@mui/material/CardHeader";
+import CardContent from "@mui/material/CardContent";
+import CardMedia from "@mui/material/CardMedia";
+import Avatar from "@mui/material/Avatar";
+import Typography from "@mui/material/Typography";
+import imageFallback from "../../assets/image-fallback.jpg";
+import RestaurantIcon from "@mui/icons-material/Restaurant";
+import AccessTimeIcon from "@mui/icons-material/AccessTime";
+import LocalDiningIcon from "@mui/icons-material/LocalDiningOutlined";
+import { useTranslation } from "react-i18next";
+
+const RecipeCard = (props) => {
+  const { i18n } = useTranslation();
+  const date = new Date(props.recipe.created_at);
+  const formattedDate = date.toLocaleDateString(i18n.language, {
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+  });
+
+  const renderDifficultyIcons = (difficulty) => {
+    return Array.from({ length: difficulty - 1 }, (_, index) => (
+      <LocalDiningIcon key={index} sx={{ fontSize: 18, color: "#d32f2f" }} />
+    ));
+  };
+
+  console.log("PROPS", props.recipe.images[0]);
+
+  return (
+    <section>
+      <div className="recipe-card">
+        <Card sx={{ maxWidth: 345 }} variant="outlined">
+          <CardHeader
+            avatar={
+              <Avatar sx={{ bgcolor: "primary" }} aria-label="recipe">
+                R
+              </Avatar>
+            }
+            title={props.recipe.name}
+            subheader={formattedDate}
+          />
+          <CardMedia
+            sx={{ height: 140 }}
+            image={props.recipe.images[0]?.url || imageFallback}
+            // image={props.recipe.images[0].url || imageFallback}
+            title={props.recipe.name}
+          />
+          <CardContent>
+            <Typography variant="body2" sx={{ color: "text.secondary" }}>
+              {props.recipe.description}
+            </Typography>
+            <div className="recipe-card__icons">
+              <div className="recipe-card__icon-item">
+                <AccessTimeIcon />
+                <Typography
+                  variant="body2"
+                  sx={{ fontSize: 18, color: "text.secondary" }}
+                >
+                  {props.recipe.prep_time}m {/* TRADUCIR */}
+                </Typography>
+              </div>
+              <div className="recipe-card__icon-item">
+                <RestaurantIcon />
+                <Typography
+                  variant="body2"
+                  sx={{ fontSize: 20, color: "text.secondary" }}
+                >
+                  {props.recipe.servings}
+                </Typography>
+              </div>
+              <div className="recipe-card__icon-item recipe-card__icon-item__difficulty">
+                <Typography
+                  variant="body2"
+                  sx={{ fontSize: 16, color: "text.secondary", marginRight: 1 }}
+                >
+                  Difficulty: {/* TRADUCIR */}
+                </Typography>
+                {renderDifficultyIcons(props.recipe.difficulty)}
+              </div>
+            </div>
+          </CardContent>
+        </Card>
+      </div>
+    </section>
+  );
+};
+
+export default RecipeCard;
