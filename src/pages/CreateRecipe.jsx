@@ -48,20 +48,14 @@ const CreateRecipe = () => {
     },
 
     prepTime: (value) => {
-      if (!value || value.toString().trim().length === 0)
-        return t("validation.prepTime.required");
       const numValue = parseInt(value);
-      if (isNaN(numValue)) return t("validation.prepTime.invalid");
       if (numValue < 1) return t("validation.prepTime.min");
       if (numValue > 999) return t("validation.prepTime.max");
       return null;
     },
 
     servings: (value) => {
-      if (!value || value.toString().trim().length === 0)
-        return t("validation.servings.required");
       const numValue = parseInt(value);
-      if (isNaN(numValue)) return t("validation.servings.invalid");
       if (numValue < 1) return t("validation.servings.min");
       if (numValue > 99) return t("validation.servings.max");
       return null;

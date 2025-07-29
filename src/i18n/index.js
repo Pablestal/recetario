@@ -53,7 +53,7 @@ i18n
       escapeValue: false,
     },
 
-    debug: true,
+    debug: false,
 
     // Namespace configuration (optional)
     defaultNS: "common",

@@ -8,14 +8,15 @@ import { useIsMobile } from "../../utils/common";
 const TagForm = (props) => {
   const isMobile = useIsMobile();
   const { recipe, handleTagsUpdate } = props;
-  const { t } = useTranslation("createRecipe");
+  const { t, i18n } = useTranslation("createRecipe");
 
   const tags = useTagStore((state) => state.tags);
-  const getTags = useTagStore((state) => state.getTags);
+  const getTagsByLanguage = useTagStore((state) => state.getTagsByLanguage);
 
   useEffect(() => {
-    getTags();
-  }, [getTags]);
+    const currentLanguage = i18n.language;
+    getTagsByLanguage(currentLanguage);
+  }, [getTagsByLanguage, i18n.language]);
 
   return (
     <div className="tags-form">
