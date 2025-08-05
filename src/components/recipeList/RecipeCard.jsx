@@ -19,14 +19,13 @@ const RecipeCard = (props) => {
     month: "long",
     day: "numeric",
   });
+  const { t } = useTranslation("recipeList");
 
   const renderDifficultyIcons = (difficulty) => {
     return Array.from({ length: difficulty - 1 }, (_, index) => (
       <LocalDiningIcon key={index} sx={{ fontSize: 18, color: "#d32f2f" }} />
     ));
   };
-
-  console.log("PROPS", props.recipe.images[0]);
 
   return (
     <section>
@@ -44,7 +43,6 @@ const RecipeCard = (props) => {
           <CardMedia
             sx={{ height: 140 }}
             image={props.recipe.images[0]?.url || imageFallback}
-            // image={props.recipe.images[0].url || imageFallback}
             title={props.recipe.name}
           />
           <CardContent>
@@ -58,7 +56,8 @@ const RecipeCard = (props) => {
                   variant="body2"
                   sx={{ fontSize: 18, color: "text.secondary" }}
                 >
-                  {props.recipe.prep_time}m {/* TRADUCIR */}
+                  {props.recipe.prep_time ? props.recipe.prep_time : "??"}
+                  {t("recipeCard.minutes")}
                 </Typography>
               </div>
               <div className="recipe-card__icon-item">
@@ -67,7 +66,7 @@ const RecipeCard = (props) => {
                   variant="body2"
                   sx={{ fontSize: 20, color: "text.secondary" }}
                 >
-                  {props.recipe.servings}
+                  {props.recipe.servings ? props.recipe.servings : "??"}
                 </Typography>
               </div>
               <div className="recipe-card__icon-item recipe-card__icon-item__difficulty">
@@ -75,7 +74,7 @@ const RecipeCard = (props) => {
                   variant="body2"
                   sx={{ fontSize: 16, color: "text.secondary", marginRight: 1 }}
                 >
-                  Difficulty: {/* TRADUCIR */}
+                  {t("recipeCard.difficulty")}:
                 </Typography>
                 {renderDifficultyIcons(props.recipe.difficulty)}
               </div>
