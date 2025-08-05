@@ -1,0 +1,26 @@
+.recipe-card {
+  min-width: 345px;
+
+  .MuiCardHeader-title {
+    font-size: 1rem;
+    font-weight: 600;
+  }
+
+  &__icons {
+    margin-top: 15px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  &__icon-item {
+    display: flex;
+    align-items: center;
+    gap: 3px;
+
+    &__difficulty {
+      gap: 0;
+    }
+  }
+}
