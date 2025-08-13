@@ -11,6 +11,8 @@ import createRecipeEN from "./locales/en/create-recipe_en.json";
 import createRecipeES from "./locales/es/create-recipe_es.json";
 import recipeListEN from "./locales/en/recipe-list_en.json";
 import recipeListES from "./locales/es/recipe-list_es.json";
+import recipeDetailsEN from "./locales/en/recipe-details_en.json";
+import recipeDetailsES from "./locales/es/recipe-details_es.json";
 
 // Configure translation resources
 const resources = {
@@ -19,12 +21,14 @@ const resources = {
     navigation: navigationEN,
     createRecipe: createRecipeEN,
     recipeList: recipeListEN,
+    recipeDetails: recipeDetailsEN,
   },
   es: {
     common: commonES,
     navigation: navigationES,
     createRecipe: createRecipeES,
     recipeList: recipeListES,
+    recipeDetails: recipeDetailsES,
   },
 };
 

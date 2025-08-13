@@ -6,15 +6,19 @@ import RecipeCard from "./RecipeCard";
 import { Button } from "@mui/material";
 import AddIcon from "@mui/icons-material/Add";
 import { useTranslation } from "react-i18next";
+import Loading from "../common/Loading";
 
 const RecipeList = () => {
   const { t } = useTranslation("recipeList");
   const recipes = useRecipeStore((state) => state.recipes);
+  const loading = useRecipeStore((state) => state.loading);
   const getRecipes = useRecipeStore((state) => state.getRecipes);
 
   useEffect(() => {
     getRecipes();
   }, [getRecipes]);
+
+  if (loading) return <Loading />;
 
   return (
     <>

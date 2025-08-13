@@ -8,6 +8,7 @@ import WeeklyMenu from "./pages/WeeklyMenu";
 import { ThemeProvider } from "@mui/material/styles";
 import theme from "./MuiTheme";
 import CreateRecipe from "./pages/CreateRecipe";
+import RecipeDetailsPage from "./pages/RecipeDetailsPage";
 
 const App = () => {
   return (
@@ -21,6 +22,7 @@ const App = () => {
             <Route path="/recipe-creation" element={<CreateRecipe />} />
             <Route path="/shopping-list" element={<ShoppingList />} />
             <Route path="/weeekly-menu" element={<WeeklyMenu />} />
+            <Route path="/recipe-details/:id" element={<RecipeDetailsPage />} />
           </Routes>
         </div>
       </ThemeProvider>

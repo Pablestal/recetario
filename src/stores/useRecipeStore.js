@@ -7,6 +7,7 @@ export const useRecipeStore = create((set) => ({
   recipes: [],
   loading: false,
   error: null,
+  currentRecipe: null,
 
   getRecipes: async () => {
     set({ loading: true, error: null });
@@ -22,7 +23,7 @@ export const useRecipeStore = create((set) => ({
     set({ loading: true, error: null });
     try {
       const response = await axios.get(`${API_URL}/${id}`);
-      set({ recipes: [response.data], loading: false });
+      set({ currentRecipe: response.data.data, loading: false });
     } catch (error) {
       set({ error: error.message, loading: false });
     }
