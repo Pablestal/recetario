@@ -1,6 +1,7 @@
 import { Route, Routes } from "react-router-dom";
 import "./App.scss";
 import TopMenu from "./components/common/TopMenu";
+import Footer from "./components/common/Footer";
 import HomePage from "./pages/HomePage";
 import RecipeListPage from "./pages/RecipeListPage";
 import ShoppingListPage from "./pages/ShoppingListPage";
@@ -14,16 +15,22 @@ const App = () => {
   return (
     <>
       <ThemeProvider theme={theme}>
-        <TopMenu></TopMenu>
-        <div className="content">
-          <Routes>
-            <Route path="/" element={<HomePage />} />
-            <Route path="/recipes" element={<RecipeListPage />} />
-            <Route path="/recipe-creation" element={<CreateRecipe />} />
-            <Route path="/shopping-list" element={<ShoppingListPage />} />
-            <Route path="/weeekly-menu" element={<WeeklyMenuPage />} />
-            <Route path="/recipe-details/:id" element={<RecipeDetailsPage />} />
-          </Routes>
+        <div className="app-container">
+          <TopMenu></TopMenu>
+          <div className="content">
+            <Routes>
+              <Route path="/" element={<HomePage />} />
+              <Route path="/recipes" element={<RecipeListPage />} />
+              <Route path="/recipe-creation" element={<CreateRecipe />} />
+              <Route path="/shopping-list" element={<ShoppingListPage />} />
+              <Route path="/weeekly-menu" element={<WeeklyMenuPage />} />
+              <Route
+                path="/recipe-details/:id"
+                element={<RecipeDetailsPage />}
+              />
+            </Routes>
+          </div>
+          <Footer />
         </div>
       </ThemeProvider>
     </>
