@@ -26,12 +26,12 @@ body,
   }
 
   @include bp.desktop {
-    padding-top: 75px;
+    padding-top: 80px;
     margin: 0 100px;
   }
 
   @include bp.large-desktop {
-    padding-top: 75px;
+    padding-top: 80px;
     margin: 0 300px;
   }
 }

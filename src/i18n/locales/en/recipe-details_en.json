@@ -2,5 +2,12 @@
   "minutes": "m",
   "difficulty": "Difficulty",
   "optional": "optional",
-  "step": "Step"
+  "step": "Step",
+  "deleteDialog": {
+    "title": "Confirm deletion",
+    "message": "Are you sure you want to delete the recipe",
+    "warning": "This action cannot be undone.",
+    "cancel": "Cancel",
+    "confirm": "Delete"
+  }
 }

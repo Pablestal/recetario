@@ -1,22 +1,30 @@
 import "./RecipeDetails.scss";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import Loading from "../common/Loading";
 import { useRecipeStore } from "../../stores/useRecipeStore";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import AccessTimeIcon from "@mui/icons-material/AccessTime";
 import Typography from "@mui/material/Typography";
 import RestaurantIcon from "@mui/icons-material/Restaurant";
 import LocalDiningIcon from "@mui/icons-material/LocalDiningOutlined";
 import LightbulbIcon from "@mui/icons-material/Lightbulb";
+import DeleteIcon from "@mui/icons-material/Delete";
+import { IconButton } from "@mui/material";
 import { useTranslation } from "react-i18next";
+import DeleteConfirmationDialog from "./DeleteConfirmationDialog";
+import fallbackImage from "../../assets/image-fallback.jpg";
 
 function RecipeDetails() {
   const { t } = useTranslation("recipeDetails");
   const { id } = useParams();
+  const navigate = useNavigate();
   const getRecipe = useRecipeStore((state) => state.getRecipeById);
   const recipe = useRecipeStore((state) => state.currentRecipe);
   const loading = useRecipeStore((state) => state.loading);
   const error = useRecipeStore((state) => state.error);
+  const deleteRecipe = useRecipeStore((state) => state.deleteRecipe);
+
+  const [openDialog, setOpenDialog] = useState(false);
 
   useEffect(() => {
     if (id) {
@@ -30,13 +38,50 @@ function RecipeDetails() {
     ));
   };
 
+  const handleOpenDialog = () => {
+    setOpenDialog(true);
+  };
+
+  const handleCloseDialog = () => {
+    setOpenDialog(false);
+  };
+
+  const handleConfirmDelete = async () => {
+    try {
+      await deleteRecipe(id);
+      setOpenDialog(false);
+      navigate("/recipes");
+    } catch (error) {
+      console.error("Error al eliminar la receta:", error);
+    }
+  };
+
   if (loading) return <Loading />;
   if (error) return <div>Error: {error}</div>;
   if (!recipe) return <div>Receta no encontrada</div>;
 
   return (
     <section>
-      <h2>{recipe.name}</h2>
+      <div className="recipe-details__title-container">
+        <h2>{recipe.name}</h2>
+        <IconButton
+          aria-label="delete"
+          color="error"
+          size="large"
+          onClick={handleOpenDialog}
+          className="recipe-details__delete-button"
+        >
+          <DeleteIcon />
+        </IconButton>
+      </div>
+
+      <DeleteConfirmationDialog
+        open={openDialog}
+        onClose={handleCloseDialog}
+        onConfirm={handleConfirmDelete}
+        recipeName={recipe.name}
+      />
+
       <div className="recipe-details">
         <div className="recipe-details__header">
           <p>{recipe.description}</p>
@@ -93,7 +138,7 @@ function RecipeDetails() {
         <div className="recipe-details__steps">
           <div className="recipe-details__image-container">
             <img
-              src={recipe.images[0].url}
+              src={recipe.images[0]?.url || fallbackImage}
               alt="recipe_image"
               className="recipe-details__image"
             />

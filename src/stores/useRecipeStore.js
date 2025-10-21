@@ -34,11 +34,13 @@ export const useRecipeStore = create((set) => ({
     try {
       const response = await axios.post(API_URL, newRecipe);
       set((state) => ({
-        recipes: [...state.recipes, response.data],
+        recipes: [...state.recipes, response.data.data],
         loading: false,
       }));
+      return response.data.data;
     } catch (error) {
       set({ error: error.message, loading: false });
+      throw error;
     }
   },
 
