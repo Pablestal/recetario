@@ -1,4 +1,4 @@
-import "./ingredientsForm.scss";
+import "./IngredientsForm.scss";
 import Button from "@mui/material/Button";
 import IconButton from "@mui/material/IconButton";
 import TextField from "@mui/material/TextField";
