@@ -5,6 +5,12 @@
     "weeklyMenu": "Weekly Menu",
     "profile": "Profile",
     "account": "Account",
-    "logout": "Logout"
+    "logout": "Logout",
+    "footer": {
+      "description": "Your digital companion to organize recipes, plan menus and manage your shopping list.",
+      "quickLinks": "Quick Links",
+      "followUs": "Follow Us",
+      "rights": "All rights reserved."
+    }
   }
 }

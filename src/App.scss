@@ -4,16 +4,34 @@
   font-family: "Open Sans", "Roboto", "Helvetica", "Arial", sans-serif;
 }
 
+html,
+body,
+#root {
+  height: 100%;
+  margin: 0;
+}
+
+.app-container {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
 .content {
+  flex: 1;
+
   @include bp.mobile {
+    padding-top: 56px;
     margin: 0 10px;
   }
 
   @include bp.desktop {
+    padding-top: 75px;
     margin: 0 100px;
   }
 
   @include bp.large-desktop {
+    padding-top: 75px;
     margin: 0 300px;
   }
 }
