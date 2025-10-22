@@ -1,0 +1,13 @@
+{
+  "minutes": "m",
+  "difficulty": "Dificultad",
+  "optional": "opcional",
+  "step": "Paso",
+  "deleteDialog": {
+    "title": "Confirmar eliminación",
+    "message": "¿Estás seguro de que quieres eliminar la receta",
+    "warning": "Esta acción no se puede deshacer.",
+    "cancel": "Cancelar",
+    "confirm": "Eliminar"
+  }
+}

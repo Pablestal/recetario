@@ -1,0 +1,16 @@
+{
+  "navigation": {
+    "recipes": "Recetas",
+    "shoppingList": "Lista de la compra",
+    "weeklyMenu": "Menú semanal",
+    "profile": "Perfil",
+    "account": "Cuenta",
+    "logout": "Cerrar sesión",
+    "footer": {
+      "description": "Tu compañero digital para organizar recetas, planificar menús y gestionar tu lista de la compra.",
+      "quickLinks": "Enlaces rápidos",
+      "followUs": "Síguenos",
+      "rights": "Todos los derechos reservados."
+    }
+  }
+}

@@ -1,0 +1,8 @@
+{
+  "recipeListTitle": "Recetas",
+  "newRecipeButton": "Nueva Receta",
+  "recipeCard": {
+    "minutes": "m",
+    "difficulty": "Dificultad"
+  }
+}

@@ -1,0 +1,19 @@
+@use "../../utils/breakpoints" as bp;
+
+.recipe-list {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: start;
+
+  @include bp.mobile {
+    padding: 0;
+    justify-content: center;
+  }
+}
+
+.no-link-style {
+  text-decoration: none;
+  color: inherit;
+}

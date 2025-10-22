@@ -12,70 +12,74 @@ import LocalDiningOutlinedIcon from "@mui/icons-material/LocalDiningOutlined";
 import RestaurantIcon from "@mui/icons-material/Restaurant";
 import { styled } from "@mui/material/styles";
 import { useState } from "react";
+import TagForm from "../components/recipeForm/TagsForm";
 import IngredientForm from "../components/recipeForm/IngredientsForm";
 import StepsForm from "../components/recipeForm/StepsForm";
 import ImagesForm from "../components/recipeForm/ImagesForm";
+import { useTranslation } from "react-i18next";
+import { useRecipeStore } from "../stores/useRecipeStore";
 
 const NAME_MAX_LENGTH = 100;
 const DESCRIPTION_MAX_LENGTH = 500;
 const NUMERIC_MAX_LENGTH = 3;
 
-const validationRules = {
-  name: (value) => {
-    if (!value || value.trim().length === 0) return "El nombre es obligatorio";
-    if (value.trim().length < 3)
-      return "El nombre debe tener al menos 3 caracteres";
-    if (value.length > NAME_MAX_LENGTH)
-      return `El nombre no puede exceder ${NAME_MAX_LENGTH} caracteres`;
-    return null;
-  },
+const CreateRecipe = () => {
+  const { t } = useTranslation("createRecipe");
+  const { addRecipe, loading } = useRecipeStore();
 
-  description: (value) => {
-    if (value.length > DESCRIPTION_MAX_LENGTH)
-      return `La descripción no puede exceder ${DESCRIPTION_MAX_LENGTH} caracteres`;
-    return null;
-  },
+  const validationRules = {
+    name: (value) => {
+      if (!value || value.trim().length === 0)
+        return t("validation.name.required");
+      if (value.trim().length < 3) return t("validation.name.minLength");
+      if (value.length > NAME_MAX_LENGTH)
+        return t("validation.name.maxLength", {
+          max: NAME_MAX_LENGTH,
+        });
+      return null;
+    },
 
-  prepTime: (value) => {
-    if (!value || value.toString().trim().length === 0)
-      return "El tiempo de preparación es obligatorio";
-    const numValue = parseInt(value);
-    if (isNaN(numValue)) return "Debe ser un número válido";
-    if (numValue < 1) return "El tiempo debe ser mayor a 0 minutos";
-    if (numValue > 999) return "El tiempo no puede exceder 999 minutos";
-    return null;
-  },
+    description: (value) => {
+      if (value.length > DESCRIPTION_MAX_LENGTH)
+        return t("validation.description.maxLength", {
+          max: DESCRIPTION_MAX_LENGTH,
+        });
+      return null;
+    },
 
-  servings: (value) => {
-    if (!value || value.toString().trim().length === 0)
-      return "El número de porciones es obligatorio";
-    const numValue = parseInt(value);
-    if (isNaN(numValue)) return "Debe ser un número válido";
-    if (numValue < 1) return "Debe servir al menos 1 porción";
-    if (numValue > 99) return "No puede exceder 99 porciones";
-    return null;
-  },
+    prepTime: (value) => {
+      const numValue = parseInt(value);
+      if (numValue < 1) return t("validation.prepTime.min");
+      if (numValue > 999) return t("validation.prepTime.max");
+      return null;
+    },
 
-  difficulty: (value) => {
-    if (value === null || value === undefined || value < 1)
-      return "Selecciona la dificultad de la receta";
-    if (value > 5) return "La dificultad no puede ser mayor a 5";
-    return null;
-  },
+    servings: (value) => {
+      const numValue = parseInt(value);
+      if (numValue < 1) return t("validation.servings.min");
+      if (numValue > 99) return t("validation.servings.max");
+      return null;
+    },
 
-  ingredients: (ingredients) => {
-    if (!ingredients || ingredients.length === 0)
-      return "Agrega al menos un ingrediente";
-    return null;
-  },
+    difficulty: (value) => {
+      if (value === null || value === undefined || value < 1)
+        return t("validation.difficulty.required");
+      if (value > 5) return t("validation.difficulty.max");
+      return null;
+    },
 
-  steps: (steps) => {
-    if (!steps || steps.length === 0) return "Agrega al menos un paso";
-    return null;
-  },
-};
+    ingredients: (ingredients) => {
+      if (!ingredients || ingredients.length === 0)
+        return t("validation.ingredients.required");
+      return null;
+    },
 
-function CreateRecipe() {
+    steps: (steps) => {
+      if (!steps || steps.length === 0) return t("validation.steps.required");
+      return null;
+    },
+  };
+
   const recipe = {
     name: "",
     description: "",
@@ -94,8 +98,8 @@ function CreateRecipe() {
   const [errors, setErrors] = useState({});
   const [touched, setTouched] = useState({});
   const [submitAttempted, setSubmitAttempted] = useState(false);
+  const [submitSuccess, setSubmitSuccess] = useState(false);
 
-  // Validar un campo específico
   const validateField = (fieldName, value) => {
     if (validationRules[fieldName]) {
       return validationRules[fieldName](value);
@@ -103,11 +107,9 @@ function CreateRecipe() {
     return null;
   };
 
-  // Validar todo el formulario
   const validateForm = () => {
     const newErrors = {};
 
-    // Validar campos básicos
     Object.keys(validationRules).forEach((field) => {
       if (field === "ingredients" || field === "steps") {
         const error = validationRules[field](recipeForm[field]);
@@ -122,22 +124,30 @@ function CreateRecipe() {
     return Object.keys(newErrors).length === 0;
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     setSubmitAttempted(true);
 
     if (validateForm()) {
-      // Aquí irían las acciones de envío (API call, etc.)
+      try {
+        const recipeToSubmit = {
+          ...recipeForm,
+          createdDate: new Date().toISOString(),
+        };
 
-      // Reset del formulario después del envío exitoso
-      setRecipeForm(recipe);
-      setErrors({});
-      setTouched({});
-      setSubmitAttempted(false);
+        await addRecipe(recipeToSubmit);
+        setSubmitSuccess(true);
 
-      console.log("Recipe submitted:", recipeForm);
+        setRecipeForm(recipe);
+        setErrors({});
+        setTouched({});
+        setSubmitAttempted(false);
+        setTimeout(() => setSubmitSuccess(false), 5000);
+        console.log("Recipe submitted:", recipeForm);
+      } catch (error) {
+        console.error("Error submitting recipe:", error);
+      }
     } else {
-      // Marcar todos los campos como "touched" para mostrar errores
       const allFields = Object.keys(validationRules);
       const newTouched = {};
       allFields.forEach((field) => (newTouched[field] = true));
@@ -150,7 +160,6 @@ function CreateRecipe() {
 
     setRecipeForm({ ...recipeForm, [id]: value });
 
-    // Validar en tiempo real si el campo ya fue tocado o si se intentó enviar
     if (touched[id] || submitAttempted) {
       const error = validateField(id, value);
       setErrors((prev) => ({
@@ -170,6 +179,14 @@ function CreateRecipe() {
     }));
   };
 
+  const handleTagsUpdate = (tags) => {
+    setRecipeForm({ ...recipeForm, tags });
+
+    if (tags.length > 0 && errors.tags) {
+      setErrors((prev) => ({ ...prev, tags: null }));
+    }
+  };
+
   const handleIngredientUpdate = (ingredient) => {
     const newIngredients = [...recipeForm.ingredients, ingredient];
     setRecipeForm({
@@ -186,7 +203,6 @@ function CreateRecipe() {
     const newSteps = [...recipeForm.steps, step];
     setRecipeForm({ ...recipeForm, steps: newSteps });
 
-    // Limpiar error de pasos si ahora hay al menos uno
     if (newSteps.length > 0 && errors.steps) {
       setErrors((prev) => ({ ...prev, steps: null }));
     }
@@ -199,7 +215,6 @@ function CreateRecipe() {
   const handleDifficultyChange = (event, newValue) => {
     setRecipeForm({ ...recipeForm, difficulty: newValue });
 
-    // Validar dificultad inmediatamente
     if (touched.difficulty || submitAttempted) {
       const error = validateField("difficulty", newValue);
       setErrors((prev) => ({ ...prev, difficulty: error }));
@@ -215,17 +230,22 @@ function CreateRecipe() {
     },
   });
 
-  // Verificar si hay errores generales para mostrar alerta
   const hasErrors = Object.values(errors).some((error) => error !== null);
 
   return (
     <>
       <section className="create-recipe">
-        <h2 className="create-recipe__title">Create a new recipe</h2>
+        <h2 className="create-recipe__title">{t("title")}</h2>
 
         {submitAttempted && hasErrors && (
           <Alert severity="error" sx={{ mb: 3 }}>
-            Por favor, corrige los errores en el formulario antes de continuar.
+            {t("messages.error")}
+          </Alert>
+        )}
+
+        {submitSuccess && (
+          <Alert severity="success" sx={{ mb: 3 }}>
+            {t("messages.success")}
           </Alert>
         )}
 
@@ -234,7 +254,8 @@ function CreateRecipe() {
             <TextField
               id="name"
               value={recipeForm.name}
-              label="Name"
+              label={t("fields.name.label")}
+              placeholder={t("fields.name.placeholder")}
               variant="filled"
               className="create-recipe__name"
               fullWidth
@@ -244,7 +265,10 @@ function CreateRecipe() {
               error={!!errors.name}
               helperText={
                 errors.name ||
-                `${recipeForm.name.length}/${NAME_MAX_LENGTH} characters`
+                t("messages.characters", {
+                  current: recipeForm.name.length,
+                  max: NAME_MAX_LENGTH,
+                })
               }
               slotProps={{
                 htmlInput: {
@@ -256,7 +280,8 @@ function CreateRecipe() {
             <TextField
               id="description"
               value={recipeForm.description}
-              label="Description"
+              label={t("fields.description.label")}
+              placeholder={t("fields.description.placeholder")}
               variant="filled"
               multiline
               rows={6}
@@ -268,7 +293,10 @@ function CreateRecipe() {
               error={!!errors.description}
               helperText={
                 errors.description ||
-                `${recipeForm.description.length}/${DESCRIPTION_MAX_LENGTH} characters`
+                t("messages.characters", {
+                  current: recipeForm.description.length,
+                  max: DESCRIPTION_MAX_LENGTH,
+                })
               }
               slotProps={{
                 htmlInput: {
@@ -281,7 +309,7 @@ function CreateRecipe() {
               <TextField
                 id="prepTime"
                 value={recipeForm.prepTime}
-                label="Time"
+                label={t("fields.prepTime.label")}
                 variant="filled"
                 type="number"
                 className="create-recipe__preptime"
@@ -310,7 +338,7 @@ function CreateRecipe() {
               <TextField
                 id="servings"
                 value={recipeForm.servings}
-                label="Servings"
+                label={t("fields.servings.label")}
                 variant="filled"
                 type="number"
                 className="create-recipe__servings"
@@ -345,10 +373,11 @@ function CreateRecipe() {
                   flexDirection: "column",
                   justifyContent: "center",
                   alignItems: "center",
+                  alignSelf: "baseline",
                 }}
               >
                 <p className="create-recipe__difficulty-label">
-                  Difficulty{" "}
+                  {t("fields.difficulty.label")}{" "}
                   {errors.difficulty && (
                     <span style={{ color: "#d32f2f", fontSize: "0.75rem" }}>
                       *
@@ -382,51 +411,53 @@ function CreateRecipe() {
                   </p>
                 )}
               </Box>
+
+              <TagForm
+                recipe={recipeForm}
+                handleTagsUpdate={handleTagsUpdate}
+              />
             </div>
 
             <div className="create-recipe__ingredients-steps">
-              <div>
-                <IngredientForm
-                  recipe={recipeForm}
-                  setRecipe={setRecipeForm}
-                  handleIngredientUpdate={handleIngredientUpdate}
-                />
-                {errors.ingredients && (
-                  <Alert severity="error" sx={{ mt: 1, mb: 2 }}>
-                    {errors.ingredients}
-                  </Alert>
-                )}
-              </div>
+              <IngredientForm
+                recipe={recipeForm}
+                setRecipe={setRecipeForm}
+                handleIngredientUpdate={handleIngredientUpdate}
+              />
+              {errors.ingredients && (
+                <Alert severity="error" sx={{ mt: 1, mb: 2 }}>
+                  {errors.ingredients}
+                </Alert>
+              )}
 
-              <div>
-                <StepsForm
-                  recipe={recipeForm}
-                  setRecipe={setRecipeForm}
-                  handleStepsUpdate={handleStepsUpdate}
-                />
-                {errors.steps && (
-                  <Alert severity="error" sx={{ mt: 1, mb: 2 }}>
-                    {errors.steps}
-                  </Alert>
-                )}
-              </div>
+              <StepsForm
+                recipe={recipeForm}
+                setRecipe={setRecipeForm}
+                handleStepsUpdate={handleStepsUpdate}
+              />
+              {errors.steps && (
+                <Alert severity="error" sx={{ mt: 1, mb: 2 }}>
+                  {errors.steps}
+                </Alert>
+              )}
+
+              <ImagesForm
+                recipe={recipeForm}
+                setRecipe={setRecipeForm}
+                handleImagesUpdate={handleImagesUpdate}
+              />
             </div>
-
-            <ImagesForm
-              recipe={recipeForm}
-              setRecipe={setRecipeForm}
-              handleImagesUpdate={handleImagesUpdate}
-            />
 
             <div className="submit-container">
               <Button
                 sx={{ mt: 3 }}
+                disabled={loading}
                 type="submit"
                 variant="contained"
                 size="large"
                 className="submit-container__button"
               >
-                Save
+                {t("buttons.save")}
               </Button>
             </div>
           </div>
@@ -434,5 +465,5 @@ function CreateRecipe() {
       </section>
     </>
   );
-}
+};
 export default CreateRecipe;

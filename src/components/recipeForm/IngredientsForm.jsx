@@ -1,4 +1,4 @@
-import "./ingredientsForm.scss";
+import "./IngredientsForm.scss";
 import Button from "@mui/material/Button";
 import IconButton from "@mui/material/IconButton";
 import TextField from "@mui/material/TextField";
@@ -9,9 +9,12 @@ import MenuItem from "@mui/material/MenuItem";
 import AddIcon from "@mui/icons-material/Add";
 import RemoveCircleOutlineIcon from "@mui/icons-material/RemoveCircleOutline";
 import { useState } from "react";
+import { useTranslation } from "react-i18next";
 
-function IngredientForm(props) {
+const IngredientForm = (props) => {
   const { recipe, setRecipe, handleIngredientUpdate } = props;
+  const { t } = useTranslation("createRecipe");
+
   const ingredientTemplate = {
     name: "",
     amount: "",
@@ -35,87 +38,104 @@ function IngredientForm(props) {
     });
   };
 
+  const handleAddIngredient = () => {
+    if (newIngredient.name.trim() && newIngredient.amount.trim()) {
+      handleIngredientUpdate(newIngredient);
+      setNewIngredient(ingredientTemplate);
+    }
+  };
+
+  const handleDeleteIngredient = (index) => {
+    const newIngredients = recipe.ingredients.filter((ing, i) => i !== index);
+    setRecipe({ ...recipe, ingredients: newIngredients });
+  };
+
   return (
     <div className="ingredients-form">
       <div className="ingredients-form__header">
-        <h2 className="ingredients-form__title">Ingredients</h2>
+        <h2 className="ingredients-form__title">{t("ingredients.title")}</h2>
         <p className="ingredients-form__subtitle">
-          Add ingredients with their amount. Optional ingredients can be marked.
+          {t("ingredients.subtitle")}
         </p>
       </div>
+
       <div className="ingredients-form__inputs">
         <div className="ingredients-form__input-group">
           <TextField
             id="name"
             value={newIngredient.name}
             size="small"
-            label="Ingredient Name"
+            label={t("ingredients.fields.name.label")}
+            placeholder={t("ingredients.fields.name.placeholder")}
             variant="filled"
             onChange={handleNewIngredientUpdate}
             sx={{ flexGrow: 1 }}
           />
+
           <TextField
             id="amount"
             value={newIngredient.amount}
             size="small"
-            label="Amount"
+            label={t("ingredients.fields.amount.label")}
+            placeholder={t("ingredients.fields.amount.placeholder")}
             variant="filled"
             onChange={handleNewIngredientUpdate}
             className="ingredients-form__amount-input"
           />
-          <FormControl id="optional" size="small" sx={{ minWidth: 80 }}>
-            <InputLabel>Optional</InputLabel>
+
+          <FormControl id="optional" size="small" sx={{ minWidth: 100 }}>
+            <InputLabel>{t("ingredients.fields.optional.label")}</InputLabel>
             <Select
               id="optional"
               size="small"
-              defaultValue={true}
               value={newIngredient.optional}
-              label="Optional"
+              label={t("ingredients.fields.optional.label")}
               onChange={handleOptionalChange}
             >
-              <MenuItem value={true}>Yes</MenuItem>
-              <MenuItem value={false}>No</MenuItem>
+              <MenuItem value={false}>
+                {t("ingredients.fields.optional.no")}
+              </MenuItem>
+              <MenuItem value={true}>
+                {t("ingredients.fields.optional.yes")}
+              </MenuItem>
             </Select>
           </FormControl>
         </div>
+
         <Button
           variant="contained"
           color="secondary"
           className="ingredients-form__add-button"
-          onClick={() => {
-            handleIngredientUpdate(newIngredient);
-            setNewIngredient(ingredientTemplate);
-          }}
+          onClick={handleAddIngredient}
           startIcon={<AddIcon />}
+          disabled={!newIngredient.name.trim() || !newIngredient.amount.trim()}
         >
-          Add
+          {t("ingredients.buttons.add")}
         </Button>
       </div>
+
       <ul className="ingredients-form__list">
         {recipe.ingredients.map((ingredient, index) => (
           <li key={index} className="ingredients-form__list-item">
             <IconButton
-              aria-label="delete"
+              aria-label={t("ingredients.list.delete")}
               sx={{ color: "#ed5858" }}
-              onClick={() => {
-                const newIngredients = recipe.ingredients.filter(
-                  (ing, i) => i !== index
-                );
-                setRecipe({ ...recipe, ingredients: newIngredients });
-              }}
+              onClick={() => handleDeleteIngredient(index)}
+              title={t("ingredients.list.delete")}
             >
               <RemoveCircleOutlineIcon fontSize="small" />
             </IconButton>
+
             <span>
               {index + 1}. <strong>{ingredient.name}</strong> -{" "}
               {ingredient.amount}
-              {ingredient.optional ? " (Optional)" : ""}
+              {ingredient.optional ? ` ${t("ingredients.list.optional")}` : ""}
             </span>
           </li>
         ))}
       </ul>
     </div>
   );
-}
+};
 
 export default IngredientForm;

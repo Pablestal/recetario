@@ -13,16 +13,20 @@ import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
 import BakeryDiningIcon from "@mui/icons-material/BakeryDining";
 import { useNavigate } from "react-router-dom";
+import { useTranslation } from "react-i18next";
+import LanguageSelector from "./LanguageSelector";
 
 const pages = [
-  { name: "Perfil", link: "/" },
-  { name: "Recetas", link: "/recipes" },
-  { name: "Lista de la compra", link: "/shopping-list" },
-  { name: "Menú semanal", link: "/weeekly-menu" },
+  { name: "profile", link: "/" },
+  { name: "recipes", link: "/recipes" },
+  { name: "shoppingList", link: "/shopping-list" },
+  { name: "weeklyMenu", link: "/weeekly-menu" },
 ];
-const settings = ["Profile", "Account", "Dashboard", "Logout"];
+const settings = ["profile", "account", "logout"];
 
-function ResponsiveAppBar() {
+const TopMenu = () => {
+  const { t } = useTranslation("navigation");
+
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
 
@@ -47,8 +51,13 @@ function ResponsiveAppBar() {
     handleCloseNavMenu();
   };
 
+  const goHome = () => {
+    navigate("/");
+    handleCloseNavMenu();
+  };
+
   return (
-    <AppBar position="static">
+    <AppBar position="fixed">
       <Container maxWidth="xl">
         <Toolbar disableGutters>
           <BakeryDiningIcon
@@ -58,7 +67,7 @@ function ResponsiveAppBar() {
             variant="h6"
             noWrap
             component="a"
-            href="#app-bar-with-responsive-menu"
+            onClick={goHome}
             sx={{
               mr: 2,
               display: { xs: "none", md: "flex" },
@@ -67,6 +76,7 @@ function ResponsiveAppBar() {
               letterSpacing: ".3rem",
               color: "inherit",
               textDecoration: "none",
+              cursor: "pointer",
             }}
           >
             RECETARIO
@@ -102,7 +112,7 @@ function ResponsiveAppBar() {
               {pages.map((page, index) => (
                 <MenuItem key={index} onClick={() => goTo(page)}>
                   <Typography sx={{ textAlign: "center" }}>
-                    {page.name}
+                    {t(`navigation.${page.name}`)}
                   </Typography>
                 </MenuItem>
               ))}
@@ -112,7 +122,7 @@ function ResponsiveAppBar() {
             variant="h5"
             noWrap
             component="a"
-            href="#app-bar-with-responsive-menu"
+            onClick={goHome}
             sx={{
               mr: 2,
               display: { xs: "flex", md: "none" },
@@ -133,9 +143,12 @@ function ResponsiveAppBar() {
                 sx={{ my: 2, color: "white", display: "block" }}
                 onClick={() => goTo(page)}
               >
-                {page.name}
+                {t(`navigation.${page.name}`)}
               </Button>
             ))}
+          </Box>
+          <Box sx={{ flexGrow: 0 }}>
+            <LanguageSelector />
           </Box>
           <Box sx={{ flexGrow: 0 }}>
             <Tooltip title="Open settings">
@@ -162,7 +175,7 @@ function ResponsiveAppBar() {
               {settings.map((setting) => (
                 <MenuItem key={setting} onClick={handleCloseUserMenu}>
                   <Typography sx={{ textAlign: "center" }}>
-                    {setting}
+                    {t(`navigation.${setting}`)}
                   </Typography>
                 </MenuItem>
               ))}
@@ -172,5 +185,5 @@ function ResponsiveAppBar() {
       </Container>
     </AppBar>
   );
-}
-export default ResponsiveAppBar;
+};
+export default TopMenu;

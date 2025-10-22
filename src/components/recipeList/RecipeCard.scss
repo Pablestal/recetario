@@ -1,0 +1,35 @@
+.recipe-card {
+  min-width: 345px;
+
+  .MuiCardHeader-title {
+    font-size: 1rem;
+    font-weight: 600;
+  }
+
+  &__description {
+    height: 60px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 3; // Número de líneas que quieres mostrar
+    -webkit-box-orient: vertical;
+  }
+
+  &__icons {
+    margin-top: 15px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  &__icon-item {
+    display: flex;
+    align-items: center;
+    gap: 3px;
+
+    &__difficulty {
+      gap: 0;
+    }
+  }
+}

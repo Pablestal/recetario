@@ -1,0 +1,132 @@
+{
+  "title": "Create a new recipe",
+  "fields": {
+    "name": {
+      "label": "Name",
+      "placeholder": "Enter recipe name"
+    },
+    "description": {
+      "label": "Description",
+      "placeholder": "Describe your recipe"
+    },
+    "prepTime": {
+      "label": "Prep Time"
+    },
+    "servings": {
+      "label": "Servings"
+    },
+    "difficulty": {
+      "label": "Difficulty"
+    },
+    "tags": {
+      "label": "Tags",
+      "numberLabel": "tags"
+    }
+  },
+  "validation": {
+    "name": {
+      "required": "Recipe name is required",
+      "minLength": "Name must be at least 3 characters long",
+      "maxLength": "Name cannot exceed {{max}} characters"
+    },
+    "description": {
+      "maxLength": "Description cannot exceed {{max}} characters"
+    },
+    "prepTime": {
+      "required": "Preparation time is required",
+      "invalid": "Must be a valid number",
+      "min": "Time must be greater than 0 minutes",
+      "max": "Time cannot exceed 999 minutes"
+    },
+    "servings": {
+      "required": "Number of servings is required",
+      "invalid": "Must be a valid number",
+      "min": "Must serve at least 1 portion",
+      "max": "Cannot exceed 99 servings"
+    },
+    "difficulty": {
+      "required": "Please select recipe difficulty",
+      "max": "Difficulty cannot be greater than 5"
+    },
+    "ingredients": {
+      "required": "Add at least one ingredient"
+    },
+    "steps": {
+      "required": "Add at least one step"
+    }
+  },
+  "ingredients": {
+    "title": "Ingredients",
+    "subtitle": "Add ingredients with their amount. Optional ingredients can be marked.",
+    "fields": {
+      "name": {
+        "label": "Ingredient Name",
+        "placeholder": "Enter ingredient name"
+      },
+      "amount": {
+        "label": "Amount",
+        "placeholder": "e.g., 2 cups, 500g"
+      },
+      "optional": {
+        "label": "Optional",
+        "yes": "Yes",
+        "no": "No"
+      }
+    },
+    "buttons": {
+      "add": "Add"
+    },
+    "list": {
+      "optional": "(Optional)",
+      "delete": "Delete ingredient"
+    }
+  },
+  "steps": {
+    "title": "Steps",
+    "subtitle": "Add a step with a description and an optional tip",
+    "fields": {
+      "description": {
+        "label": "Step description",
+        "placeholder": "Describe what to do in this step"
+      },
+      "tip": {
+        "label": "Tip",
+        "placeholder": "Optional cooking tip or advice"
+      }
+    },
+    "buttons": {
+      "add": "Add"
+    },
+    "list": {
+      "delete": "Delete step"
+    }
+  },
+  "images": {
+    "title": "Images",
+    "subtitle": "Insert image URL",
+    "fields": {
+      "url": {
+        "label": "Image URL",
+        "placeholder": "Enter image URL"
+      }
+    },
+    "buttons": {
+      "add": "Add"
+    },
+    "list": {
+      "alt": "Recipe Image {{number}}",
+      "delete": "Delete image"
+    }
+  },
+  "buttons": {
+    "save": "Save Recipe",
+    "cancel": "Cancel",
+    "addIngredient": "Add Ingredient",
+    "addStep": "Add Step"
+  },
+  "messages": {
+    "success": "Recipe created successfully!",
+    "error": "Please correct the errors in the form before continuing.",
+    "characters": "{{current}}/{{max}} characters"
+  }
+}
