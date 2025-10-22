@@ -26,7 +26,6 @@ const NUMERIC_MAX_LENGTH = 3;
 const CreateRecipe = () => {
   const { t } = useTranslation("createRecipe");
   const { addRecipe, loading } = useRecipeStore();
-  const getRecipes = useRecipeStore((state) => state.getRecipes);
 
   const validationRules = {
     name: (value) => {
@@ -137,7 +136,6 @@ const CreateRecipe = () => {
         };
 
         await addRecipe(recipeToSubmit);
-        await getRecipes();
         setSubmitSuccess(true);
 
         setRecipeForm(recipe);

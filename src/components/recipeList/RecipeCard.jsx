@@ -46,7 +46,11 @@ const RecipeCard = (props) => {
             title={props.recipe.name}
           />
           <CardContent>
-            <Typography variant="body2" sx={{ color: "text.secondary" }}>
+            <Typography
+              variant="body2"
+              sx={{ color: "text.secondary" }}
+              className="recipe-card__description"
+            >
               {props.recipe.description}
             </Typography>
             <div className="recipe-card__icons">
