@@ -22,7 +22,7 @@ const ImagesForm = (props) => {
 
   const handleAddImage = () => {
     if (newImage.url.trim()) {
-      handleImagesUpdate(newImage);
+      handleImagesUpdate({ url: newImage.url });
       setNewImage(imageTemplate);
     }
   };

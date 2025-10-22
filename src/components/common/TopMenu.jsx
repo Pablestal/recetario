@@ -51,6 +51,11 @@ const TopMenu = () => {
     handleCloseNavMenu();
   };
 
+  const goHome = () => {
+    navigate("/");
+    handleCloseNavMenu();
+  };
+
   return (
     <AppBar position="fixed">
       <Container maxWidth="xl">
@@ -62,7 +67,7 @@ const TopMenu = () => {
             variant="h6"
             noWrap
             component="a"
-            href="/"
+            onClick={goHome}
             sx={{
               mr: 2,
               display: { xs: "none", md: "flex" },
@@ -71,6 +76,7 @@ const TopMenu = () => {
               letterSpacing: ".3rem",
               color: "inherit",
               textDecoration: "none",
+              cursor: "pointer",
             }}
           >
             RECETARIO
@@ -116,7 +122,7 @@ const TopMenu = () => {
             variant="h5"
             noWrap
             component="a"
-            href="/"
+            onClick={goHome}
             sx={{
               mr: 2,
               display: { xs: "flex", md: "none" },
