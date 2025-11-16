@@ -1,0 +1,41 @@
+{
+  "login": "Iniciar Sesión",
+  "register": "Registrarse",
+  "createAccount": "Crear Cuenta",
+  "email": "Email",
+  "password": "Contraseña",
+  "confirmPassword": "Confirmar Contraseña",
+  "name": "Nombre",
+  "cancel": "Cancelar",
+  "loading": "Cargando...",
+  "noAccount": "¿No tienes cuenta?",
+  "registerHere": "Regístrate aquí",
+  "alreadyHaveAccount": "¿Ya tienes cuenta?",
+  "loginHere": "Inicia sesión aquí",
+  "passwordHelper": "Mínimo 6 caracteres",
+  "validation": {
+    "email": {
+      "required": "El email es obligatorio",
+      "invalid": "Email no válido"
+    },
+    "password": {
+      "required": "La contraseña es obligatoria",
+      "minLength": "La contraseña debe tener al menos 6 caracteres"
+    },
+    "confirmPassword": {
+      "required": "Confirma tu contraseña",
+      "noMatch": "Las contraseñas no coinciden"
+    },
+    "name": {
+      "required": "El nombre es obligatorio",
+      "minLength": "El nombre debe tener al menos 2 caracteres"
+    }
+  },
+  "errors": {
+    "loginError": "Error al iniciar sesión",
+    "registerError": "Error al registrarse"
+  },
+  "success": {
+    "registrationSuccess": "¡Cuenta creada! Revisa tu email para confirmar."
+  }
+}
