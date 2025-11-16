@@ -11,6 +11,8 @@
       "quickLinks": "Enlaces rápidos",
       "followUs": "Síguenos",
       "rights": "Todos los derechos reservados."
-    }
+    },
+    "login": "Iniciar sesión",
+    "register": "Registrarse"
   }
 }
