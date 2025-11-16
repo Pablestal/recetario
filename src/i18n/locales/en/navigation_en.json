@@ -11,6 +11,8 @@
       "quickLinks": "Quick Links",
       "followUs": "Follow Us",
       "rights": "All rights reserved."
-    }
+    },
+    "login": "Login",
+    "register": "Register"
   }
 }

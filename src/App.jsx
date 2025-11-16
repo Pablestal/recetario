@@ -10,8 +10,21 @@ import { ThemeProvider } from "@mui/material/styles";
 import theme from "./MuiTheme";
 import CreateRecipe from "./pages/CreateRecipe";
 import RecipeDetailsPage from "./pages/RecipeDetailsPage";
+import { useEffect } from "react";
+import { useAuthStore } from "./stores/useAuthStore";
+import Loading from "./components/common/Loading";
 
 const App = () => {
+  const { initialize, loading } = useAuthStore();
+
+  useEffect(() => {
+    initialize();
+  }, [initialize]);
+
+  if (loading) {
+    return <Loading />;
+  }
+
   return (
     <>
       <ThemeProvider theme={theme}>

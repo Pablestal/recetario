@@ -1,7 +1,13 @@
 import { create } from "zustand";
 import axios from "axios";
+import { useAuthStore } from "./useAuthStore";
 
 const API_URL = `${import.meta.env.VITE_API_URL || "http://localhost:3000"}/recipes`;
+
+const getAuthHeaders = async () => {
+  const token = await useAuthStore.getState().getToken();
+  return token ? { Authorization: `Bearer ${token}` } : {};
+};
 
 export const useRecipeStore = create((set) => ({
   recipes: [],
@@ -12,7 +18,8 @@ export const useRecipeStore = create((set) => ({
   getRecipes: async () => {
     set({ loading: true, error: null });
     try {
-      const response = await axios.get(API_URL);
+      const headers = await getAuthHeaders();
+      const response = await axios.get(API_URL, { headers });
       set({ recipes: response.data.data, loading: false });
     } catch (error) {
       set({ error: error.message, loading: false });
@@ -22,7 +29,8 @@ export const useRecipeStore = create((set) => ({
   getRecipeById: async (id) => {
     set({ loading: true, error: null });
     try {
-      const response = await axios.get(`${API_URL}/${id}`);
+      const headers = await getAuthHeaders();
+      const response = await axios.get(`${API_URL}/${id}`, { headers });
       set({ currentRecipe: response.data.data, loading: false });
     } catch (error) {
       set({ error: error.message, loading: false });
@@ -32,12 +40,12 @@ export const useRecipeStore = create((set) => ({
   addRecipe: async (newRecipe) => {
     set({ loading: true, error: null });
     try {
-      const response = await axios.post(API_URL, newRecipe);
+      const headers = await getAuthHeaders();
+      const response = await axios.post(API_URL, newRecipe, { headers });
       set((state) => ({
         recipes: [...state.recipes, response.data.data],
         loading: false,
       }));
-      return response.data.data;
     } catch (error) {
       set({ error: error.message, loading: false });
       throw error;
@@ -47,28 +55,34 @@ export const useRecipeStore = create((set) => ({
   updateRecipe: async (id, updatedRecipe) => {
     set({ loading: true, error: null });
     try {
-      const response = await axios.put(`${API_URL}/${id}`, updatedRecipe);
+      const headers = await getAuthHeaders();
+      const response = await axios.put(`${API_URL}/${id}`, updatedRecipe, {
+        headers,
+      });
       set((state) => ({
         recipes: state.recipes.map((recipe) =>
-          recipe.id === id ? response.data : recipe
+          recipe.id === id ? response.data.data : recipe
         ),
         loading: false,
       }));
     } catch (error) {
       set({ error: error.message, loading: false });
+      throw error;
     }
   },
 
   deleteRecipe: async (id) => {
     set({ loading: true, error: null });
     try {
-      await axios.delete(`${API_URL}/${id}`);
+      const headers = await getAuthHeaders();
+      await axios.delete(`${API_URL}/${id}`, { headers });
       set((state) => ({
         recipes: state.recipes.filter((recipe) => recipe.id !== id),
         loading: false,
       }));
     } catch (error) {
       set({ error: error.message, loading: false });
+      throw error;
     }
   },
 }));

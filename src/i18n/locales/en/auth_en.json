@@ -1,0 +1,41 @@
+{
+  "login": "Login",
+  "register": "Register",
+  "createAccount": "Create Account",
+  "email": "Email",
+  "password": "Password",
+  "confirmPassword": "Confirm Password",
+  "name": "Name",
+  "cancel": "Cancel",
+  "loading": "Loading...",
+  "noAccount": "Don't have an account?",
+  "registerHere": "Register here",
+  "alreadyHaveAccount": "Already have an account?",
+  "loginHere": "Login here",
+  "passwordHelper": "Minimum 6 characters",
+  "validation": {
+    "email": {
+      "required": "Email is required",
+      "invalid": "Invalid email"
+    },
+    "password": {
+      "required": "Password is required",
+      "minLength": "Password must be at least 6 characters"
+    },
+    "confirmPassword": {
+      "required": "Please confirm your password",
+      "noMatch": "Passwords do not match"
+    },
+    "name": {
+      "required": "Name is required",
+      "minLength": "Name must be at least 2 characters"
+    }
+  },
+  "errors": {
+    "loginError": "Login error",
+    "registerError": "Registration error"
+  },
+  "success": {
+    "registrationSuccess": "Account created! Check your email to confirm."
+  }
+}
