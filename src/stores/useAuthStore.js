@@ -6,6 +6,7 @@ export const useAuthStore = create((set, get) => ({
   profile: null,
   session: null,
   loading: true,
+  authListener: null,
 
   // Register new user
   signUp: async (email, password, userData = {}) => {
@@ -98,12 +99,44 @@ export const useAuthStore = create((set, get) => ({
     return data;
   },
 
-  // Get current session token
+  // Get current session token (with automatic refresh)
   getToken: async () => {
     const {
       data: { session },
+      error,
     } = await supabase.auth.getSession();
-    return session?.access_token || null;
+
+    if (error) {
+      console.error("Error getting session:", error);
+      return null;
+    }
+
+    // If session exists, check if token needs refresh
+    if (session) {
+      const expiresAt = session.expires_at; // Unix timestamp in seconds
+      const now = Math.floor(Date.now() / 1000);
+      const timeUntilExpiry = expiresAt - now;
+
+      // Refresh token if it expires in less than 5 minutes
+      if (timeUntilExpiry < 300) {
+        const { data, error: refreshError } =
+          await supabase.auth.refreshSession();
+
+        if (refreshError) {
+          console.error("Error refreshing session:", refreshError);
+          return session.access_token;
+        }
+
+        if (data.session) {
+          set({ session: data.session, user: data.user });
+          return data.session.access_token;
+        }
+      }
+
+      return session.access_token;
+    }
+
+    return null;
   },
 
   // Initialize auth state
@@ -124,23 +157,38 @@ export const useAuthStore = create((set, get) => ({
 
       set({ loading: false });
 
-      // Listen for auth state changes
-      supabase.auth.onAuthStateChange(async (event, session) => {
-        console.log("Auth state changed:", event);
+      // Listen for auth state changes (only if not already listening)
+      if (!get().authListener) {
+        const { data: authListener } = supabase.auth.onAuthStateChange(
+          async (event, session) => {
+            console.log("Auth state changed:", event);
 
-        if (session?.user) {
-          set({
-            user: session.user,
-            session: session,
-          });
-          await get().loadProfile(session.user.id);
-        } else {
-          set({ user: null, profile: null, session: null });
-        }
-      });
+            if (session?.user) {
+              set({
+                user: session.user,
+                session: session,
+              });
+              await get().loadProfile(session.user.id);
+            } else {
+              set({ user: null, profile: null, session: null });
+            }
+          }
+        );
+
+        set({ authListener });
+      }
     } catch (error) {
       console.error("Error initializing auth:", error);
       set({ loading: false });
+    }
+  },
+
+  // Cleanup auth listener
+  cleanup: () => {
+    const authListener = get().authListener;
+    if (authListener?.subscription) {
+      authListener.subscription.unsubscribe();
+      set({ authListener: null });
     }
   },
 }));

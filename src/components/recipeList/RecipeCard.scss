@@ -11,7 +11,7 @@
     overflow: hidden;
     text-overflow: ellipsis;
     display: -webkit-box;
-    -webkit-line-clamp: 3; // Número de líneas que quieres mostrar
+    -webkit-line-clamp: 3; // Number of lines to display
     -webkit-box-orient: vertical;
   }
 

@@ -138,7 +138,7 @@ function RecipeDetails() {
         <div className="recipe-details__steps">
           <div className="recipe-details__image-container">
             <img
-              src={recipe.images[0]?.url || fallbackImage}
+              src={recipe.main_image_url || fallbackImage}
               alt="recipe_image"
               className="recipe-details__image"
             />

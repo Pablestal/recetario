@@ -1,8 +1,8 @@
-$mobile: 480px; // La mayoría de smartphones modernos
-$tablet: 768px; // iPads y tablets estándar
-$desktop: 1024px; // Laptops y monitores pequeños
-$large-desktop: 1440px; // Monitores estándar
-$extra-large-desktop: 1920px; // Monitores grandes
+$mobile: 480px; // Most modern smartphones
+$tablet: 768px; // iPads and standard tablets
+$desktop: 1024px; // Laptops and small monitors
+$large-desktop: 1440px; // Standard monitors
+$extra-large-desktop: 1920px; // Large monitors
 
 @mixin mobile {
   @media (max-width: #{$desktop - 1px}) {
@@ -58,7 +58,7 @@ $extra-large-desktop: 1920px; // Monitores grandes
   }
 }
 
-// Mixins personalizados para rangos específicos
+// Custom mixins for specific ranges
 @mixin between($min, $max) {
   @media (min-width: #{$min}) and (max-width: #{$max - 1px}) {
     @content;

@@ -1,75 +1,64 @@
 import "./ImagesForm.scss";
-import { useState } from "react";
-import { TextField, IconButton, Button } from "@mui/material";
-import AddIcon from "@mui/icons-material/Add";
+import { TextField, IconButton } from "@mui/material";
 import RemoveCircleOutlineIcon from "@mui/icons-material/RemoveCircleOutline";
 import { useTranslation } from "react-i18next";
 import fallbackImage from "../../assets/image-fallback.jpg";
 
 const ImagesForm = (props) => {
-  const { recipe, setRecipe, handleImagesUpdate } = props;
+  const { recipe, setRecipe, errors = {}, touched = {}, handleFieldBlur, validateField, setErrors } = props;
   const { t } = useTranslation("createRecipe");
 
-  const imageTemplate = {
-    url: "",
-  };
+  const handleImageUpdate = (e) => {
+    const { value } = e.target;
 
-  const [newImage, setNewImage] = useState(imageTemplate);
+    setRecipe((prevRecipe) => ({
+      ...prevRecipe,
+      mainImageURL: value,
+    }));
 
-  const handleNewImageUpdate = (e) => {
-    setNewImage({ ...newImage, url: e.target.value });
-  };
-
-  const handleAddImage = () => {
-    if (newImage.url.trim()) {
-      handleImagesUpdate({ url: newImage.url });
-      setNewImage(imageTemplate);
+    // Clear error if field becomes valid
+    if (errors.mainImageURL && validateField) {
+      const error = validateField("mainImageURL", value);
+      if (!error && setErrors) {
+        setErrors((prev) => ({
+          ...prev,
+          mainImageURL: null,
+        }));
+      }
     }
   };
 
-  const handleDeleteImage = (index) => {
-    const newImages = recipe.images.filter((img, i) => i !== index);
-    setRecipe({ ...recipe, images: newImages });
+  const handleDeleteImage = () => {
+    setRecipe((prevRecipe) => ({ ...prevRecipe, mainImageURL: "" }));
   };
+
+  const shouldShowError = touched.mainImageURL && errors.mainImageURL;
 
   return (
     <div className="images-form">
-      <div className="images-form__header">
-        <h2 className="images-form__title">{t("images.title")}</h2>
-        <p className="images-form__subtitle">{t("images.subtitle")}</p>
-      </div>
-
       <div className="images-form__inputs">
         <TextField
           id="imageUrl"
-          label={t("images.fields.url.label")}
-          placeholder={t("images.fields.url.placeholder")}
-          value={newImage.url}
+          label="Imagen de portada"
+          placeholder="Introduce la URL de la imagen"
+          helperText={shouldShowError ? errors.mainImageURL : "Añade una URL de imagen para mostrar como portada de la receta"}
+          value={recipe.mainImageURL || ""}
           size="small"
           fullWidth
           variant="filled"
-          onChange={handleNewImageUpdate}
+          onChange={handleImageUpdate}
+          onBlur={() => handleFieldBlur && handleFieldBlur("mainImageURL")}
+          error={!!shouldShowError}
         />
-
-        <Button
-          variant="contained"
-          color="secondary"
-          className="images-form__add-button"
-          onClick={handleAddImage}
-          startIcon={<AddIcon />}
-          disabled={!newImage.url.trim()}
-        >
-          {t("images.buttons.add")}
-        </Button>
       </div>
 
-      <ul className="images-form__list">
-        {recipe.images.map((image, index) => (
-          <li key={index} className="images-form__list-item">
+      {recipe.mainImageURL && (
+        <div className="images-form__preview">
+          <div className="images-form__image-wrapper">
             <img
-              src={image.url}
-              alt={t("images.list.alt", { number: index + 1 })}
-              style={{ width: "100px", height: "100px", objectFit: "cover" }}
+              src={recipe.mainImageURL}
+              alt={t("images.preview.alt")}
+              className="images-form__preview-image"
               onError={(e) => {
                 e.target.src = fallbackImage;
                 e.target.alt = "Image not found";
@@ -80,23 +69,21 @@ const ImagesForm = (props) => {
               aria-label={t("images.list.delete")}
               title={t("images.list.delete")}
               size="small"
+              className="images-form__delete-button"
               sx={{
                 color: "#ed5858",
-                position: "absolute",
-                top: 0,
-                left: 0,
                 backgroundColor: "rgba(255, 255, 255, 0.8)",
                 "&:hover": {
                   backgroundColor: "rgba(199, 197, 197, 0.9)",
                 },
               }}
-              onClick={() => handleDeleteImage(index)}
+              onClick={handleDeleteImage}
             >
               <RemoveCircleOutlineIcon />
             </IconButton>
-          </li>
-        ))}
-      </ul>
+          </div>
+        </div>
+      )}
     </div>
   );
 };
