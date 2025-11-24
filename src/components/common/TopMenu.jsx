@@ -79,6 +79,21 @@ const TopMenu = () => {
     }
   };
 
+  const handleOpenLogin = () => {
+    setRegisterOpen(false);
+    setLoginOpen(true);
+  };
+
+  const handleOpenRegister = () => {
+    setLoginOpen(false);
+    setRegisterOpen(true);
+  };
+
+  const handleCloseDialogs = () => {
+    setLoginOpen(false);
+    setRegisterOpen(false);
+  };
+
   const handleSwitchToRegister = () => {
     setLoginOpen(false);
     setRegisterOpen(true);
@@ -203,7 +218,7 @@ const TopMenu = () => {
                   <Button
                     color="inherit"
                     variant="outlined"
-                    onClick={() => setLoginOpen(true)}
+                    onClick={handleOpenLogin}
                     sx={{
                       borderColor: "white",
                       "&:hover": {
@@ -217,7 +232,7 @@ const TopMenu = () => {
                   <Button
                     color="inherit"
                     variant="contained"
-                    onClick={() => setRegisterOpen(true)}
+                    onClick={handleOpenRegister}
                     sx={{
                       bgcolor: "white",
                       color: "primary.main",
@@ -239,7 +254,7 @@ const TopMenu = () => {
                 >
                   <IconButton
                     color="inherit"
-                    onClick={() => setLoginOpen(true)}
+                    onClick={handleOpenLogin}
                     sx={{
                       padding: "8px",
                       "&:hover": { bgcolor: "rgba(255,255,255,0.1)" },
@@ -249,7 +264,7 @@ const TopMenu = () => {
                   </IconButton>
                   <IconButton
                     color="inherit"
-                    onClick={() => setRegisterOpen(true)}
+                    onClick={handleOpenRegister}
                     sx={{
                       color: "white",
                       padding: "8px",
@@ -306,12 +321,12 @@ const TopMenu = () => {
       {/* Login and Register Dialogs */}
       <LoginDialog
         open={loginOpen}
-        onClose={() => setLoginOpen(false)}
+        onClose={handleCloseDialogs}
         onSwitchToRegister={handleSwitchToRegister}
       />
       <RegisterDialog
         open={registerOpen}
-        onClose={() => setRegisterOpen(false)}
+        onClose={handleCloseDialogs}
         onSwitchToLogin={handleSwitchToLogin}
       />
     </>

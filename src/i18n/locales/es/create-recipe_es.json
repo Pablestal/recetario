@@ -10,7 +10,7 @@
       "placeholder": "Describe tu receta"
     },
     "prepTime": {
-      "label": "Preparación"
+      "label": "Tiempo"
     },
     "servings": {
       "label": "Raciones"
@@ -18,9 +18,15 @@
     "difficulty": {
       "label": "Dificultad"
     },
+    "calories": {
+      "label": "Calorías"
+    },
     "tags": {
       "label": "Etiquetas",
       "numberLabel": "etiquetas"
+    },
+    "isPublic": {
+      "label": "Receta pública"
     }
   },
   "validation": {
@@ -48,6 +54,14 @@
       "required": "Por favor selecciona la dificultad de la receta",
       "max": "La dificultad no puede ser mayor a 5"
     },
+    "calories": {
+      "invalid": "Debe ser un número válido",
+      "min": "Las calorías deben ser al menos 1",
+      "max": "Las calorías no pueden exceder 9999"
+    },
+    "mainImageURL": {
+      "invalid": "Debe ser una URL de imagen válida (.jpg, .jpeg, .png, .gif, .bmp, .webp, .svg)"
+    },
     "ingredients": {
       "required": "Agrega al menos un ingrediente"
     },
@@ -57,15 +71,19 @@
   },
   "ingredients": {
     "title": "Ingredientes",
-    "subtitle": "Agrega ingredientes con su cantidad. Los ingredientes opcionales pueden ser marcados.",
+    "subtitle": "Agrega todos los ingredientes necesarios. El orden en el que los añadas será el que aparezca en el detalle de la receta",
     "fields": {
       "name": {
         "label": "Nombre del Ingrediente",
-        "placeholder": "Ingresa el nombre del ingrediente"
+        "placeholder": "Patata"
       },
-      "amount": {
+      "quantity": {
         "label": "Cantidad",
-        "placeholder": "ej., 2 tazas, 500g"
+        "placeholder": "2"
+      },
+      "unit": {
+        "label": "Unidad",
+        "placeholder": "Taza"
       },
       "optional": {
         "label": "Opcional",
@@ -74,16 +92,19 @@
       }
     },
     "buttons": {
-      "add": "Añadir"
+      "add": "Añadir ingrediente"
     },
     "list": {
       "optional": "(Opcional)",
-      "delete": "Eliminar ingrediente"
+      "delete": "Eliminar ingrediente",
+      "moveUp": "Mover arriba",
+      "moveDown": "Mover abajo",
+      "dropHere": "Soltar aquí"
     }
   },
   "steps": {
     "title": "Pasos",
-    "subtitle": "Agrega un paso con una descripción y un consejo opcional",
+    "subtitle": "Agrega todos los pasos necesarios. El orden en el que los añadas será el que aparezca en el detalle de la receta",
     "fields": {
       "description": {
         "label": "Descripción del paso",
@@ -92,6 +113,10 @@
       "tip": {
         "label": "Consejo",
         "placeholder": "Consejo de cocina opcional o recomendación"
+      },
+      "imageUrl": {
+        "label": "URL de imagen (opcional)",
+        "placeholder": "https://ejemplo.com/imagen-paso.jpg"
       }
     },
     "buttons": {
@@ -102,21 +127,27 @@
     }
   },
   "images": {
-    "title": "Imágenes",
-    "subtitle": "Inserta la URL de la imagen",
+    "title": "Imagen",
+    "subtitle": "Inserta la URL de la imagen principal de la receta",
     "fields": {
       "url": {
         "label": "URL de la Imagen",
         "placeholder": "URL de la imagen de la receta"
       }
     },
-    "buttons": {
-      "add": "Añadir"
+    "preview": {
+      "alt": "Imagen de la receta"
     },
     "list": {
-      "alt": "Imagen de Receta {{number}}",
       "delete": "Eliminar imagen"
     }
+  },
+  "stepper": {
+    "basicInfo": "Información Básica",
+    "ingredients": "Ingredientes",
+    "steps": "Pasos",
+    "back": "Atrás",
+    "next": "Siguiente"
   },
   "buttons": {
     "save": "Guardar Receta",
@@ -125,6 +156,7 @@
   "messages": {
     "success": "¡Receta creada exitosamente!",
     "error": "Por favor, corrige los errores en el formulario antes de continuar.",
-    "characters": "{{current}}/{{max}} caracteres"
+    "characters": "{{current}}/{{max}} caracteres",
+    "requiredFields": "Campos obligatorios"
   }
 }

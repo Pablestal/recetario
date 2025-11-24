@@ -1,19 +1,6 @@
 @use "../../utils/breakpoints" as bp;
 
 .ingredients-form {
-  border: 1px solid #ccc;
-  border-radius: 10px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  padding: 10px;
-
-  &__header {
-    display: flex;
-    flex-wrap: wrap;
-    flex-direction: row;
-    align-items: baseline;
-    gap: 10px;
-  }
-
   &__subtitle {
     font-size: 16px;
     color: #858383;
@@ -49,10 +36,74 @@
 
   &__list {
     margin-top: 20px;
-    padding-left: 88px;
+    padding-top: 20px;
+    padding-left: 0;
+    border-top: 1px solid #e0e0e0;
     display: flex;
     flex-direction: column;
-    gap: 1px;
+    gap: 15px;
     list-style: none;
+  }
+
+  &__list-item {
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+    align-items: center;
+    padding: 10px;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    background-color: #fafafa;
+    cursor: move;
+    transition: all 0.2s ease;
+    touch-action: none; // Prevents default touch behaviors for better drag on mobile
+    user-select: none; // Prevents text selection during drag
+
+    &:hover {
+      background-color: #f5f5f5;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+
+    &.dragging {
+      opacity: 0.5;
+      background-color: #e3f2fd;
+      border: 2px dashed #2196f3;
+      transform: scale(1.02);
+    }
+
+    @include bp.mobile {
+      cursor: grab;
+
+      &:active {
+        cursor: grabbing;
+      }
+    }
+  }
+
+  &__drag-handle {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: grab;
+    padding: 4px;
+
+    &:active {
+      cursor: grabbing;
+    }
+  }
+
+  &__item-controls {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+  }
+
+  &__item-fields {
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+    flex-grow: 1;
+    flex-wrap: wrap;
+    align-items: center;
   }
 }

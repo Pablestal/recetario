@@ -3,36 +3,36 @@ import { createTheme } from "@mui/material/styles";
 const theme = createTheme({
   palette: {
     primary: {
-      light: "#81c784", // Verde claro, similar a hojas tiernas
-      main: "#43a047", // Verde medio, fresco y natural
-      dark: "#2e7d32", // Verde oscuro, representa hierbas intensas
+      light: "#81c784", // Light green, similar to tender leaves
+      main: "#43a047", // Medium green, fresh and natural
+      dark: "#2e7d32", // Dark green, represents intense herbs
       contrastText: "#fff",
     },
     secondary: {
-      light: "#a5d6a7", // Verde muy claro, como brotes jóvenes
-      main: "#66bb6a", // Verde ligeramente más claro que el primario
-      dark: "#388e3c", // Verde oscuro, como hojas de cilantro o albahaca
+      light: "#a5d6a7", // Very light green, like young sprouts
+      main: "#66bb6a", // Slightly lighter green than primary
+      dark: "#388e3c", // Dark green, like cilantro or basil leaves
       contrastText: "#fff",
     },
     background: {
-      default: "#f5f5f5", // Fondo suave como harina
-      paper: "#ffffff", // Blanco limpio para las tarjetas
+      default: "#f5f5f5", // Soft background like flour
+      paper: "#ffffff", // Clean white for cards
     },
     text: {
-      primary: "#263238", // Gris muy oscuro casi negro, para buena legibilidad
-      secondary: "#546e7a", // Gris azulado medio para textos secundarios
+      primary: "#263238", // Very dark gray almost black, for good readability
+      secondary: "#546e7a", // Medium bluish gray for secondary texts
     },
     error: {
-      main: "#d32f2f", // Rojo tradicional para errores
+      main: "#d32f2f", // Traditional red for errors
     },
     warning: {
-      main: "#fb8c00", // Naranja para advertencias
+      main: "#fb8c00", // Orange for warnings
     },
     info: {
-      main: "#0288d1", // Azul para información
+      main: "#0288d1", // Blue for information
     },
     success: {
-      main: "#388e3c", // Verde para éxito
+      main: "#388e3c", // Green for success
     },
   },
   typography: {
@@ -57,11 +57,11 @@ const theme = createTheme({
     },
     button: {
       fontWeight: 600,
-      textTransform: "none", // Evitar mayúsculas en botones
+      textTransform: "none", // Avoid uppercase in buttons
     },
   },
   shape: {
-    borderRadius: 8, // Bordes ligeramente redondeados
+    borderRadius: 8, // Slightly rounded borders
   },
   components: {
     MuiButton: {
