@@ -13,6 +13,7 @@ import RecipeDetailsPage from "./pages/RecipeDetailsPage";
 import { useEffect } from "react";
 import { useAuthStore } from "./stores/useAuthStore";
 import Loading from "./components/common/Loading";
+import ProtectedRoute from "./components/common/ProtectedRoute";
 
 const App = () => {
   const { initialize, loading, cleanup } = useAuthStore();
@@ -39,7 +40,14 @@ const App = () => {
             <Routes>
               <Route path="/" element={<HomePage />} />
               <Route path="/recipes" element={<RecipeListPage />} />
-              <Route path="/recipe-creation" element={<RecipeCreationPage />} />
+              <Route
+                path="/recipe-creation"
+                element={
+                  <ProtectedRoute>
+                    <RecipeCreationPage />
+                  </ProtectedRoute>
+                }
+              />
               <Route path="/shopping-list" element={<ShoppingListPage />} />
               <Route path="/weeekly-menu" element={<WeeklyMenuPage />} />
               <Route

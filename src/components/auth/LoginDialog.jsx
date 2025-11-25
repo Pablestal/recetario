@@ -14,10 +14,12 @@ import {
 } from "@mui/material";
 import { Visibility, VisibilityOff } from "@mui/icons-material";
 import { useTranslation } from "react-i18next";
+import { useNavigate } from "react-router-dom";
 import { useAuthStore } from "../../stores/useAuthStore";
 
 const LoginDialog = ({ open, onClose, onSwitchToRegister }) => {
   const { t } = useTranslation("auth");
+  const navigate = useNavigate();
 
   const [formData, setFormData] = useState({
     email: "",
@@ -31,6 +33,8 @@ const LoginDialog = ({ open, onClose, onSwitchToRegister }) => {
   const [showPassword, setShowPassword] = useState(false);
 
   const signIn = useAuthStore((state) => state.signIn);
+  const redirectPath = useAuthStore((state) => state.redirectPath);
+  const clearRedirectPath = useAuthStore((state) => state.clearRedirectPath);
 
   const validationRules = {
     email: (value) => {
@@ -117,11 +121,20 @@ const LoginDialog = ({ open, onClose, onSwitchToRegister }) => {
       setLoading(true);
       try {
         await signIn(formData.email, formData.password);
-        onClose();
+
+        // If there's a redirect path, navigate to it BEFORE closing modal
+        if (redirectPath) {
+          navigate(redirectPath);
+        }
+
+        // Clean up form state
         setFormData({ email: "", password: "" });
         setErrors({});
         setTouched({});
         setSubmitAttempted(false);
+
+        // Close modal (handleClose will clear redirectPath)
+        onClose();
       } catch (err) {
         setGeneralError(err.message || t("errors.loginError"));
       } finally {
@@ -138,6 +151,7 @@ const LoginDialog = ({ open, onClose, onSwitchToRegister }) => {
 
   const handleClose = () => {
     onClose();
+    clearRedirectPath(); // Clear redirect path when closing without login
     setFormData({ email: "", password: "" });
     setErrors({});
     setTouched({});

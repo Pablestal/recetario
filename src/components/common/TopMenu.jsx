@@ -35,11 +35,13 @@ const TopMenu = () => {
 
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
-  const [loginOpen, setLoginOpen] = React.useState(false);
   const [registerOpen, setRegisterOpen] = React.useState(false);
 
   const user = useAuthStore((state) => state.user);
   const signOut = useAuthStore((state) => state.signOut);
+  const showLoginModal = useAuthStore((state) => state.showLoginModal);
+  const openLoginModal = useAuthStore((state) => state.openLoginModal);
+  const closeLoginModal = useAuthStore((state) => state.closeLoginModal);
 
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
@@ -81,27 +83,27 @@ const TopMenu = () => {
 
   const handleOpenLogin = () => {
     setRegisterOpen(false);
-    setLoginOpen(true);
+    openLoginModal();
   };
 
   const handleOpenRegister = () => {
-    setLoginOpen(false);
+    closeLoginModal();
     setRegisterOpen(true);
   };
 
   const handleCloseDialogs = () => {
-    setLoginOpen(false);
+    closeLoginModal();
     setRegisterOpen(false);
   };
 
   const handleSwitchToRegister = () => {
-    setLoginOpen(false);
+    closeLoginModal();
     setRegisterOpen(true);
   };
 
   const handleSwitchToLogin = () => {
     setRegisterOpen(false);
-    setLoginOpen(true);
+    openLoginModal();
   };
 
   return (
@@ -320,7 +322,7 @@ const TopMenu = () => {
 
       {/* Login and Register Dialogs */}
       <LoginDialog
-        open={loginOpen}
+        open={showLoginModal}
         onClose={handleCloseDialogs}
         onSwitchToRegister={handleSwitchToRegister}
       />

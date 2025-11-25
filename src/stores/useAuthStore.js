@@ -7,6 +7,8 @@ export const useAuthStore = create((set, get) => ({
   session: null,
   loading: true,
   authListener: null,
+  redirectPath: null,
+  showLoginModal: false,
 
   // Register new user
   signUp: async (email, password, userData = {}) => {
@@ -113,7 +115,7 @@ export const useAuthStore = create((set, get) => ({
       }
 
       if (!session) {
-        console.error("No session found");
+        // No session is normal for unauthenticated users
         return null;
       }
 
@@ -188,5 +190,25 @@ export const useAuthStore = create((set, get) => ({
       authListener.subscription.unsubscribe();
       set({ authListener: null });
     }
+  },
+
+  // Set redirect path for after login
+  setRedirectPath: (path) => {
+    set({ redirectPath: path });
+  },
+
+  // Clear redirect path
+  clearRedirectPath: () => {
+    set({ redirectPath: null });
+  },
+
+  // Open login modal
+  openLoginModal: () => {
+    set({ showLoginModal: true });
+  },
+
+  // Close login modal
+  closeLoginModal: () => {
+    set({ showLoginModal: false });
   },
 }));
