@@ -1,5 +1,6 @@
 {
   "title": "Crear una nueva receta",
+  "editTitle": "Editar receta",
   "fields": {
     "name": {
       "label": "Nombre",
@@ -151,10 +152,12 @@
   },
   "buttons": {
     "save": "Guardar Receta",
+    "update": "Actualizar Receta",
     "cancel": "Cancelar"
   },
   "messages": {
     "success": "¡Receta creada exitosamente!",
+    "updateSuccess": "¡Receta actualizada exitosamente!",
     "error": "Por favor, corrige los errores en el formulario antes de continuar.",
     "characters": "{{current}}/{{max}} caracteres",
     "requiredFields": "Campos obligatorios"
