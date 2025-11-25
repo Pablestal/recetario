@@ -1,5 +1,6 @@
 {
   "title": "Create a new recipe",
+  "editTitle": "Edit recipe",
   "fields": {
     "name": {
       "label": "Name",
@@ -10,7 +11,7 @@
       "placeholder": "Describe your recipe"
     },
     "prepTime": {
-      "label": "Prep Time"
+      "label": "Time"
     },
     "servings": {
       "label": "Servings"
@@ -18,9 +19,15 @@
     "difficulty": {
       "label": "Difficulty"
     },
+    "calories": {
+      "label": "Calories"
+    },
     "tags": {
       "label": "Tags",
       "numberLabel": "tags"
+    },
+    "isPublic": {
+      "label": "Public recipe"
     }
   },
   "validation": {
@@ -48,6 +55,14 @@
       "required": "Please select recipe difficulty",
       "max": "Difficulty cannot be greater than 5"
     },
+    "calories": {
+      "invalid": "Must be a valid number",
+      "min": "Calories must be at least 1",
+      "max": "Calories cannot exceed 9999"
+    },
+    "mainImageURL": {
+      "invalid": "Must be a valid image URL (.jpg, .jpeg, .png, .gif, .bmp, .webp, .svg)"
+    },
     "ingredients": {
       "required": "Add at least one ingredient"
     },
@@ -57,15 +72,19 @@
   },
   "ingredients": {
     "title": "Ingredients",
-    "subtitle": "Add ingredients with their amount. Optional ingredients can be marked.",
+    "subtitle": "Add all the necessary ingredients. The order in which you add them will be the order they appear in the recipe details",
     "fields": {
       "name": {
-        "label": "Ingredient Name",
-        "placeholder": "Enter ingredient name"
+        "label": "Ingredient name",
+        "placeholder": "Potato"
       },
-      "amount": {
+      "quantity": {
         "label": "Amount",
-        "placeholder": "e.g., 2 cups, 500g"
+        "placeholder": "2"
+      },
+      "unit": {
+        "label": "Unit",
+        "placeholder": "Cup"
       },
       "optional": {
         "label": "Optional",
@@ -74,16 +93,19 @@
       }
     },
     "buttons": {
-      "add": "Add"
+      "add": "Add Ingredient"
     },
     "list": {
       "optional": "(Optional)",
-      "delete": "Delete ingredient"
+      "delete": "Delete ingredient",
+      "moveUp": "Move up",
+      "moveDown": "Move down",
+      "dropHere": "Drop here"
     }
   },
   "steps": {
     "title": "Steps",
-    "subtitle": "Add a step with a description and an optional tip",
+    "subtitle": "Add all necessary steps. The order in which you add them will be the order they appear in the recipe details",
     "fields": {
       "description": {
         "label": "Step description",
@@ -92,6 +114,10 @@
       "tip": {
         "label": "Tip",
         "placeholder": "Optional cooking tip or advice"
+      },
+      "imageUrl": {
+        "label": "Image URL (optional)",
+        "placeholder": "https://example.com/step-image.jpg"
       }
     },
     "buttons": {
@@ -102,31 +128,40 @@
     }
   },
   "images": {
-    "title": "Images",
-    "subtitle": "Insert image URL",
+    "title": "Image",
+    "subtitle": "Insert the main recipe image URL",
     "fields": {
       "url": {
         "label": "Image URL",
         "placeholder": "Enter image URL"
       }
     },
-    "buttons": {
-      "add": "Add"
+    "preview": {
+      "alt": "Recipe image"
     },
     "list": {
-      "alt": "Recipe Image {{number}}",
       "delete": "Delete image"
     }
   },
+  "stepper": {
+    "basicInfo": "Basic Info",
+    "ingredients": "Ingredients",
+    "steps": "Steps",
+    "back": "Back",
+    "next": "Next"
+  },
   "buttons": {
     "save": "Save Recipe",
+    "update": "Update Recipe",
     "cancel": "Cancel",
     "addIngredient": "Add Ingredient",
     "addStep": "Add Step"
   },
   "messages": {
     "success": "Recipe created successfully!",
+    "updateSuccess": "Recipe updated successfully!",
     "error": "Please correct the errors in the form before continuing.",
-    "characters": "{{current}}/{{max}} characters"
+    "characters": "{{current}}/{{max}} characters",
+    "requiredFields": "Required fields"
   }
 }

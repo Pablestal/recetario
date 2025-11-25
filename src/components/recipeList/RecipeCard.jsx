@@ -42,7 +42,7 @@ const RecipeCard = (props) => {
           />
           <CardMedia
             sx={{ height: 140 }}
-            image={props.recipe.images[0]?.url || imageFallback}
+            image={props.recipe.main_image_url || imageFallback}
             title={props.recipe.name}
           />
           <CardContent>
