@@ -101,42 +101,30 @@ export const useAuthStore = create((set, get) => ({
 
   // Get current session token (with automatic refresh)
   getToken: async () => {
-    const {
-      data: { session },
-      error,
-    } = await supabase.auth.getSession();
+    try {
+      const {
+        data: { session },
+        error,
+      } = await supabase.auth.getSession();
 
-    if (error) {
-      console.error("Error getting session:", error);
-      return null;
-    }
-
-    // If session exists, check if token needs refresh
-    if (session) {
-      const expiresAt = session.expires_at; // Unix timestamp in seconds
-      const now = Math.floor(Date.now() / 1000);
-      const timeUntilExpiry = expiresAt - now;
-
-      // Refresh token if it expires in less than 5 minutes
-      if (timeUntilExpiry < 300) {
-        const { data, error: refreshError } =
-          await supabase.auth.refreshSession();
-
-        if (refreshError) {
-          console.error("Error refreshing session:", refreshError);
-          return session.access_token;
-        }
-
-        if (data.session) {
-          set({ session: data.session, user: data.user });
-          return data.session.access_token;
-        }
+      if (error) {
+        console.error("Error getting session:", error);
+        return null;
       }
 
-      return session.access_token;
-    }
+      if (!session) {
+        console.error("No session found");
+        return null;
+      }
 
-    return null;
+      // Update store with latest session
+      set({ session, user: session.user });
+
+      return session.access_token;
+    } catch (error) {
+      console.error("Error in getToken:", error);
+      return null;
+    }
   },
 
   // Initialize auth state
@@ -164,12 +152,22 @@ export const useAuthStore = create((set, get) => ({
             console.log("Auth state changed:", event);
 
             if (session?.user) {
+              // Capture current state before updating
+              const currentUserId = get().user?.id;
+              const hasProfile = !!get().profile;
+
+              // Always update session to ensure we have the latest token
               set({
                 user: session.user,
                 session: session,
               });
-              await get().loadProfile(session.user.id);
-            } else {
+
+              // Only reload profile if user changed or not loaded yet
+              const newUserId = session.user.id;
+              if (currentUserId !== newUserId || !hasProfile) {
+                await get().loadProfile(session.user.id);
+              }
+            } else if (event === 'SIGNED_OUT') {
               set({ user: null, profile: null, session: null });
             }
           }

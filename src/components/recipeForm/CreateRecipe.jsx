@@ -273,7 +273,7 @@ const CreateRecipe = () => {
           const recipeToSubmit = {
             ...recipeForm,
             user_id: user.id,
-            createdDate: new Date().toISOString(),
+            created_at: new Date().toISOString(),
           };
 
           await addRecipe(recipeToSubmit);
@@ -364,7 +364,6 @@ const CreateRecipe = () => {
       return prev;
     });
   }, []);
-
 
   const handleDifficultyChange = useCallback(
     (_event, newValue) => {

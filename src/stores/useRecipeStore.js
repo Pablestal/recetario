@@ -85,6 +85,7 @@ export const useRecipeStore = create((set) => ({
       await axios.delete(`${API_URL}/${id}`, { headers });
       set((state) => ({
         recipes: state.recipes.filter((recipe) => recipe.id !== id),
+        currentRecipe: state.currentRecipe?.id === id ? null : state.currentRecipe,
         loading: false,
       }));
     } catch (error) {
