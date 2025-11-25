@@ -243,7 +243,7 @@ const IngredientForm = (props) => {
 
               <div className="ingredients-form__item-fields">
               <TextField
-                value={ingredient.name}
+                value={ingredient.name || ""}
                 size="small"
                 label={t("ingredients.fields.name.label")}
                 variant="outlined"
@@ -252,7 +252,7 @@ const IngredientForm = (props) => {
               />
 
               <TextField
-                value={ingredient.quantity}
+                value={ingredient.quantity || ""}
                 size="small"
                 label={t("ingredients.fields.quantity.label")}
                 variant="outlined"
@@ -261,7 +261,7 @@ const IngredientForm = (props) => {
               />
 
               <TextField
-                value={ingredient.unit}
+                value={ingredient.unit || ""}
                 size="small"
                 label={t("ingredients.fields.unit.label")}
                 variant="outlined"
