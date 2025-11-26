@@ -48,6 +48,14 @@ const App = () => {
                   </ProtectedRoute>
                 }
               />
+              <Route
+                path="/recipe-creation/:id"
+                element={
+                  <ProtectedRoute>
+                    <RecipeCreationPage />
+                  </ProtectedRoute>
+                }
+              />
               <Route path="/shopping-list" element={<ShoppingListPage />} />
               <Route path="/weeekly-menu" element={<WeeklyMenuPage />} />
               <Route

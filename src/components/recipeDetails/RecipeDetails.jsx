@@ -2,6 +2,7 @@ import "./RecipeDetails.scss";
 import { useEffect, useState, useRef } from "react";
 import Loading from "../common/Loading";
 import { useRecipeStore } from "../../stores/useRecipeStore";
+import { useAuthStore } from "../../stores/useAuthStore";
 import { useParams, useNavigate } from "react-router-dom";
 import AccessTimeIcon from "@mui/icons-material/AccessTime";
 import Typography from "@mui/material/Typography";
@@ -9,6 +10,7 @@ import RestaurantIcon from "@mui/icons-material/Restaurant";
 import LocalDiningIcon from "@mui/icons-material/LocalDiningOutlined";
 import LightbulbIcon from "@mui/icons-material/Lightbulb";
 import DeleteIcon from "@mui/icons-material/Delete";
+import EditIcon from "@mui/icons-material/Edit";
 import { IconButton } from "@mui/material";
 import { useTranslation } from "react-i18next";
 import DeleteConfirmationDialog from "./DeleteConfirmationDialog";
@@ -24,6 +26,7 @@ function RecipeDetails() {
   const loading = useRecipeStore((state) => state.loading);
   const error = useRecipeStore((state) => state.error);
   const deleteRecipe = useRecipeStore((state) => state.deleteRecipe);
+  const user = useAuthStore((state) => state.user);
 
   const [openDialog, setOpenDialog] = useState(false);
   const [isDeleting, setIsDeleting] = useState(false);
@@ -64,6 +67,10 @@ function RecipeDetails() {
     }
   };
 
+  const handleEditRecipe = () => {
+    navigate(`/recipe-creation/${id}`);
+  };
+
   // Prioridad absoluta: si estamos eliminando, solo mostrar loading
   // Usar ref para evitar re-renders problemáticos
   if (isDeletingRef.current || isDeleting) {
@@ -74,19 +81,34 @@ function RecipeDetails() {
   if (error) return <div>Error: {error}</div>;
   if (!recipe) return <div>Receta no encontrada</div>;
 
+  const isOwner = user?.id === recipe.user_id;
+
   return (
     <section>
       <div className="recipe-details__title-container">
         <h2>{recipe.name}</h2>
-        <IconButton
-          aria-label="delete"
-          color="error"
-          size="large"
-          onClick={handleOpenDialog}
-          className="recipe-details__delete-button"
-        >
-          <DeleteIcon />
-        </IconButton>
+        {isOwner && (
+          <div>
+            <IconButton
+              aria-label="edit"
+              color="primary"
+              size="large"
+              onClick={handleEditRecipe}
+              className="recipe-details__edit-button"
+            >
+              <EditIcon />
+            </IconButton>
+            <IconButton
+              aria-label="delete"
+              color="error"
+              size="large"
+              onClick={handleOpenDialog}
+              className="recipe-details__delete-button"
+            >
+              <DeleteIcon />
+            </IconButton>
+          </div>
+        )}
       </div>
 
       <DeleteConfirmationDialog

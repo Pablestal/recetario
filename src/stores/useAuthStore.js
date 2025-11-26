@@ -115,7 +115,6 @@ export const useAuthStore = create((set, get) => ({
       }
 
       if (!session) {
-        // No session is normal for unauthenticated users
         return null;
       }
 
@@ -169,7 +168,7 @@ export const useAuthStore = create((set, get) => ({
               if (currentUserId !== newUserId || !hasProfile) {
                 await get().loadProfile(session.user.id);
               }
-            } else if (event === 'SIGNED_OUT') {
+            } else if (event === "SIGNED_OUT") {
               set({ user: null, profile: null, session: null });
             }
           }

@@ -1,5 +1,6 @@
 {
   "title": "Create a new recipe",
+  "editTitle": "Edit recipe",
   "fields": {
     "name": {
       "label": "Name",
@@ -151,12 +152,14 @@
   },
   "buttons": {
     "save": "Save Recipe",
+    "update": "Update Recipe",
     "cancel": "Cancel",
     "addIngredient": "Add Ingredient",
     "addStep": "Add Step"
   },
   "messages": {
     "success": "Recipe created successfully!",
+    "updateSuccess": "Recipe updated successfully!",
     "error": "Please correct the errors in the form before continuing.",
     "characters": "{{current}}/{{max}} characters",
     "requiredFields": "Required fields"

@@ -9,7 +9,7 @@ import {
   FormControlLabel,
   Switch,
 } from "@mui/material";
-import { useState, useCallback, useMemo, useReducer } from "react";
+import { useState, useCallback, useMemo, useReducer, useEffect } from "react";
 import RecipeInfoForm from "./InfoForm";
 import ImagesForm from "./ImagesForm";
 import IngredientForm from "./IngredientsForm";
@@ -17,6 +17,8 @@ import StepsForm from "./StepsForm";
 import { useTranslation } from "react-i18next";
 import { useRecipeStore } from "../../stores/useRecipeStore";
 import { useAuthStore } from "../../stores/useAuthStore";
+import { useNavigate } from "react-router-dom";
+import Loading from "../common/Loading";
 
 const NAME_MAX_LENGTH = 100;
 const DESCRIPTION_MAX_LENGTH = 500;
@@ -52,17 +54,24 @@ const formReducer = (state, action) => {
       return { ...state, ...action.payload };
     case "RESET":
       return INITIAL_RECIPE;
+    case "LOAD_RECIPE":
+      return action.payload;
     default:
       return state;
   }
 };
 
-const CreateRecipe = () => {
+const CreateRecipe = ({ recipeId }) => {
   const { t } = useTranslation("createRecipe");
-  const { addRecipe, loading } = useRecipeStore();
+  const { addRecipe, updateRecipe, getRecipeById, currentRecipe, loading } =
+    useRecipeStore();
   const { user } = useAuthStore();
+  const navigate = useNavigate();
   const [activeStep, setActiveStep] = useState(0);
   const [recipeForm, dispatch] = useReducer(formReducer, INITIAL_RECIPE);
+  const [isLoadingRecipe, setIsLoadingRecipe] = useState(false);
+
+  const isEditMode = !!recipeId;
 
   const steps = useMemo(
     () => [
@@ -72,6 +81,59 @@ const CreateRecipe = () => {
     ],
     [t]
   );
+
+  // Load recipe for editing
+  useEffect(() => {
+    const loadRecipe = async () => {
+      if (isEditMode && recipeId) {
+        setIsLoadingRecipe(true);
+        try {
+          await getRecipeById(recipeId);
+        } catch (error) {
+          console.error("Error loading recipe:", error);
+        } finally {
+          setIsLoadingRecipe(false);
+        }
+      }
+    };
+
+    loadRecipe();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isEditMode, recipeId]);
+
+  // Map loaded recipe to form state
+  useEffect(() => {
+    if (
+      isEditMode &&
+      currentRecipe &&
+      currentRecipe.id === parseInt(recipeId)
+    ) {
+      const mappedRecipe = {
+        name: currentRecipe.name ?? "",
+        description: currentRecipe.description ?? "",
+        prepTime:
+          currentRecipe.prep_time != null
+            ? currentRecipe.prep_time.toString()
+            : "",
+        servings:
+          currentRecipe.servings != null
+            ? currentRecipe.servings.toString()
+            : "",
+        difficulty: currentRecipe.difficulty ?? -1,
+        calories:
+          currentRecipe.calories != null
+            ? currentRecipe.calories.toString()
+            : "",
+        ingredients: currentRecipe.ingredients ?? [],
+        steps: currentRecipe.steps ?? [],
+        tags: currentRecipe.tags ?? [],
+        isPublic: currentRecipe.is_public ?? true,
+        mainImageURL: currentRecipe.main_image_url ?? "",
+      };
+
+      dispatch({ type: "LOAD_RECIPE", payload: mappedRecipe });
+    }
+  }, [currentRecipe, isEditMode, recipeId]);
 
   const isValidImageUrl = useCallback((url) => {
     if (!url || url.trim() === "") return true; // Empty is valid (optional field)
@@ -270,21 +332,36 @@ const CreateRecipe = () => {
 
       if (validateForm()) {
         try {
-          const recipeToSubmit = {
-            ...recipeForm,
-            user_id: user.id,
-            created_at: new Date().toISOString(),
-          };
+          if (isEditMode) {
+            // Update existing recipe
+            const recipeToUpdate = {
+              ...recipeForm,
+              user_id: user.id,
+            };
 
-          await addRecipe(recipeToSubmit);
-          setSubmitSuccess(true);
+            await updateRecipe(recipeId, recipeToUpdate);
+            setSubmitSuccess(true);
 
-          dispatch({ type: "RESET" });
-          setErrors({});
-          setTouched({});
-          setSubmitAttempted(false);
-          setActiveStep(0);
-          setTimeout(() => setSubmitSuccess(false), 5000);
+            // Navigate back to recipe details after update
+            navigate(`/recipe-details/${recipeId}`);
+          } else {
+            // Create new recipe
+            const recipeToSubmit = {
+              ...recipeForm,
+              user_id: user.id,
+              created_at: new Date().toISOString(),
+            };
+
+            await addRecipe(recipeToSubmit);
+            setSubmitSuccess(true);
+
+            dispatch({ type: "RESET" });
+            setErrors({});
+            setTouched({});
+            setSubmitAttempted(false);
+            setActiveStep(0);
+            setTimeout(() => setSubmitSuccess(false), 5000);
+          }
         } catch (error) {
           console.error("Error submitting recipe:", error);
         }
@@ -292,7 +369,17 @@ const CreateRecipe = () => {
         console.error("Validation errors:", errors);
       }
     },
-    [validateForm, recipeForm, addRecipe, errors, user]
+    [
+      validateForm,
+      recipeForm,
+      addRecipe,
+      updateRecipe,
+      errors,
+      user,
+      isEditMode,
+      recipeId,
+      navigate,
+    ]
   );
 
   const handleFieldUpdate = useCallback(
@@ -479,13 +566,19 @@ const CreateRecipe = () => {
     }
   };
 
+  if (isLoadingRecipe) {
+    return <Loading />;
+  }
+
   return (
     <section className="create-recipe">
-      <h2 className="create-recipe__title">{t("title")}</h2>
+      <h2 className="create-recipe__title">
+        {isEditMode ? t("editTitle") : t("title")}
+      </h2>
 
       {submitSuccess && (
         <Alert severity="success" sx={{ mb: 3 }}>
-          {t("messages.success")}
+          {isEditMode ? t("messages.updateSuccess") : t("messages.success")}
         </Alert>
       )}
 
@@ -532,7 +625,7 @@ const CreateRecipe = () => {
                 onClick={handleSubmit}
                 disabled={loading || !isStepValid(activeStep)}
               >
-                {t("buttons.save")}
+                {isEditMode ? t("buttons.update") : t("buttons.save")}
               </Button>
             ) : (
               <Button
