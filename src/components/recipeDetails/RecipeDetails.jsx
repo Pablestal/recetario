@@ -14,7 +14,7 @@ import EditIcon from "@mui/icons-material/Edit";
 import { IconButton } from "@mui/material";
 import { useTranslation } from "react-i18next";
 import DeleteConfirmationDialog from "./DeleteConfirmationDialog";
-import fallbackImage from "../../assets/image-fallback.jpg";
+import fallbackImage from "../../assets/recipe-details-img-fallback.png";
 
 function RecipeDetails() {
   const { t } = useTranslation("recipeDetails");

@@ -10,14 +10,14 @@ const NAME_MAX_LENGTH = 100;
 const DESCRIPTION_MAX_LENGTH = 500;
 const NUMERIC_MAX_LENGTH = 3;
 
-const StyledRating = styled(Rating)({
+const StyledRating = styled(Rating)(({ theme }) => ({
   "& .MuiRating-iconFilled": {
-    color: "#ff6d75",
+    color: theme.palette.secondary.main,
   },
   "& .MuiRating-iconHover": {
-    color: "#ff3d47",
+    color: theme.palette.secondary.dark,
   },
-});
+}));
 
 const RecipeInfoForm = ({
   recipeForm,

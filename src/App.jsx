@@ -27,44 +27,45 @@ const App = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  if (loading) {
-    return <Loading />;
-  }
-
   return (
     <>
       <ThemeProvider theme={theme}>
         <div className="app-container">
           <TopMenu></TopMenu>
-          <div className="content">
-            <Routes>
-              <Route path="/" element={<HomePage />} />
-              <Route path="/recipes" element={<RecipeListPage />} />
-              <Route
-                path="/recipe-creation"
-                element={
-                  <ProtectedRoute>
-                    <RecipeCreationPage />
-                  </ProtectedRoute>
-                }
-              />
-              <Route
-                path="/recipe-creation/:id"
-                element={
-                  <ProtectedRoute>
-                    <RecipeCreationPage />
-                  </ProtectedRoute>
-                }
-              />
-              <Route path="/shopping-list" element={<ShoppingListPage />} />
-              <Route path="/weeekly-menu" element={<WeeklyMenuPage />} />
-              <Route
-                path="/recipe-details/:id"
-                element={<RecipeDetailsPage />}
-              />
-            </Routes>
-          </div>
-          <Footer />
+          {loading && <Loading />}
+          {!loading && (
+            <>
+              <div className="content">
+                <Routes>
+                  <Route path="/" element={<HomePage />} />
+                  <Route path="/recipes" element={<RecipeListPage />} />
+                  <Route
+                    path="/recipe-creation"
+                    element={
+                      <ProtectedRoute>
+                        <RecipeCreationPage />
+                      </ProtectedRoute>
+                    }
+                  />
+                  <Route
+                    path="/recipe-creation/:id"
+                    element={
+                      <ProtectedRoute>
+                        <RecipeCreationPage />
+                      </ProtectedRoute>
+                    }
+                  />
+                  <Route path="/shopping-list" element={<ShoppingListPage />} />
+                  <Route path="/weeekly-menu" element={<WeeklyMenuPage />} />
+                  <Route
+                    path="/recipe-details/:id"
+                    element={<RecipeDetailsPage />}
+                  />
+                </Routes>
+              </div>
+              <Footer />
+            </>
+          )}
         </div>
       </ThemeProvider>
     </>

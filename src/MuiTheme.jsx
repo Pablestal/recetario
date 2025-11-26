@@ -3,36 +3,36 @@ import { createTheme } from "@mui/material/styles";
 const theme = createTheme({
   palette: {
     primary: {
-      light: "#81c784", // Light green, similar to tender leaves
-      main: "#43a047", // Medium green, fresh and natural
-      dark: "#2e7d32", // Dark green, represents intense herbs
+      light: "#3D5A6B", // Lighter shade of Charcoal Blue
+      main: "#233D4D", // Charcoal Blue - Deep navy with smoky steely hues
+      dark: "#1A2E3A", // Darker shade of Charcoal Blue
       contrastText: "#fff",
     },
     secondary: {
-      light: "#a5d6a7", // Very light green, like young sprouts
-      main: "#66bb6a", // Slightly lighter green than primary
-      dark: "#388e3c", // Dark green, like cilantro or basil leaves
+      light: "#FCCA46", // Golden Pollen - Radiant sunflower brilliance
+      main: "#ED873A", // Pumpkin Spice - Bold and spicy autumnal vibes
+      dark: "#D96A1F", // Darker shade of Pumpkin Spice
       contrastText: "#fff",
     },
     background: {
-      default: "#f5f5f5", // Soft background like flour
+      default: "#FAF9F6", // Warm off-white background
       paper: "#ffffff", // Clean white for cards
     },
     text: {
-      primary: "#263238", // Very dark gray almost black, for good readability
-      secondary: "#546e7a", // Medium bluish gray for secondary texts
+      primary: "#233D4D", // Charcoal Blue - Deep navy with smoky steely hues
+      secondary: "#619B8A", // Seagrass for secondary text
     },
     error: {
       main: "#d32f2f", // Traditional red for errors
     },
     warning: {
-      main: "#fb8c00", // Orange for warnings
+      main: "#FE7F2D", // Pumpkin Spice for warnings
     },
     info: {
-      main: "#0288d1", // Blue for information
+      main: "#619B8A", // Seagrass for information
     },
     success: {
-      main: "#388e3c", // Green for success
+      main: "#A1C181", // Muted Olive for success
     },
   },
   typography: {

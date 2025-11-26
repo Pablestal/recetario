@@ -1,7 +1,8 @@
 @use "../../utils/breakpoints" as bp;
+@use "../../styles/variables" as colors;
 
 .footer {
-  background: linear-gradient(135deg, #43a047 0%, #2e7d32 100%);
+  background: linear-gradient(135deg, colors.$primary-main 0%, colors.$primary-dark 100%);
   color: white;
   padding: 3rem 0 1rem;
   margin-top: 4rem;
@@ -64,7 +65,7 @@
   }
 
   &__link {
-    color: #a5d6a7 !important;
+    color: colors.$secondary-light !important;
     text-decoration: none !important;
     opacity: 0.9;
     transition: opacity 0.3s ease;

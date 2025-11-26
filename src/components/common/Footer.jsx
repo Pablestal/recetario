@@ -14,7 +14,7 @@ const Footer = () => {
           {/* Columna izquierda - Info de la app */}
           <Box className="footer__section">
             <Typography variant="h6" className="footer__title">
-              RECETARIO
+              LUMEA
             </Typography>
             <Typography variant="body2" className="footer__description">
               {t("navigation.footer.description")}
@@ -80,7 +80,7 @@ const Footer = () => {
         {/* Copyright */}
         <Box className="footer__bottom">
           <Typography variant="body2" className="footer__copyright">
-            © {currentYear} Recetario. {t("navigation.footer.rights")}
+            © {currentYear} Lumea. {t("navigation.footer.rights")}
           </Typography>
         </Box>
       </Container>

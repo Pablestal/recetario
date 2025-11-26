@@ -76,7 +76,7 @@
     "fields": {
       "name": {
         "label": "Nombre del Ingrediente",
-        "placeholder": "Patata"
+        "placeholder": "Nuevo ingrediente"
       },
       "quantity": {
         "label": "Cantidad",

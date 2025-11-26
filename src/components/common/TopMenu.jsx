@@ -11,8 +11,8 @@ import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
-import BakeryDiningIcon from "@mui/icons-material/BakeryDining";
 import { useNavigate } from "react-router-dom";
+import LumeaLogo from "../../assets/Lumea-nobg.png";
 import { useTranslation } from "react-i18next";
 import LanguageSelector from "./LanguageSelector";
 import { useAuthStore } from "../../stores/useAuthStore";
@@ -20,6 +20,7 @@ import LoginDialog from "../auth/LoginDialog";
 import RegisterDialog from "../auth/RegisterDialog";
 import LoginIcon from "@mui/icons-material/Login";
 import PersonAddIcon from "@mui/icons-material/PersonAdd";
+import "./TopMenu.scss";
 
 const pages = [
   { name: "profile", link: "/" },
@@ -108,32 +109,27 @@ const TopMenu = () => {
 
   return (
     <>
-      <AppBar position="static">
+      <AppBar position="fixed" sx={{ bgcolor: "white" }}>
         <Container maxWidth="xl">
-          <Toolbar disableGutters>
-            <BakeryDiningIcon
-              sx={{ display: { xs: "none", md: "flex" }, mr: 1 }}
-            />
-            <Typography
-              variant="h6"
-              noWrap
+          <Toolbar disableGutters sx={{ minHeight: "64px", height: "64px" }}>
+            <Box
               onClick={goToHome}
               sx={{
-                mr: 2,
                 display: { xs: "none", md: "flex" },
-                fontFamily: "monospace",
-                fontWeight: 700,
-                letterSpacing: ".3rem",
-                color: "inherit",
-                textDecoration: "none",
+                alignItems: "center",
                 cursor: "pointer",
+                mr: 2,
                 "&:hover": {
                   opacity: 0.8,
                 },
               }}
             >
-              RECETARIO
-            </Typography>
+              <img
+                src={LumeaLogo}
+                alt="Lumea"
+                style={{ height: "60px", width: "auto" }}
+              />
+            </Box>
             <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
               <IconButton
                 size="large"
@@ -141,7 +137,7 @@ const TopMenu = () => {
                 aria-controls="menu-appbar"
                 aria-haspopup="true"
                 onClick={handleOpenNavMenu}
-                color="inherit"
+                sx={{ color: "secondary.main" }}
               >
                 <MenuIcon />
               </IconButton>
@@ -162,7 +158,11 @@ const TopMenu = () => {
                 sx={{ display: { xs: "block", md: "none" } }}
               >
                 {pages.map((page, index) => (
-                  <MenuItem key={index} onClick={() => goTo(page)}>
+                  <MenuItem
+                    key={index}
+                    onClick={() => goTo(page)}
+                    className="mobile-menu-item"
+                  >
                     <Typography sx={{ textAlign: "center" }}>
                       {t(`navigation.${page.name}`)}
                     </Typography>
@@ -170,32 +170,36 @@ const TopMenu = () => {
                 ))}
               </Menu>
             </Box>
-            <Typography
-              variant="h5"
-              noWrap
+            <Box
               onClick={goToHome}
               sx={{
-                mr: 2,
                 display: { xs: "flex", md: "none" },
                 flexGrow: 1,
-                fontFamily: "monospace",
-                fontWeight: 700,
-                letterSpacing: ".3rem",
-                color: "inherit",
-                textDecoration: "none",
+                alignItems: "center",
                 cursor: "pointer",
                 "&:hover": {
                   opacity: 0.8,
                 },
               }}
             >
-              RECETARIO
-            </Typography>
-            <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
+              <img
+                src={LumeaLogo}
+                alt="Lumea"
+                style={{ height: "50px", width: "auto" }}
+              />
+            </Box>
+            <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" }, height: "64px", alignItems: "stretch", justifyContent: "center" }}>
               {pages.map((page, index) => (
                 <Button
                   key={index}
-                  sx={{ my: 2, color: "white", display: "block" }}
+                  className="menu-button"
+                  sx={{
+                    color: "primary.main",
+                    display: "flex",
+                    alignItems: "center",
+                    height: "100%",
+                    px: 2
+                  }}
                   onClick={() => goTo(page)}
                 >
                   {t(`navigation.${page.name}`)}
@@ -218,27 +222,28 @@ const TopMenu = () => {
                   }}
                 >
                   <Button
-                    color="inherit"
                     variant="outlined"
                     onClick={handleOpenLogin}
                     sx={{
-                      borderColor: "white",
+                      color: "primary.main",
+                      borderColor: "primary.main",
                       "&:hover": {
-                        borderColor: "white",
-                        bgcolor: "rgba(255,255,255,0.1)",
+                        borderColor: "primary.dark",
+                        bgcolor: "rgba(35, 61, 77, 0.05)",
                       },
                     }}
                   >
                     {t("navigation.login")}
                   </Button>
                   <Button
-                    color="inherit"
                     variant="contained"
                     onClick={handleOpenRegister}
                     sx={{
-                      bgcolor: "white",
-                      color: "primary.main",
-                      "&:hover": { bgcolor: "rgba(255,255,255,0.9)" },
+                      bgcolor: "secondary.main",
+                      color: "white",
+                      "&:hover": {
+                        bgcolor: "secondary.dark"
+                      },
                     }}
                   >
                     {t("navigation.register")}
@@ -255,22 +260,21 @@ const TopMenu = () => {
                   }}
                 >
                   <IconButton
-                    color="inherit"
                     onClick={handleOpenLogin}
                     sx={{
+                      color: "primary.main",
                       padding: "8px",
-                      "&:hover": { bgcolor: "rgba(255,255,255,0.1)" },
+                      "&:hover": { bgcolor: "rgba(35, 61, 77, 0.1)" },
                     }}
                   >
                     <LoginIcon fontSize="small" />
                   </IconButton>
                   <IconButton
-                    color="inherit"
                     onClick={handleOpenRegister}
                     sx={{
-                      color: "white",
+                      color: "secondary.main",
                       padding: "8px",
-                      "&:hover": { bgcolor: "rgba(255,255,255,0.9)" },
+                      "&:hover": { bgcolor: "rgba(254, 127, 45, 0.1)" },
                     }}
                   >
                     <PersonAddIcon fontSize="small" />

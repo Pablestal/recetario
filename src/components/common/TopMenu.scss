@@ -1,0 +1,41 @@
+.menu-button {
+  position: relative;
+  height: 100%;
+  border: none;
+  border-radius: 0 !important;
+  margin: 0 !important;
+  padding-top: 0 !important;
+  padding-bottom: 0 !important;
+  box-shadow: none !important;
+  transition: none !important;
+
+  &::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 0;
+    background-color: #fe7f2d;
+    pointer-events: none;
+  }
+
+  &:hover {
+    box-shadow:
+      inset 1px 0 0 0 #233d4d,
+      inset -1px 0 0 0 #233d4d !important;
+
+    &::after {
+      height: 2px;
+    }
+  }
+}
+
+.mobile-menu-item {
+  &:hover {
+    border-left: 1px solid #233d4d;
+    border-right: 1px solid #233d4d;
+    border-top: 1px solid transparent;
+    border-bottom: 2px solid #fe7f2d;
+  }
+}
