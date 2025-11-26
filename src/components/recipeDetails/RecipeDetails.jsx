@@ -1,5 +1,5 @@
 import "./RecipeDetails.scss";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import Loading from "../common/Loading";
 import { useRecipeStore } from "../../stores/useRecipeStore";
 import { useParams, useNavigate } from "react-router-dom";
@@ -18,19 +18,22 @@ function RecipeDetails() {
   const { t } = useTranslation("recipeDetails");
   const { id } = useParams();
   const navigate = useNavigate();
-  const getRecipe = useRecipeStore((state) => state.getRecipeById);
+
+  const getRecipeById = useRecipeStore((state) => state.getRecipeById);
   const recipe = useRecipeStore((state) => state.currentRecipe);
   const loading = useRecipeStore((state) => state.loading);
   const error = useRecipeStore((state) => state.error);
   const deleteRecipe = useRecipeStore((state) => state.deleteRecipe);
 
   const [openDialog, setOpenDialog] = useState(false);
+  const [isDeleting, setIsDeleting] = useState(false);
+  const isDeletingRef = useRef(false);
 
   useEffect(() => {
     if (id) {
-      getRecipe(id);
+      getRecipeById(id);
     }
-  }, [getRecipe, id]);
+  }, [getRecipeById, id]);
 
   const renderDifficultyIcons = (difficulty) => {
     return Array.from({ length: difficulty - 1 }, (_, index) => (
@@ -47,14 +50,25 @@ function RecipeDetails() {
   };
 
   const handleConfirmDelete = async () => {
+    isDeletingRef.current = true;
+    setIsDeleting(true);
+    setOpenDialog(false);
+
     try {
       await deleteRecipe(id);
-      setOpenDialog(false);
       navigate("/recipes");
     } catch (error) {
       console.error("Error al eliminar la receta:", error);
+      isDeletingRef.current = false;
+      setIsDeleting(false);
     }
   };
+
+  // Prioridad absoluta: si estamos eliminando, solo mostrar loading
+  // Usar ref para evitar re-renders problemáticos
+  if (isDeletingRef.current || isDeleting) {
+    return <Loading />;
+  }
 
   if (loading) return <Loading />;
   if (error) return <div>Error: {error}</div>;
@@ -138,7 +152,7 @@ function RecipeDetails() {
         <div className="recipe-details__steps">
           <div className="recipe-details__image-container">
             <img
-              src={recipe.images[0]?.url || fallbackImage}
+              src={recipe.main_image_url || fallbackImage}
               alt="recipe_image"
               className="recipe-details__image"
             />

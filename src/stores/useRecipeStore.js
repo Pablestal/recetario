@@ -40,8 +40,15 @@ export const useRecipeStore = create((set) => ({
   addRecipe: async (newRecipe) => {
     set({ loading: true, error: null });
     try {
-      const headers = await getAuthHeaders();
-      const response = await axios.post(API_URL, newRecipe, { headers });
+      const token = await useAuthStore.getState().getToken();
+      const config = {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      };
+
+      const response = await axios.post(API_URL, newRecipe, config);
       set((state) => ({
         recipes: [...state.recipes, response.data.data],
         loading: false,
@@ -78,6 +85,8 @@ export const useRecipeStore = create((set) => ({
       await axios.delete(`${API_URL}/${id}`, { headers });
       set((state) => ({
         recipes: state.recipes.filter((recipe) => recipe.id !== id),
+        currentRecipe:
+          state.currentRecipe?.id === id ? null : state.currentRecipe,
         loading: false,
       }));
     } catch (error) {
