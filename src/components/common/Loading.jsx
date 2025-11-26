@@ -1,26 +1,18 @@
-import spinnerIcon from "../../assets/infinite-spinner.svg";
+import { LinearProgress, Box } from "@mui/material";
 
 const Loading = () => {
   return (
-    <div
-      style={{
-        display: "flex",
-        flexDirection: "column",
-        alignItems: "center",
-        justifyContent: "center",
-        padding: "2rem",
+    <Box
+      sx={{
+        position: "fixed",
+        top: 64, // Height of the AppBar
+        left: 0,
+        right: 0,
+        zIndex: 1200, // Below AppBar (1300) but above content
       }}
     >
-      <img
-        src={spinnerIcon}
-        alt="Loading"
-        style={{
-          width: "170px",
-          height: "170px",
-          marginBottom: "1rem",
-        }}
-      />
-    </div>
+      <LinearProgress color="primary" />
+    </Box>
   );
 };
 

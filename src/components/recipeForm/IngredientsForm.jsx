@@ -162,6 +162,7 @@ const IngredientForm = (props) => {
             placeholder={t("ingredients.fields.name.placeholder")}
             variant="outlined"
             onChange={handleNewIngredientUpdate}
+            inputProps={{ maxLength: 50 }}
             sx={{ flexGrow: 1 }}
           />
 
@@ -173,6 +174,7 @@ const IngredientForm = (props) => {
             placeholder={t("ingredients.fields.quantity.placeholder")}
             variant="outlined"
             onChange={handleNewIngredientUpdate}
+            inputProps={{ maxLength: 10 }}
             sx={{ width: "120px" }}
           />
 
@@ -184,6 +186,7 @@ const IngredientForm = (props) => {
             placeholder={t("ingredients.fields.unit.placeholder")}
             variant="outlined"
             onChange={handleNewIngredientUpdate}
+            inputProps={{ maxLength: 15 }}
             sx={{ width: "150px" }}
           />
 
@@ -248,6 +251,7 @@ const IngredientForm = (props) => {
                 label={t("ingredients.fields.name.label")}
                 variant="outlined"
                 onChange={(e) => handleIngredientChange(index, 'name', e.target.value)}
+                inputProps={{ maxLength: 50 }}
                 sx={{ flexGrow: 1 }}
               />
 
@@ -257,6 +261,7 @@ const IngredientForm = (props) => {
                 label={t("ingredients.fields.quantity.label")}
                 variant="outlined"
                 onChange={(e) => handleIngredientChange(index, 'quantity', e.target.value)}
+                inputProps={{ maxLength: 10 }}
                 sx={{ width: "120px" }}
               />
 
@@ -266,6 +271,7 @@ const IngredientForm = (props) => {
                 label={t("ingredients.fields.unit.label")}
                 variant="outlined"
                 onChange={(e) => handleIngredientChange(index, 'unit', e.target.value)}
+                inputProps={{ maxLength: 15 }}
                 sx={{ width: "150px" }}
               />
 

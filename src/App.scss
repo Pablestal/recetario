@@ -19,19 +19,23 @@ body,
 
 .content {
   flex: 1;
+  margin-top: 64px; // Height of fixed AppBar
 
   @include bp.mobile {
     padding-top: 56px;
-    margin: 0 10px;
+    margin-left: 10px;
+    margin-right: 10px;
   }
 
   @include bp.desktop {
     padding-top: 30px;
-    margin: 0 100px;
+    margin-left: 100px;
+    margin-right: 100px;
   }
 
   @include bp.large-desktop {
     padding-top: 30px;
-    margin: 0 300px;
+    margin-left: 300px;
+    margin-right: 300px;
   }
 }

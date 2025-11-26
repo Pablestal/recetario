@@ -76,7 +76,7 @@
     "fields": {
       "name": {
         "label": "Ingredient name",
-        "placeholder": "Potato"
+        "placeholder": "New ingredient"
       },
       "quantity": {
         "label": "Amount",

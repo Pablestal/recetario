@@ -5,7 +5,7 @@ import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
 import Avatar from "@mui/material/Avatar";
 import Typography from "@mui/material/Typography";
-import imageFallback from "../../assets/image-fallback.jpg";
+import imageFallback from "../../assets/recipe-card-img-fallback.png";
 import RestaurantIcon from "@mui/icons-material/Restaurant";
 import AccessTimeIcon from "@mui/icons-material/AccessTime";
 import LocalDiningIcon from "@mui/icons-material/LocalDiningOutlined";
@@ -27,6 +27,10 @@ const RecipeCard = (props) => {
     ));
   };
 
+  const hasDescription =
+    props.recipe.description && props.recipe.description.trim() !== "";
+  const imageHeight = hasDescription ? 140 : 200;
+
   return (
     <section>
       <div className="recipe-card">
@@ -41,18 +45,20 @@ const RecipeCard = (props) => {
             subheader={formattedDate}
           />
           <CardMedia
-            sx={{ height: 140 }}
+            sx={{ height: imageHeight }}
             image={props.recipe.main_image_url || imageFallback}
             title={props.recipe.name}
           />
           <CardContent>
-            <Typography
-              variant="body2"
-              sx={{ color: "text.secondary" }}
-              className="recipe-card__description"
-            >
-              {props.recipe.description}
-            </Typography>
+            {hasDescription && (
+              <Typography
+                variant="body2"
+                sx={{ color: "text.secondary" }}
+                className="recipe-card__description"
+              >
+                {props.recipe.description}
+              </Typography>
+            )}
             <div className="recipe-card__icons">
               <div className="recipe-card__icon-item">
                 <AccessTimeIcon />

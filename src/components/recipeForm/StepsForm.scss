@@ -1,9 +1,10 @@
 @use "../../utils/breakpoints" as bp;
+@use "../../styles/variables" as colors;
 
 .steps-form {
   &__subtitle {
     font-size: 16px;
-    color: #858383;
+    color: colors.$text-secondary;
 
     @include bp.mobile {
       margin-top: 0;
@@ -34,7 +35,7 @@
     margin-top: 20px;
     padding-top: 20px;
     padding-left: 0;
-    border-top: 1px solid #e0e0e0;
+    border-top: 1px solid colors.$neutral-gray;
     display: flex;
     flex-direction: column;
     gap: 15px;
@@ -49,16 +50,16 @@
     align-items: flex-start;
     padding: 10px;
     padding-top: 35px;
-    border: 1px solid #e0e0e0;
+    border: 1px solid colors.$neutral-gray;
     border-radius: 8px;
-    background-color: #fafafa;
+    background-color: colors.$background-default;
     cursor: move;
     transition: all 0.2s ease;
     touch-action: none; // Prevents default touch behaviors for better drag on mobile
     user-select: none; // Prevents text selection during drag
 
     &:hover {
-      background-color: #f5f5f5;
+      background-color: colors.$neutral-light-gray;
       box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     }
 
@@ -107,7 +108,7 @@
     justify-content: center;
     min-width: 24px;
     height: 24px;
-    background-color: #81c784;
+    background-color: colors.$color-success;
     color: white;
     border-radius: 50%;
     font-weight: bold;
@@ -122,7 +123,7 @@
     height: 60px;
     border-radius: 8px;
     overflow: hidden;
-    border: 1px solid #e0e0e0;
+    border: 1px solid colors.$neutral-gray;
     flex-shrink: 0;
 
     img {

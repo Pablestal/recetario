@@ -23,6 +23,10 @@
     gap: 1rem;
   }
 
+  &__description:empty + &__icons {
+    margin-top: 0;
+  }
+
   &__icon-item {
     display: flex;
     align-items: center;

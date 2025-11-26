@@ -1,4 +1,5 @@
 @use "../../utils/breakpoints" as bp;
+@use "../../styles/variables" as colors;
 
 .recipe-details {
   display: flex;
@@ -37,7 +38,7 @@
     display: flex;
     flex-direction: row;
     gap: 1rem;
-    border: 1px solid #ececec;
+    border: 1px solid colors.$neutral-border;
     border-radius: 0.2rem;
     padding: 1rem;
 
@@ -50,7 +51,7 @@
 
   &__ingredients {
     margin-top: 1rem;
-    border: 1px dashed #aaec96;
+    border: 1px dashed colors.$color-success;
     border-radius: 0.2rem;
   }
 
@@ -121,7 +122,7 @@
   &__step-number {
     font-weight: 700;
     font-size: 1.5rem;
-    color: #464646;
+    color: colors.$neutral-dark-gray;
     margin-bottom: 0.25rem;
 
     @include bp.mobile {
@@ -132,7 +133,7 @@
   &__step-description {
     font-size: 1rem;
     line-height: 1.6;
-    color: #374151;
+    color: colors.$text-primary;
     margin: 0;
 
     @include bp.mobile {
@@ -142,7 +143,7 @@
 
   &__step-tip {
     background: rgba(252, 248, 25, 0.08);
-    border: 1px solid #f59e0b;
+    border: 1px solid colors.$color-warning;
     border-radius: 0.75rem;
     padding: 0.5rem;
     margin-top: 0.5rem;
@@ -160,7 +161,7 @@
 
   &__tip-icon {
     font-size: 20px !important;
-    color: #cc7614;
+    color: colors.$secondary-dark;
     flex-shrink: 0;
 
     @include bp.mobile {
@@ -170,7 +171,7 @@
 
   &__tip-text {
     margin: 0;
-    color: #92400e;
+    color: colors.$text-primary;
     font-size: 0.9rem;
     line-height: 1.5;
     font-style: italic;
