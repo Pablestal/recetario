@@ -141,13 +141,10 @@ const CreateRecipe = ({ recipeId }) => {
     // Check if it's a valid URL format
     try {
       new URL(url);
+      return true; // Valid URL format is enough
     } catch {
       return false;
     }
-
-    // Check if URL ends with common image extensions
-    const imageExtensions = /\.(jpg|jpeg|png|gif|bmp|webp|svg)$/i;
-    return imageExtensions.test(url);
   }, []);
 
   const validationRules = useMemo(

@@ -8,7 +8,6 @@ import TagForm from "./TagsForm";
 
 const NAME_MAX_LENGTH = 100;
 const DESCRIPTION_MAX_LENGTH = 500;
-const NUMERIC_MAX_LENGTH = 3;
 
 const StyledRating = styled(Rating)(({ theme }) => ({
   "& .MuiRating-iconFilled": {
@@ -35,6 +34,27 @@ const RecipeInfoForm = ({
   const shouldShowError = (fieldName) =>
     submitAttempted || touched[fieldName] ? !!errors[fieldName] : false;
 
+  const handlePrepTimeChange = (e) => {
+    const value = e.target.value;
+    if (value.length <= 4) {
+      handleFieldUpdate(e);
+    }
+  };
+
+  const handleServingsChange = (e) => {
+    const value = e.target.value;
+    if (value.length <= 3) {
+      handleFieldUpdate(e);
+    }
+  };
+
+  const handleCaloriesChange = (e) => {
+    const value = e.target.value;
+    if (value.length <= 5) {
+      handleFieldUpdate(e);
+    }
+  };
+
   return (
     <>
       {hasErrors && (
@@ -46,7 +66,6 @@ const RecipeInfoForm = ({
         id="name"
         value={recipeForm.name}
         label={`${t("fields.name.label")} *`}
-        placeholder={t("fields.name.placeholder")}
         variant="filled"
         className="create-recipe__name"
         fullWidth
@@ -65,7 +84,6 @@ const RecipeInfoForm = ({
         id="description"
         value={recipeForm.description}
         label={t("fields.description.label")}
-        placeholder={t("fields.description.placeholder")}
         variant="filled"
         multiline
         rows={6}
@@ -94,15 +112,16 @@ const RecipeInfoForm = ({
           variant="filled"
           type="number"
           className="create-recipe__preptime"
-          onChange={handleFieldUpdate}
+          onChange={handlePrepTimeChange}
           onBlur={() => handleFieldBlur("prepTime")}
           sx={{ width: "100px" }}
           error={shouldShowError("prepTime")}
           slotProps={{
             htmlInput: {
               min: 1,
-              max: 999,
-              maxLength: NUMERIC_MAX_LENGTH,
+              max: 9999,
+              inputMode: "numeric",
+              pattern: "[0-9]*",
             },
             input: {
               endAdornment: (
@@ -127,15 +146,16 @@ const RecipeInfoForm = ({
           variant="filled"
           type="number"
           className="create-recipe__servings"
-          onChange={handleFieldUpdate}
+          onChange={handleServingsChange}
           onBlur={() => handleFieldBlur("servings")}
           sx={{ width: "100px" }}
           error={shouldShowError("servings")}
           slotProps={{
             htmlInput: {
               min: 1,
-              max: 99,
-              maxLength: NUMERIC_MAX_LENGTH,
+              max: 999,
+              inputMode: "numeric",
+              pattern: "[0-9]*",
             },
             input: {
               endAdornment: (
@@ -160,15 +180,16 @@ const RecipeInfoForm = ({
           variant="filled"
           type="number"
           className="create-recipe__calories"
-          onChange={handleFieldUpdate}
+          onChange={handleCaloriesChange}
           onBlur={() => handleFieldBlur("calories")}
           sx={{ width: "120px" }}
           error={shouldShowError("calories")}
           slotProps={{
             htmlInput: {
               min: 1,
-              max: 9999,
-              maxLength: 4,
+              max: 99999,
+              inputMode: "numeric",
+              pattern: "[0-9]*",
             },
             input: {
               endAdornment: (

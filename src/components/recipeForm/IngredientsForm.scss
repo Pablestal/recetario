@@ -55,10 +55,12 @@
     border: 1px solid colors.$neutral-gray;
     border-radius: 8px;
     background-color: colors.$background-default;
-    cursor: move;
-    transition: all 0.2s ease;
-    touch-action: none; // Prevents default touch behaviors for better drag on mobile
+    transition:
+      box-shadow 0.2s ease,
+      background-color 0.2s ease;
     user-select: none; // Prevents text selection during drag
+    -webkit-user-select: none;
+    -webkit-tap-highlight-color: transparent;
 
     &:hover {
       background-color: colors.$neutral-light-gray;
@@ -69,11 +71,12 @@
       opacity: 0.5;
       background-color: #e3f2fd;
       border: 2px dashed #2196f3;
-      transform: scale(1.02);
+      z-index: 999;
     }
 
     @include bp.mobile {
       cursor: grab;
+      -webkit-touch-callout: none;
 
       &:active {
         cursor: grabbing;
@@ -87,6 +90,7 @@
     justify-content: center;
     cursor: grab;
     padding: 4px;
+    touch-action: none; // Prevents scroll only on drag handle
 
     &:active {
       cursor: grabbing;
@@ -100,11 +104,36 @@
   }
 
   &__item-fields {
-    display: flex;
-    flex-direction: row;
+    display: grid;
+    grid-template-columns: 1fr 120px 150px 100px auto;
     gap: 10px;
     flex-grow: 1;
-    flex-wrap: wrap;
     align-items: center;
+
+    @include bp.mobile {
+      grid-template-columns: 1fr 1fr;
+      grid-template-areas:
+        "name name"
+        "quantity unit"
+        "optional delete";
+      gap: 8px;
+
+      > *:nth-child(1) {
+        grid-area: name;
+      }
+      > *:nth-child(2) {
+        grid-area: quantity;
+      }
+      > *:nth-child(3) {
+        grid-area: unit;
+      }
+      > *:nth-child(4) {
+        grid-area: optional;
+      }
+      > *:nth-child(5) {
+        grid-area: delete;
+        justify-self: end;
+      }
+    }
   }
 }

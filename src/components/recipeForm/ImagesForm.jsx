@@ -5,7 +5,15 @@ import { useTranslation } from "react-i18next";
 import fallbackImage from "../../assets/image-fallback.jpg";
 
 const ImagesForm = (props) => {
-  const { recipe, setRecipe, errors = {}, touched = {}, handleFieldBlur, validateField, setErrors } = props;
+  const {
+    recipe,
+    setRecipe,
+    errors = {},
+    touched = {},
+    handleFieldBlur,
+    validateField,
+    setErrors,
+  } = props;
   const { t } = useTranslation("createRecipe");
 
   const handleImageUpdate = (e) => {
@@ -40,8 +48,11 @@ const ImagesForm = (props) => {
         <TextField
           id="imageUrl"
           label="Imagen de portada"
-          placeholder="Introduce la URL de la imagen"
-          helperText={shouldShowError ? errors.mainImageURL : "Añade una URL de imagen para mostrar como portada de la receta"}
+          helperText={
+            shouldShowError
+              ? errors.mainImageURL
+              : "Añade una URL de imagen para mostrar como portada de la receta"
+          }
           value={recipe.mainImageURL || ""}
           size="small"
           fullWidth

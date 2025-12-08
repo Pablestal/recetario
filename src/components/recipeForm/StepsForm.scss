@@ -53,10 +53,12 @@
     border: 1px solid colors.$neutral-gray;
     border-radius: 8px;
     background-color: colors.$background-default;
-    cursor: move;
-    transition: all 0.2s ease;
-    touch-action: none; // Prevents default touch behaviors for better drag on mobile
+    transition:
+      box-shadow 0.2s ease,
+      background-color 0.2s ease;
     user-select: none; // Prevents text selection during drag
+    -webkit-user-select: none;
+    -webkit-tap-highlight-color: transparent;
 
     &:hover {
       background-color: colors.$neutral-light-gray;
@@ -67,11 +69,12 @@
       opacity: 0.5;
       background-color: #e3f2fd;
       border: 2px dashed #2196f3;
-      transform: scale(1.02);
+      z-index: 999;
     }
 
     @include bp.mobile {
       cursor: grab;
+      -webkit-touch-callout: none;
 
       &:active {
         cursor: grabbing;
@@ -93,6 +96,7 @@
     justify-content: center;
     cursor: grab;
     padding: 4px;
+    touch-action: none; // Prevents scroll only on drag handle
 
     &:active {
       cursor: grabbing;
