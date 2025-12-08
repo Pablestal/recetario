@@ -3,12 +3,10 @@
   "editTitle": "Edit recipe",
   "fields": {
     "name": {
-      "label": "Name",
-      "placeholder": "Enter recipe name"
+      "label": "Name"
     },
     "description": {
-      "label": "Description",
-      "placeholder": "Describe your recipe"
+      "label": "Description"
     },
     "prepTime": {
       "label": "Time"
@@ -75,16 +73,13 @@
     "subtitle": "Add all the necessary ingredients. The order in which you add them will be the order they appear in the recipe details",
     "fields": {
       "name": {
-        "label": "Ingredient name",
-        "placeholder": "New ingredient"
+        "label": "Ingredient name"
       },
       "quantity": {
-        "label": "Amount",
-        "placeholder": "2"
+        "label": "Amount"
       },
       "unit": {
-        "label": "Unit",
-        "placeholder": "Cup"
+        "label": "Unit"
       },
       "optional": {
         "label": "Optional",
@@ -108,16 +103,13 @@
     "subtitle": "Add all necessary steps. The order in which you add them will be the order they appear in the recipe details",
     "fields": {
       "description": {
-        "label": "Step description",
-        "placeholder": "Describe what to do in this step"
+        "label": "Step description"
       },
       "tip": {
-        "label": "Tip",
-        "placeholder": "Optional cooking tip or advice"
+        "label": "Tip"
       },
       "imageUrl": {
-        "label": "Image URL (optional)",
-        "placeholder": "https://example.com/step-image.jpg"
+        "label": "Image URL (optional)"
       }
     },
     "buttons": {
@@ -132,8 +124,7 @@
     "subtitle": "Insert the main recipe image URL",
     "fields": {
       "url": {
-        "label": "Image URL",
-        "placeholder": "Enter image URL"
+        "label": "Image URL"
       }
     },
     "preview": {

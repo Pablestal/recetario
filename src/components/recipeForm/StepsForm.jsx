@@ -8,6 +8,161 @@ import ImageIcon from "@mui/icons-material/Image";
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import fallbackImage from "../../assets/image-fallback.jpg";
+import {
+  DndContext,
+  closestCenter,
+  KeyboardSensor,
+  PointerSensor,
+  TouchSensor,
+  useSensor,
+  useSensors,
+} from "@dnd-kit/core";
+import {
+  restrictToVerticalAxis,
+  restrictToParentElement,
+} from "@dnd-kit/modifiers";
+import {
+  arrayMove,
+  SortableContext,
+  sortableKeyboardCoordinates,
+  useSortable,
+  verticalListSortingStrategy,
+} from "@dnd-kit/sortable";
+import { CSS } from "@dnd-kit/utilities";
+
+const DESCRIPTION_MAX_LENGTH = 600;
+const TIP_MAX_LENGTH = 200;
+
+// Helper function to validate URL format
+const isValidUrl = (url) => {
+  if (!url || url.trim() === "") return true;
+  try {
+    new URL(url);
+    return true;
+  } catch {
+    return false;
+  }
+};
+
+// Sortable component for each step
+const SortableStep = ({ step, index, onDelete, onChange, t }) => {
+  const {
+    attributes,
+    listeners,
+    setNodeRef,
+    transform,
+    transition,
+    isDragging,
+  } = useSortable({ id: step.id });
+
+  const style = {
+    transform: CSS.Transform.toString(transform),
+    transition,
+    opacity: isDragging ? 0.5 : 1,
+  };
+
+  return (
+    <li
+      ref={setNodeRef}
+      style={style}
+      className={`steps-form__list-item ${isDragging ? "dragging" : ""}`}
+    >
+      <div className="steps-form__step-number">{index + 1}</div>
+
+      <div className="steps-form__item-header">
+        <div className="steps-form__drag-handle" {...attributes} {...listeners}>
+          <DragIndicatorIcon sx={{ color: "#9e9e9e", cursor: "grab" }} />
+        </div>
+
+        {step.imageUrl && (
+          <div className="steps-form__step-image">
+            <img
+              src={step.imageUrl}
+              alt={`Step ${index + 1}`}
+              onError={(e) => {
+                e.target.src = fallbackImage;
+                e.target.alt = "Image not found";
+              }}
+            />
+          </div>
+        )}
+      </div>
+
+      <div className="steps-form__item-content">
+        <div className="steps-form__item-fields">
+          <TextField
+            value={step.description}
+            fullWidth
+            size="small"
+            multiline
+            minRows={1}
+            label={t("steps.fields.description.label")}
+            variant="outlined"
+            onChange={(e) => onChange(index, "description", e.target.value)}
+            slotProps={{
+              htmlInput: {
+                maxLength: DESCRIPTION_MAX_LENGTH,
+              },
+            }}
+          />
+
+          <TextField
+            value={step.tip || ""}
+            fullWidth
+            multiline
+            size="small"
+            minRows={1}
+            label={t("steps.fields.tip.label")}
+            variant="outlined"
+            onChange={(e) => onChange(index, "tip", e.target.value)}
+            slotProps={{
+              htmlInput: {
+                maxLength: TIP_MAX_LENGTH,
+              },
+              input: {
+                startAdornment: (
+                  <InputAdornment position="start">
+                    <LightbulbOutlineIcon color="warning" />
+                  </InputAdornment>
+                ),
+              },
+            }}
+          />
+
+          <TextField
+            value={step.imageUrl || ""}
+            size="small"
+            fullWidth
+            label={t("steps.fields.imageUrl.label")}
+            variant="outlined"
+            onChange={(e) => onChange(index, "imageUrl", e.target.value)}
+            error={!isValidUrl(step.imageUrl)}
+            slotProps={{
+              input: {
+                startAdornment: (
+                  <InputAdornment position="start">
+                    <ImageIcon color="action" />
+                  </InputAdornment>
+                ),
+              },
+            }}
+          />
+        </div>
+      </div>
+
+      <div className="steps-form__item-actions">
+        <IconButton
+          aria-label={t("steps.list.delete")}
+          sx={{ color: "#ed5858" }}
+          onClick={() => onDelete(index)}
+          title={t("steps.list.delete")}
+        >
+          <RemoveCircleOutlineIcon />
+        </IconButton>
+      </div>
+    </li>
+  );
+};
 
 const StepsForm = (props) => {
   const { recipe, setRecipe, handleStepsUpdate } = props;
@@ -20,7 +175,24 @@ const StepsForm = (props) => {
   };
 
   const [newStep, setNewStep] = useState(stepTemplate);
-  const [draggedIndex, setDraggedIndex] = useState(null);
+
+  // Configure sensors for dnd-kit (includes touch support)
+  const sensors = useSensors(
+    useSensor(PointerSensor, {
+      activationConstraint: {
+        distance: 8,
+      },
+    }),
+    useSensor(TouchSensor, {
+      activationConstraint: {
+        delay: 200,
+        tolerance: 8,
+      },
+    }),
+    useSensor(KeyboardSensor, {
+      coordinateGetter: sortableKeyboardCoordinates,
+    })
+  );
 
   const handleNewStepUpdate = (e) => {
     const { id, value } = e.target;
@@ -31,7 +203,8 @@ const StepsForm = (props) => {
     if (newStep.description.trim()) {
       const stepWithOrder = {
         ...newStep,
-        order: recipe.steps.length + 1
+        id: `step-${Date.now()}`, // Add unique id for dnd-kit
+        order: recipe.steps.length + 1,
       };
       handleStepsUpdate(stepWithOrder);
       setNewStep(stepTemplate);
@@ -51,92 +224,30 @@ const StepsForm = (props) => {
     setRecipe({ ...recipe, steps: newSteps });
   };
 
-  const handleDragStart = (index) => {
-    setDraggedIndex(index);
-  };
+  // Handler for when drag ends (dnd-kit)
+  const handleDragEnd = (event) => {
+    const { active, over } = event;
 
-  const handleDragOver = (e, hoverIndex) => {
-    e.preventDefault();
-
-    if (draggedIndex === null || draggedIndex === hoverIndex) {
+    if (!over || active.id === over.id) {
       return;
     }
 
-    // Reorder in real-time while dragging
-    const newSteps = [...recipe.steps];
-    const draggedItem = newSteps[draggedIndex];
+    const oldIndex = recipe.steps.findIndex((step) => step.id === active.id);
+    const newIndex = recipe.steps.findIndex((step) => step.id === over.id);
 
-    // Remove dragged item
-    newSteps.splice(draggedIndex, 1);
-    // Insert at new position
-    newSteps.splice(hoverIndex, 0, draggedItem);
+    const newSteps = arrayMove(recipe.steps, oldIndex, newIndex).map(
+      (step, i) => ({
+        ...step,
+        order: i + 1,
+      })
+    );
 
-    // Update order numbers
-    const updatedSteps = newSteps.map((step, i) => ({ ...step, order: i + 1 }));
-
-    setRecipe({ ...recipe, steps: updatedSteps });
-    setDraggedIndex(hoverIndex);
-  };
-
-  const handleDrop = (e) => {
-    e.preventDefault();
-    setDraggedIndex(null);
-  };
-
-  const handleDragEnd = () => {
-    setDraggedIndex(null);
-  };
-
-  // Touch events for mobile support
-  const [touchStartY, setTouchStartY] = useState(null);
-  const [touchCurrentY, setTouchCurrentY] = useState(null);
-
-  const handleTouchStart = (e, index) => {
-    setDraggedIndex(index);
-    setTouchStartY(e.touches[0].clientY);
-  };
-
-  const handleTouchMove = (e) => {
-    if (draggedIndex === null) return;
-
-    e.preventDefault();
-    setTouchCurrentY(e.touches[0].clientY);
-
-    // Find element under touch point
-    const touchY = e.touches[0].clientY;
-    const elements = document.elementsFromPoint(e.touches[0].clientX, touchY);
-    const listItem = elements.find(el => el.classList.contains('steps-form__list-item'));
-
-    if (listItem) {
-      const allItems = Array.from(document.querySelectorAll('.steps-form__list-item'));
-      const hoverIndex = allItems.indexOf(listItem);
-
-      if (hoverIndex !== -1 && hoverIndex !== draggedIndex) {
-        const newSteps = [...recipe.steps];
-        const draggedItem = newSteps[draggedIndex];
-
-        newSteps.splice(draggedIndex, 1);
-        newSteps.splice(hoverIndex, 0, draggedItem);
-
-        const updatedSteps = newSteps.map((step, i) => ({ ...step, order: i + 1 }));
-
-        setRecipe({ ...recipe, steps: updatedSteps });
-        setDraggedIndex(hoverIndex);
-      }
-    }
-  };
-
-  const handleTouchEnd = () => {
-    setDraggedIndex(null);
-    setTouchStartY(null);
-    setTouchCurrentY(null);
+    setRecipe({ ...recipe, steps: newSteps });
   };
 
   return (
     <div className="steps-form">
-      <p className="steps-form__subtitle">
-        {t("steps.subtitle")}
-      </p>
+      <p className="steps-form__subtitle">{t("steps.subtitle")}</p>
 
       <div className="steps-form__inputs">
         <div className="steps-form__input-group">
@@ -146,9 +257,13 @@ const StepsForm = (props) => {
             size="small"
             fullWidth
             label={t("steps.fields.description.label")}
-            placeholder={t("steps.fields.description.placeholder")}
             variant="outlined"
             onChange={handleNewStepUpdate}
+            slotProps={{
+              htmlInput: {
+                maxLength: DESCRIPTION_MAX_LENGTH,
+              },
+            }}
           />
 
           <TextField
@@ -157,10 +272,12 @@ const StepsForm = (props) => {
             size="small"
             fullWidth
             label={t("steps.fields.tip.label")}
-            placeholder={t("steps.fields.tip.placeholder")}
             variant="outlined"
             onChange={handleNewStepUpdate}
             slotProps={{
+              htmlInput: {
+                maxLength: TIP_MAX_LENGTH,
+              },
               input: {
                 startAdornment: (
                   <InputAdornment position="start">
@@ -177,9 +294,9 @@ const StepsForm = (props) => {
             size="small"
             fullWidth
             label={t("steps.fields.imageUrl.label")}
-            placeholder={t("steps.fields.imageUrl.placeholder")}
             variant="outlined"
             onChange={handleNewStepUpdate}
+            error={!isValidUrl(newStep.imageUrl)}
             slotProps={{
               input: {
                 startAdornment: (
@@ -190,7 +307,6 @@ const StepsForm = (props) => {
               },
             }}
           />
-
         </div>
 
         <IconButton
@@ -200,113 +316,43 @@ const StepsForm = (props) => {
           disabled={!newStep.description.trim()}
           className="steps-form__add-button"
           sx={{
-            bgcolor: 'primary.main',
-            color: 'white',
-            '&:hover': { bgcolor: 'primary.dark' },
-            '&.Mui-disabled': { bgcolor: 'action.disabledBackground' }
+            bgcolor: "primary.main",
+            color: "white",
+            "&:hover": { bgcolor: "primary.dark" },
+            "&.Mui-disabled": { bgcolor: "action.disabledBackground" },
           }}
         >
           <AddIcon />
         </IconButton>
       </div>
 
-      <ul className="steps-form__list">
-        {recipe.steps.map((step, index) => (
-          <li
-            key={index}
-            className={`steps-form__list-item ${draggedIndex === index ? 'dragging' : ''}`}
-            draggable
-            onDragStart={() => handleDragStart(index)}
-            onDragOver={(e) => handleDragOver(e, index)}
-            onDrop={handleDrop}
-            onDragEnd={handleDragEnd}
-            onTouchStart={(e) => handleTouchStart(e, index)}
-            onTouchMove={handleTouchMove}
-            onTouchEnd={handleTouchEnd}
-          >
-            <div className="steps-form__step-number">{index + 1}</div>
-
-            <div className="steps-form__item-header">
-              <div className="steps-form__drag-handle">
-                <DragIndicatorIcon sx={{ color: '#9e9e9e', cursor: 'grab' }} />
-              </div>
-
-              {step.imageUrl && (
-                <div className="steps-form__step-image">
-                  <img
-                    src={step.imageUrl}
-                    alt={`Paso ${index + 1}`}
-                    onError={(e) => {
-                      e.target.src = fallbackImage;
-                      e.target.alt = "Image not found";
-                    }}
-                  />
-                </div>
-              )}
-            </div>
-
-            <div className="steps-form__item-content">
-              <div className="steps-form__item-fields">
-                <TextField
-                  value={step.description}
-                  size="small"
-                  fullWidth
-                  label={t("steps.fields.description.label")}
-                  variant="outlined"
-                  onChange={(e) => handleStepChange(index, 'description', e.target.value)}
-                />
-
-                <TextField
-                  value={step.tip || ""}
-                  size="small"
-                  fullWidth
-                  label={t("steps.fields.tip.label")}
-                  variant="outlined"
-                  onChange={(e) => handleStepChange(index, 'tip', e.target.value)}
-                  slotProps={{
-                    input: {
-                      startAdornment: (
-                        <InputAdornment position="start">
-                          <LightbulbOutlineIcon color="warning" />
-                        </InputAdornment>
-                      ),
-                    },
-                  }}
-                />
-
-                <TextField
-                  value={step.imageUrl || ""}
-                  size="small"
-                  fullWidth
-                  label={t("steps.fields.imageUrl.label")}
-                  variant="outlined"
-                  onChange={(e) => handleStepChange(index, 'imageUrl', e.target.value)}
-                  slotProps={{
-                    input: {
-                      startAdornment: (
-                        <InputAdornment position="start">
-                          <ImageIcon color="action" />
-                        </InputAdornment>
-                      ),
-                    },
-                  }}
-                />
-              </div>
-            </div>
-
-            <div className="steps-form__item-actions">
-              <IconButton
-                aria-label={t("steps.list.delete")}
-                sx={{ color: "#ed5858" }}
-                onClick={() => handleDeleteStep(index)}
-                title={t("steps.list.delete")}
-              >
-                <RemoveCircleOutlineIcon />
-              </IconButton>
-            </div>
-          </li>
-        ))}
-      </ul>
+      <DndContext
+        sensors={sensors}
+        collisionDetection={closestCenter}
+        onDragEnd={handleDragEnd}
+        modifiers={[restrictToVerticalAxis, restrictToParentElement]}
+      >
+        <SortableContext
+          items={recipe.steps.map((step) => step.id || `step-${step.order}`)}
+          strategy={verticalListSortingStrategy}
+        >
+          <ul className="steps-form__list">
+            {recipe.steps.map((step, index) => (
+              <SortableStep
+                key={step.id || `step-${index}`}
+                step={{
+                  ...step,
+                  id: step.id || `step-${index}`,
+                }}
+                index={index}
+                onDelete={handleDeleteStep}
+                onChange={handleStepChange}
+                t={t}
+              />
+            ))}
+          </ul>
+        </SortableContext>
+      </DndContext>
     </div>
   );
 };
