@@ -3,12 +3,10 @@
   "editTitle": "Editar receta",
   "fields": {
     "name": {
-      "label": "Nombre",
-      "placeholder": "Ingresa el nombre de la receta"
+      "label": "Nombre"
     },
     "description": {
-      "label": "Descripción",
-      "placeholder": "Describe tu receta"
+      "label": "Descripción"
     },
     "prepTime": {
       "label": "Tiempo"
@@ -75,16 +73,13 @@
     "subtitle": "Agrega todos los ingredientes necesarios. El orden en el que los añadas será el que aparezca en el detalle de la receta",
     "fields": {
       "name": {
-        "label": "Nombre del Ingrediente",
-        "placeholder": "Nuevo ingrediente"
+        "label": "Nombre del Ingrediente"
       },
       "quantity": {
-        "label": "Cantidad",
-        "placeholder": "2"
+        "label": "Cantidad"
       },
       "unit": {
-        "label": "Unidad",
-        "placeholder": "Taza"
+        "label": "Unidad"
       },
       "optional": {
         "label": "Opcional",
@@ -108,16 +103,13 @@
     "subtitle": "Agrega todos los pasos necesarios. El orden en el que los añadas será el que aparezca en el detalle de la receta",
     "fields": {
       "description": {
-        "label": "Descripción del paso",
-        "placeholder": "Describe qué hacer en este paso"
+        "label": "Descripción del paso"
       },
       "tip": {
-        "label": "Consejo",
-        "placeholder": "Consejo de cocina opcional o recomendación"
+        "label": "Consejo"
       },
       "imageUrl": {
-        "label": "URL de imagen (opcional)",
-        "placeholder": "https://ejemplo.com/imagen-paso.jpg"
+        "label": "URL de imagen (opcional)"
       }
     },
     "buttons": {
@@ -132,8 +124,7 @@
     "subtitle": "Inserta la URL de la imagen principal de la receta",
     "fields": {
       "url": {
-        "label": "URL de la Imagen",
-        "placeholder": "URL de la imagen de la receta"
+        "label": "URL de la Imagen"
       }
     },
     "preview": {
