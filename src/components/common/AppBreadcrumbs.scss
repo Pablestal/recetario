@@ -1,0 +1,22 @@
+.breadcrumbs-spacer {
+  padding: 10px 0;
+}
+
+.breadcrumbs {
+  font-size: 0.8rem;
+
+  .breadcrumbs__link {
+    color: #233d4d;
+    cursor: pointer;
+    font-size: 0.8rem;
+
+    &:hover {
+      color: #fe7f2d;
+    }
+  }
+
+  .breadcrumbs__current {
+    color: #666;
+    font-size: 0.8rem;
+  }
+}

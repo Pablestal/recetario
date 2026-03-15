@@ -32,7 +32,6 @@ const RecipeList = () => {
   return (
     <>
       <section>
-        <h2>{t("recipeListTitle")}</h2>
         <Button
           variant="contained"
           color="primary"
