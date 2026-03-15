@@ -14,6 +14,7 @@ import { useEffect } from "react";
 import { useAuthStore } from "./stores/useAuthStore";
 import Loading from "./components/common/Loading";
 import ProtectedRoute from "./components/common/ProtectedRoute";
+import AppBreadcrumbs from "./components/common/AppBreadcrumbs";
 
 const App = () => {
   const { initialize, loading, cleanup } = useAuthStore();
@@ -36,10 +37,14 @@ const App = () => {
           {!loading && (
             <>
               <div className="content">
+                <AppBreadcrumbs />
                 <Routes>
-                  <Route path="/" element={<Navigate to="/profile" replace />} />
+                  <Route
+                    path="/"
+                    element={<Navigate to="/recipes" replace />}
+                  />
                   <Route path="/profile" element={<HomePage />} />
-                  <Route path="/recipes/recipe-list" element={<RecipeListPage />} />
+                  <Route path="/recipes" element={<RecipeListPage />} />
                   <Route
                     path="/recipes/recipe-creation"
                     element={

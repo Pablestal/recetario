@@ -569,10 +569,6 @@ const CreateRecipe = ({ recipeId }) => {
 
   return (
     <section className="create-recipe">
-      <h2 className="create-recipe__title">
-        {isEditMode ? t("editTitle") : t("title")}
-      </h2>
-
       {submitSuccess && (
         <Alert severity="success" sx={{ mb: 3 }}>
           {isEditMode ? t("messages.updateSuccess") : t("messages.success")}

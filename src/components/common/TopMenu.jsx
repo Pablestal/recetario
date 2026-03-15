@@ -6,7 +6,6 @@ import IconButton from "@mui/material/IconButton";
 import Typography from "@mui/material/Typography";
 import Menu from "@mui/material/Menu";
 import MenuIcon from "@mui/icons-material/Menu";
-import Container from "@mui/material/Container";
 import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 import Tooltip from "@mui/material/Tooltip";
@@ -24,8 +23,12 @@ import "./TopMenu.scss";
 
 const pages = [
   { name: "profile", link: "/profile", activeBase: "/profile" },
-  { name: "recipes", link: "/recipes/recipe-list", activeBase: "/recipes" },
-  { name: "shoppingList", link: "/shopping-list", activeBase: "/shopping-list" },
+  { name: "recipes", link: "/recipes", activeBase: "/recipes" },
+  {
+    name: "shoppingList",
+    link: "/shopping-list",
+    activeBase: "/shopping-list",
+  },
   { name: "weeklyMenu", link: "/weekly-menu", activeBase: "/weekly-menu" },
 ];
 const settings = ["profile", "account", "logout"];
@@ -67,7 +70,7 @@ const TopMenu = () => {
   };
 
   const goToHome = () => {
-    navigate("/profile");
+    navigate("/recipes");
   };
 
   const handleSettingClick = async (setting) => {
@@ -111,7 +114,7 @@ const TopMenu = () => {
   return (
     <>
       <AppBar position="fixed" sx={{ bgcolor: "white" }}>
-        <Container maxWidth="xl">
+        <Box className="nav-inner">
           <Toolbar disableGutters sx={{ minHeight: "64px", height: "64px" }}>
             <Box
               onClick={goToHome}
@@ -189,7 +192,15 @@ const TopMenu = () => {
                 style={{ height: "50px", width: "auto" }}
               />
             </Box>
-            <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" }, height: "64px", alignItems: "stretch", justifyContent: "center" }}>
+            <Box
+              sx={{
+                flexGrow: 1,
+                display: { xs: "none", md: "flex" },
+                height: "64px",
+                alignItems: "stretch",
+                justifyContent: "center",
+              }}
+            >
               {pages.map((page, index) => (
                 <Button
                   key={index}
@@ -199,7 +210,7 @@ const TopMenu = () => {
                     display: "flex",
                     alignItems: "center",
                     height: "100%",
-                    px: 2
+                    px: 2,
                   }}
                   onClick={() => goTo(page)}
                 >
@@ -243,7 +254,7 @@ const TopMenu = () => {
                       bgcolor: "secondary.main",
                       color: "white",
                       "&:hover": {
-                        bgcolor: "secondary.dark"
+                        bgcolor: "secondary.dark",
                       },
                     }}
                   >
@@ -322,7 +333,7 @@ const TopMenu = () => {
               </Box>
             )}
           </Toolbar>
-        </Container>
+        </Box>
       </AppBar>
 
       {/* Login and Register Dialogs */}

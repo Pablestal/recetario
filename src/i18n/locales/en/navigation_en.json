@@ -13,6 +13,9 @@
       "rights": "All rights reserved."
     },
     "login": "Login",
-    "register": "Register"
+    "register": "Register",
+    "recipeDetails": "Recipe Details",
+    "newRecipe": "New Recipe",
+    "editRecipe": "Edit Recipe"
   }
 }

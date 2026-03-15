@@ -63,7 +63,7 @@ function RecipeDetails() {
 
     try {
       await deleteRecipe(id);
-      navigate("/recipes/recipe-list");
+      navigate("/recipes");
     } catch (error) {
       console.error("Error al eliminar la receta:", error);
       isDeletingRef.current = false;
