@@ -1,3 +1,11 @@
+@use "../../utils/breakpoints" as bp;
+
+.nav-inner {
+  width: 100%;
+  box-sizing: border-box;
+  @include bp.horizontal-page-spacing;
+}
+
 .menu-button {
   position: relative;
   height: 100%;

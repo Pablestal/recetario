@@ -58,6 +58,23 @@ $extra-large-desktop: 1920px; // Large monitors
   }
 }
 
+@mixin horizontal-page-spacing {
+  @include mobile {
+    padding-left: 10px;
+    padding-right: 10px;
+  }
+
+  @include desktop {
+    padding-left: 100px;
+    padding-right: 100px;
+  }
+
+  @include large-desktop {
+    padding-left: 300px;
+    padding-right: 300px;
+  }
+}
+
 // Custom mixins for specific ranges
 @mixin between($min, $max) {
   @media (min-width: #{$min}) and (max-width: #{$max - 1px}) {

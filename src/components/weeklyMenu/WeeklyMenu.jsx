@@ -1,5 +1,10 @@
+
 const WeeklyMenu = () => {
-  return <div>WeeklyMenu Component</div>;
+  return (
+    <>
+      <div>WeeklyMenu Component</div>
+    </>
+  );
 };
 
 export default WeeklyMenu;
