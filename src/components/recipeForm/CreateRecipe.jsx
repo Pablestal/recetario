@@ -340,7 +340,7 @@ const CreateRecipe = ({ recipeId }) => {
             setSubmitSuccess(true);
 
             // Navigate back to recipe details after update
-            navigate(`/recipe-details/${recipeId}`);
+            navigate(`/recipes/recipe-details/${recipeId}`);
           } else {
             // Create new recipe
             const recipeToSubmit = {

@@ -24,7 +24,7 @@ const RecipeList = () => {
   }, [userId]);
 
   const handleCreateRecipe = () => {
-    navigate("/recipe-creation");
+    navigate("/recipes/recipe-creation");
   };
 
   if (loading) return <Loading />;
@@ -45,7 +45,7 @@ const RecipeList = () => {
           {recipes.map((recipe) => (
             <Link
               key={recipe.id}
-              to={`/recipe-details/${recipe.id}`}
+              to={`/recipes/recipe-details/${recipe.id}`}
               className="no-link-style"
             >
               <RecipeCard key={recipe.id} recipe={recipe} component={Link} />
