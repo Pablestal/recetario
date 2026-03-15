@@ -4,17 +4,25 @@ import Loading from "../common/Loading";
 import { useRecipeStore } from "../../stores/useRecipeStore";
 import { useAuthStore } from "../../stores/useAuthStore";
 import { useParams, useNavigate } from "react-router-dom";
-import AccessTimeIcon from "@mui/icons-material/AccessTime";
-import Typography from "@mui/material/Typography";
-import RestaurantIcon from "@mui/icons-material/Restaurant";
 import LocalDiningIcon from "@mui/icons-material/LocalDiningOutlined";
 import LightbulbIcon from "@mui/icons-material/Lightbulb";
 import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
-import { IconButton } from "@mui/material";
+import MoreVertIcon from "@mui/icons-material/MoreVert";
+import AccessTimeOutlinedIcon from "@mui/icons-material/AccessTimeOutlined";
+import PeopleAltOutlinedIcon from "@mui/icons-material/PeopleAltOutlined";
+import SignalCellularAltIcon from "@mui/icons-material/SignalCellularAlt";
+import {
+  IconButton,
+  Menu,
+  MenuItem,
+  ListItemIcon,
+  ListItemText,
+  Tooltip,
+} from "@mui/material";
+import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import { useTranslation } from "react-i18next";
 import DeleteConfirmationDialog from "./DeleteConfirmationDialog";
-import fallbackImage from "../../assets/recipe-details-img-fallback.png";
 
 function RecipeDetails() {
   const { t } = useTranslation("recipeDetails");
@@ -31,6 +39,7 @@ function RecipeDetails() {
   const [openDialog, setOpenDialog] = useState(false);
   const [isDeleting, setIsDeleting] = useState(false);
   const isDeletingRef = useRef(false);
+  const [menuAnchor, setMenuAnchor] = useState(null);
 
   useEffect(() => {
     if (id) {
@@ -39,18 +48,13 @@ function RecipeDetails() {
   }, [getRecipeById, id]);
 
   const renderDifficultyIcons = (difficulty) => {
-    return Array.from({ length: difficulty - 1 }, (_, index) => (
+    return Array.from({ length: difficulty }, (_, index) => (
       <LocalDiningIcon key={index} sx={{ fontSize: 18, color: "#d32f2f" }} />
     ));
   };
 
-  const handleOpenDialog = () => {
-    setOpenDialog(true);
-  };
-
-  const handleCloseDialog = () => {
-    setOpenDialog(false);
-  };
+  const handleOpenDialog = () => setOpenDialog(true);
+  const handleCloseDialog = () => setOpenDialog(false);
 
   const handleConfirmDelete = async () => {
     isDeletingRef.current = true;
@@ -71,12 +75,20 @@ function RecipeDetails() {
     navigate(`/recipe-creation/${id}`);
   };
 
-  // Prioridad absoluta: si estamos eliminando, solo mostrar loading
-  // Usar ref para evitar re-renders problemáticos
-  if (isDeletingRef.current || isDeleting) {
-    return <Loading />;
-  }
+  const handleMenuOpen = (e) => setMenuAnchor(e.currentTarget);
+  const handleMenuClose = () => setMenuAnchor(null);
 
+  const handleMenuEdit = () => {
+    handleMenuClose();
+    handleEditRecipe();
+  };
+
+  const handleMenuDelete = () => {
+    handleMenuClose();
+    handleOpenDialog();
+  };
+
+  if (isDeletingRef.current || isDeleting) return <Loading />;
   if (loading) return <Loading />;
   if (error) return <div>Error: {error}</div>;
   if (!recipe) return <div>Receta no encontrada</div>;
@@ -84,30 +96,42 @@ function RecipeDetails() {
   const isOwner = user?.id === recipe.user_id;
 
   return (
-    <section>
+    <section className="recipe-details-page">
       <div className="recipe-details__title-container">
-        <h2>{recipe.name}</h2>
+        <div className="recipe-details__title-text">
+          <h2>{recipe.name}</h2>
+          {recipe.description && (
+            <p className="recipe-details__subtitle">{recipe.description}</p>
+          )}
+        </div>
         {isOwner && (
-          <div>
-            <IconButton
-              aria-label="edit"
-              color="primary"
-              size="large"
-              onClick={handleEditRecipe}
-              className="recipe-details__edit-button"
-            >
-              <EditIcon />
+          <>
+            <IconButton aria-label="more options" onClick={handleMenuOpen}>
+              <MoreVertIcon />
             </IconButton>
-            <IconButton
-              aria-label="delete"
-              color="error"
-              size="large"
-              onClick={handleOpenDialog}
-              className="recipe-details__delete-button"
+            <Menu
+              anchorEl={menuAnchor}
+              open={Boolean(menuAnchor)}
+              onClose={handleMenuClose}
+              anchorOrigin={{ vertical: "bottom", horizontal: "right" }}
+              transformOrigin={{ vertical: "top", horizontal: "right" }}
             >
-              <DeleteIcon />
-            </IconButton>
-          </div>
+              <MenuItem onClick={handleMenuEdit}>
+                <ListItemIcon>
+                  <EditIcon fontSize="small" />
+                </ListItemIcon>
+                <ListItemText>{t("edit")}</ListItemText>
+              </MenuItem>
+              <MenuItem onClick={handleMenuDelete}>
+                <ListItemIcon>
+                  <DeleteIcon fontSize="small" color="error" />
+                </ListItemIcon>
+                <ListItemText sx={{ color: "error.main" }}>
+                  {t("delete")}
+                </ListItemText>
+              </MenuItem>
+            </Menu>
+          </>
         )}
       </div>
 
@@ -118,89 +142,125 @@ function RecipeDetails() {
         recipeName={recipe.name}
       />
 
-      <div className="recipe-details">
-        <div className="recipe-details__header">
-          <p>{recipe.description}</p>
-          <div className="recipe-details__information">
-            <div className="recipe-card__author"></div>
-            <div className="recipe-details__information-items">
-              <div className="recipe-card__icon-item">
-                <AccessTimeIcon />
-                <Typography
-                  variant="body2"
-                  sx={{ fontSize: 18, color: "text.secondary" }}
-                >
-                  {recipe.prep_time ? recipe.prep_time : "??"}
-                  {t("minutes")}
-                </Typography>
+      <div className="recipe-details__body">
+        <div className="recipe-details__sidebar">
+          <div className="recipe-details__summary-card">
+            <div className="recipe-details__summary-items">
+              <div className="recipe-details__summary-item">
+                <AccessTimeOutlinedIcon className="recipe-details__summary-icon" />
+                <div className="recipe-details__summary-text">
+                  <span className="recipe-details__summary-label">
+                    {t("time").toUpperCase()}
+                  </span>
+                  <strong className="recipe-details__summary-value">
+                    {recipe.prep_time ? recipe.prep_time : "??"}
+                    {t("minutes")}
+                  </strong>
+                </div>
               </div>
-              <div className="recipe-card__icon-item">
-                <RestaurantIcon />
-                <Typography
-                  variant="body2"
-                  sx={{ fontSize: 20, color: "text.secondary" }}
-                >
-                  {recipe.servings ? recipe.servings : "??"}
-                </Typography>
+              <div className="recipe-details__summary-item">
+                <PeopleAltOutlinedIcon className="recipe-details__summary-icon" />
+                <div className="recipe-details__summary-text">
+                  <span className="recipe-details__summary-label">
+                    {t("servings").toUpperCase()}
+                  </span>
+                  <strong className="recipe-details__summary-value">
+                    {recipe.servings ? recipe.servings : "??"}
+                  </strong>
+                </div>
               </div>
-              <div className="recipe-card__icon-item recipe-card__icon-item__difficulty">
-                <Typography
-                  variant="body2"
-                  sx={{ fontSize: 16, color: "text.secondary", marginRight: 1 }}
-                >
-                  {t("difficulty")}:
-                </Typography>
-                {renderDifficultyIcons(recipe.difficulty)}
+              <div className="recipe-details__summary-item">
+                <SignalCellularAltIcon className="recipe-details__summary-icon" />
+                <div className="recipe-details__summary-text">
+                  <span className="recipe-details__summary-label">
+                    {t("difficulty").toUpperCase()}
+                  </span>
+                  <div className="recipe-details__summary-value">
+                    {renderDifficultyIcons(recipe.difficulty)}
+                  </div>
+                </div>
               </div>
             </div>
           </div>
-          <div className="recipe-details__ingredients">
+
+          <div className="recipe-details__ingredients-card">
+            <div className="recipe-details__ingredients-header">
+              <strong>{t("ingredients")}</strong>
+            </div>
             <ul className="recipe-details__ingredients-list">
               {recipe.ingredients
                 .sort((a, b) => a.id - b.id)
                 .map((ingredient, index) => (
-                  <li key={index}>
-                    - {ingredient.quantity} {ingredient.name}{" "}
-                    {ingredient.optional && (
-                      <span className="recipe-details__ingredient-optional">
-                        ({t("optional")})
+                  <li key={index} className="recipe-details__ingredient-item">
+                    <span className="recipe-details__ingredient-name">
+                      {ingredient.name}{" "}
+                      {ingredient.optional && (
+                        <span className="recipe-details__ingredient-optional">
+                          ({t("optional")})
+                        </span>
+                      )}
+                    </span>
+                    {ingredient.quantity && (
+                      <span className="recipe-details__ingredient-quantity">
+                        {ingredient.quantity}
                       </span>
                     )}
+                    <Tooltip title={t("addToShoppingList")} placement="top">
+                      <span>
+                        <IconButton
+                          size="small"
+                          className="recipe-details__ingredient-cart-btn"
+                          aria-label={t("addToShoppingList")}
+                          disabled
+                        >
+                          <ShoppingCartIcon fontSize="small" />
+                        </IconButton>
+                      </span>
+                    </Tooltip>
                   </li>
                 ))}
             </ul>
           </div>
         </div>
-        <div className="recipe-details__steps">
-          <div className="recipe-details__image-container">
-            <img
-              src={recipe.main_image_url || fallbackImage}
-              alt="recipe_image"
-              className="recipe-details__image"
-            />
-          </div>
-          <ol className="recipe-details__steps-list">
-            {recipe.steps.map((step, index) => (
-              <li key={index} className="recipe-details__steps-item">
-                <span className="recipe-details__step-number">
-                  {t("step")} {step.step_number}
-                </span>
-                <div className="recipe-details__step-content">
-                  <p className="recipe-details__step-description">
-                    {step.description}
-                  </p>
-                  {step.tip && (
-                    <div className="recipe-details__step-tip">
-                      <div className="recipe-details__tip-header">
+
+        <div className="recipe-details__main-column">
+          {recipe.main_image_url && (
+            <div className="recipe-details__main-image-container">
+              <img
+                src={recipe.main_image_url}
+                alt="recipe_image"
+                className="recipe-details__main-image"
+              />
+            </div>
+          )}
+
+          <div className="recipe-details__steps-section">
+            <h3 className="recipe-details__steps-title">
+              {t("preparationSteps")}
+            </h3>
+            <ol className="recipe-details__steps-list">
+              {recipe.steps.map((step, index) => (
+                <li key={index} className="recipe-details__step-item">
+                  <div className="recipe-details__step-circle">
+                    {step.step_number}
+                  </div>
+                  <div className="recipe-details__step-content">
+                    <p className="recipe-details__step-description">
+                      {step.description}
+                    </p>
+                    {step.tip && (
+                      <div className="recipe-details__step-tip">
                         <LightbulbIcon className="recipe-details__tip-icon" />
+                        <p className="recipe-details__tip-text">
+                          <strong>Tip:</strong> {step.tip}
+                        </p>
                       </div>
-                      <p className="recipe-details__tip-text">{step.tip}</p>
-                    </div>
-                  )}
-                </div>
-              </li>
-            ))}
-          </ol>
+                    )}
+                  </div>
+                </li>
+              ))}
+            </ol>
+          </div>
         </div>
       </div>
     </section>

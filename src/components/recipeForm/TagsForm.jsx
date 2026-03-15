@@ -27,7 +27,8 @@ const TagForm = (props) => {
         limitTags={isMobile ? 2 : 4}
         size="medium"
         getOptionLabel={(option) => option.name}
-        value={recipe.tags}
+        value={recipe.tags.map((tag) => tags.find((t) => t.id === tag.id) ?? tag)}
+        isOptionEqualToValue={(option, value) => option.id === value.id}
         onChange={(event, newValue) => {
           if (newValue.length <= 4) {
             handleTagsUpdate(newValue);
@@ -54,7 +55,7 @@ const TagForm = (props) => {
             helperText={`${recipe.tags.length}/4 ${t("fields.tags.numberLabel")}`}
           />
         )}
-        renderValue={(value, getTagProps) =>
+        renderTags={(value, getTagProps) =>
           value.map((option, index) => {
             const { key, ...tagProps } = getTagProps({ index });
             return (
