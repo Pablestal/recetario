@@ -1,8 +1,17 @@
 {
-  "minutes": "m",
+  "minutes": " minutos",
   "difficulty": "Dificultad",
   "optional": "opcional",
   "step": "Paso",
+  "summary": "Resumen",
+  "time": "Tiempo",
+  "servings": "Porciones",
+  "persons": "personas",
+  "ingredients": "Ingredientes",
+  "preparationSteps": "Pasos de preparación",
+  "edit": "Editar",
+  "delete": "Eliminar",
+  "addToShoppingList": "Añadir a la lista de la compra",
   "deleteDialog": {
     "title": "Confirmar eliminación",
     "message": "¿Estás seguro de que quieres eliminar la receta",

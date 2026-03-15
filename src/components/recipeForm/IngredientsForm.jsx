@@ -80,17 +80,7 @@ const SortableIngredient = ({ ingredient, index, onDelete, onChange, t }) => {
           label={t("ingredients.fields.quantity.label")}
           variant="outlined"
           onChange={(e) => onChange(index, "quantity", e.target.value)}
-          slotProps={{ htmlInput: { maxLength: 10 } }}
-          sx={{ width: "120px" }}
-        />
-
-        <TextField
-          value={ingredient.unit || ""}
-          size="small"
-          label={t("ingredients.fields.unit.label")}
-          variant="outlined"
-          onChange={(e) => onChange(index, "unit", e.target.value)}
-          slotProps={{ htmlInput: { maxLength: 15 } }}
+          slotProps={{ htmlInput: { maxLength: 12 } }}
           sx={{ width: "150px" }}
         />
 
@@ -131,7 +121,6 @@ const IngredientForm = (props) => {
   const ingredientTemplate = {
     name: "",
     quantity: "",
-    unit: "",
     optional: false,
   };
 
@@ -241,18 +230,7 @@ const IngredientForm = (props) => {
             label={t("ingredients.fields.quantity.label")}
             variant="outlined"
             onChange={handleNewIngredientUpdate}
-            slotProps={{ htmlInput: { maxLength: 10 } }}
-            sx={{ width: "120px" }}
-          />
-
-          <TextField
-            id="unit"
-            value={newIngredient.unit}
-            size="small"
-            label={t("ingredients.fields.unit.label")}
-            variant="outlined"
-            onChange={handleNewIngredientUpdate}
-            slotProps={{ htmlInput: { maxLength: 15 } }}
+            slotProps={{ htmlInput: { maxLength: 12 } }}
             sx={{ width: "150px" }}
           />
 

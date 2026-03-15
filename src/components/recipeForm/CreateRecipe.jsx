@@ -126,7 +126,7 @@ const CreateRecipe = ({ recipeId }) => {
             : "",
         ingredients: currentRecipe.ingredients ?? [],
         steps: currentRecipe.steps ?? [],
-        tags: currentRecipe.tags ?? [],
+        tags: currentRecipe.recipe_tags?.map((rt) => rt.tags) ?? [],
         isPublic: currentRecipe.is_public ?? true,
         mainImageURL: currentRecipe.main_image_url ?? "",
       };
@@ -625,13 +625,25 @@ const CreateRecipe = ({ recipeId }) => {
                 {isEditMode ? t("buttons.update") : t("buttons.save")}
               </Button>
             ) : (
-              <Button
-                variant="contained"
-                onClick={handleNext}
-                disabled={!isStepValid(activeStep)}
-              >
-                {t("stepper.next")}
-              </Button>
+              <>
+                {isEditMode && (
+                  <Button
+                    variant="outlined"
+                    onClick={handleSubmit}
+                    disabled={loading || !isStepValid(activeStep)}
+                    sx={{ mr: 1 }}
+                  >
+                    {t("buttons.update")}
+                  </Button>
+                )}
+                <Button
+                  variant="contained"
+                  onClick={handleNext}
+                  disabled={!isStepValid(activeStep)}
+                >
+                  {t("stepper.next")}
+                </Button>
+              </>
             )}
           </Box>
         </div>

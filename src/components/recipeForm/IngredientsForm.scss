@@ -105,7 +105,7 @@
 
   &__item-fields {
     display: grid;
-    grid-template-columns: 1fr 120px 150px 100px auto;
+    grid-template-columns: 1fr 150px 100px auto;
     gap: 10px;
     flex-grow: 1;
     align-items: center;
@@ -114,8 +114,8 @@
       grid-template-columns: 1fr 1fr;
       grid-template-areas:
         "name name"
-        "quantity unit"
-        "optional delete";
+        "quantity optional"
+        "delete delete";
       gap: 8px;
 
       > *:nth-child(1) {
@@ -125,12 +125,9 @@
         grid-area: quantity;
       }
       > *:nth-child(3) {
-        grid-area: unit;
-      }
-      > *:nth-child(4) {
         grid-area: optional;
       }
-      > *:nth-child(5) {
+      > *:nth-child(4) {
         grid-area: delete;
         justify-self: end;
       }
