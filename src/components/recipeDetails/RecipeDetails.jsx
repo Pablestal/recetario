@@ -63,7 +63,7 @@ function RecipeDetails() {
 
     try {
       await deleteRecipe(id);
-      navigate("/recipes");
+      navigate("/recipes/recipe-list");
     } catch (error) {
       console.error("Error al eliminar la receta:", error);
       isDeletingRef.current = false;
@@ -72,7 +72,7 @@ function RecipeDetails() {
   };
 
   const handleEditRecipe = () => {
-    navigate(`/recipe-creation/${id}`);
+    navigate(`/recipes/recipe-creation/${id}`);
   };
 
   const handleMenuOpen = (e) => setMenuAnchor(e.currentTarget);

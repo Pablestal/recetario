@@ -2,7 +2,7 @@ import { useNavigate } from "react-router-dom";
 import { useAuthStore } from "../stores/useAuthStore";
 
 // List of protected routes
-const PROTECTED_ROUTES = ["/recipe-creation"];
+const PROTECTED_ROUTES = ["/recipes/recipe-creation"];
 
 /**
  * Smart navigate hook that automatically handles protected routes.

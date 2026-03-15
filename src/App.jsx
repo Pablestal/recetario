@@ -1,4 +1,4 @@
-import { Route, Routes } from "react-router-dom";
+import { Navigate, Route, Routes } from "react-router-dom";
 import "./App.scss";
 import TopMenu from "./components/common/TopMenu";
 import Footer from "./components/common/Footer";
@@ -37,10 +37,11 @@ const App = () => {
             <>
               <div className="content">
                 <Routes>
-                  <Route path="/" element={<HomePage />} />
-                  <Route path="/recipes" element={<RecipeListPage />} />
+                  <Route path="/" element={<Navigate to="/profile" replace />} />
+                  <Route path="/profile" element={<HomePage />} />
+                  <Route path="/recipes/recipe-list" element={<RecipeListPage />} />
                   <Route
-                    path="/recipe-creation"
+                    path="/recipes/recipe-creation"
                     element={
                       <ProtectedRoute>
                         <RecipeCreationPage />
@@ -48,7 +49,7 @@ const App = () => {
                     }
                   />
                   <Route
-                    path="/recipe-creation/:id"
+                    path="/recipes/recipe-creation/:id"
                     element={
                       <ProtectedRoute>
                         <RecipeCreationPage />
@@ -56,9 +57,9 @@ const App = () => {
                     }
                   />
                   <Route path="/shopping-list" element={<ShoppingListPage />} />
-                  <Route path="/weeekly-menu" element={<WeeklyMenuPage />} />
+                  <Route path="/weekly-menu" element={<WeeklyMenuPage />} />
                   <Route
-                    path="/recipe-details/:id"
+                    path="/recipes/recipe-details/:id"
                     element={<RecipeDetailsPage />}
                   />
                 </Routes>
