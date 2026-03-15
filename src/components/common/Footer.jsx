@@ -27,7 +27,7 @@ const Footer = () => {
               {t("navigation.footer.quickLinks")}
             </Typography>
             <Box className="footer__links">
-              <Link href="/recipes" className="footer__link">
+              <Link href="/recipes/recipe-list" className="footer__link">
                 {t("navigation.recipes")}
               </Link>
               <Link href="/shopping-list" className="footer__link">

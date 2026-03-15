@@ -11,7 +11,7 @@ import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import LumeaLogo from "../../assets/Lumea-nobg.png";
 import { useTranslation } from "react-i18next";
 import LanguageSelector from "./LanguageSelector";
@@ -23,16 +23,17 @@ import PersonAddIcon from "@mui/icons-material/PersonAdd";
 import "./TopMenu.scss";
 
 const pages = [
-  { name: "profile", link: "/" },
-  { name: "recipes", link: "/recipes" },
-  { name: "shoppingList", link: "/shopping-list" },
-  { name: "weeklyMenu", link: "/weeekly-menu" },
+  { name: "profile", link: "/profile", activeBase: "/profile" },
+  { name: "recipes", link: "/recipes/recipe-list", activeBase: "/recipes" },
+  { name: "shoppingList", link: "/shopping-list", activeBase: "/shopping-list" },
+  { name: "weeklyMenu", link: "/weekly-menu", activeBase: "/weekly-menu" },
 ];
 const settings = ["profile", "account", "logout"];
 
 const TopMenu = () => {
   const { t } = useTranslation("navigation");
   const navigate = useNavigate();
+  const location = useLocation();
 
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
@@ -66,7 +67,7 @@ const TopMenu = () => {
   };
 
   const goToHome = () => {
-    navigate("/");
+    navigate("/profile");
   };
 
   const handleSettingClick = async (setting) => {
@@ -74,7 +75,7 @@ const TopMenu = () => {
 
     if (setting === "logout") {
       await signOut();
-      navigate("/");
+      navigate("/profile");
     } else if (setting === "profile") {
       navigate("/profile");
     } else if (setting === "account") {
@@ -161,7 +162,7 @@ const TopMenu = () => {
                   <MenuItem
                     key={index}
                     onClick={() => goTo(page)}
-                    className="mobile-menu-item"
+                    className={`mobile-menu-item${location.pathname.startsWith(page.activeBase) ? " mobile-menu-item--active" : ""}`}
                   >
                     <Typography sx={{ textAlign: "center" }}>
                       {t(`navigation.${page.name}`)}
@@ -192,7 +193,7 @@ const TopMenu = () => {
               {pages.map((page, index) => (
                 <Button
                   key={index}
-                  className="menu-button"
+                  className={`menu-button${location.pathname.startsWith(page.activeBase) ? " menu-button--active" : ""}`}
                   sx={{
                     color: "primary.main",
                     display: "flex",
