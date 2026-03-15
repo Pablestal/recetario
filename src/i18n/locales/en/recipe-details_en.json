@@ -12,6 +12,7 @@
   "edit": "Edit",
   "delete": "Delete",
   "addToShoppingList": "Add to shopping list",
+  "tip": "Tip",
   "deleteDialog": {
     "title": "Confirm deletion",
     "message": "Are you sure you want to delete the recipe",
