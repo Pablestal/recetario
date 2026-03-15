@@ -2,7 +2,6 @@
 @use "../../styles/variables" as colors;
 
 .recipe-details-page {
-  max-width: 1300px;
   overflow-x: hidden;
 }
 
@@ -204,6 +203,8 @@
     color: colors.$neutral-dark-gray;
     white-space: nowrap;
     flex-shrink: 0;
+    min-width: 80px;
+    text-align: left;
   }
 
   &__ingredient-cart-btn {
@@ -225,6 +226,8 @@
 
   // ── Main image ────────────────────────────────────────────────────────
   &__main-image-container {
+    width: 100%;
+    margin-top: 1rem;
     border-radius: 0.5rem;
     overflow: hidden;
     max-height: 420px;
@@ -245,6 +248,19 @@
     object-fit: cover;
     object-position: center;
     display: block;
+  }
+
+  &__step-image {
+    display: block;
+    width: 50%;
+    max-height: 300px;
+    object-fit: cover;
+    border-radius: 0.4rem;
+    margin-top: 0.75rem;
+
+    @include bp.mobile {
+      width: 100%;
+    }
   }
 
   // ── Steps section ─────────────────────────────────────────────────────

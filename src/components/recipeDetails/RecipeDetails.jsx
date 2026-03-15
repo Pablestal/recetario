@@ -144,6 +144,15 @@ function RecipeDetails() {
 
       <div className="recipe-details__body">
         <div className="recipe-details__sidebar">
+          {recipe.main_image_url && (
+            <div className="recipe-details__main-image-container">
+              <img
+                src={recipe.main_image_url}
+                alt="recipe_image"
+                className="recipe-details__main-image"
+              />
+            </div>
+          )}
           <div className="recipe-details__summary-card">
             <div className="recipe-details__summary-items">
               <div className="recipe-details__summary-item">
@@ -224,16 +233,6 @@ function RecipeDetails() {
         </div>
 
         <div className="recipe-details__main-column">
-          {recipe.main_image_url && (
-            <div className="recipe-details__main-image-container">
-              <img
-                src={recipe.main_image_url}
-                alt="recipe_image"
-                className="recipe-details__main-image"
-              />
-            </div>
-          )}
-
           <div className="recipe-details__steps-section">
             <h3 className="recipe-details__steps-title">
               {t("preparationSteps")}
@@ -252,9 +251,16 @@ function RecipeDetails() {
                       <div className="recipe-details__step-tip">
                         <LightbulbIcon className="recipe-details__tip-icon" />
                         <p className="recipe-details__tip-text">
-                          <strong>Tip:</strong> {step.tip}
+                          <strong>{t("tip")}:</strong> {step.tip}
                         </p>
                       </div>
+                    )}
+                    {step.image_url && (
+                      <img
+                        src={step.image_url}
+                        alt={`step_${step.step_number}`}
+                        className="recipe-details__step-image"
+                      />
                     )}
                   </div>
                 </li>
