@@ -1,8 +1,17 @@
 {
-  "minutes": "m",
+  "minutes": " minutes",
   "difficulty": "Difficulty",
   "optional": "optional",
   "step": "Step",
+  "summary": "Summary",
+  "time": "Time",
+  "servings": "Servings",
+  "persons": "persons",
+  "ingredients": "Ingredients",
+  "preparationSteps": "Preparation steps",
+  "edit": "Edit",
+  "delete": "Delete",
+  "addToShoppingList": "Add to shopping list",
   "deleteDialog": {
     "title": "Confirm deletion",
     "message": "Are you sure you want to delete the recipe",

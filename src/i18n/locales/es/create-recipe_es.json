@@ -78,9 +78,6 @@
       "quantity": {
         "label": "Cantidad"
       },
-      "unit": {
-        "label": "Unidad"
-      },
       "optional": {
         "label": "Opcional",
         "yes": "Sí",

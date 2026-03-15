@@ -34,9 +34,15 @@ const RecipeInfoForm = ({
   const shouldShowError = (fieldName) =>
     submitAttempted || touched[fieldName] ? !!errors[fieldName] : false;
 
+  const blockInvalidNumericKeys = (e) => {
+    if (["e", "E", "+", "-", "."].includes(e.key)) {
+      e.preventDefault();
+    }
+  };
+
   const handlePrepTimeChange = (e) => {
     const value = e.target.value;
-    if (value.length <= 4) {
+    if (value.length <= 3) {
       handleFieldUpdate(e);
     }
   };
@@ -113,13 +119,14 @@ const RecipeInfoForm = ({
           type="number"
           className="create-recipe__preptime"
           onChange={handlePrepTimeChange}
+          onKeyDown={blockInvalidNumericKeys}
           onBlur={() => handleFieldBlur("prepTime")}
           sx={{ width: "100px" }}
           error={shouldShowError("prepTime")}
           slotProps={{
             htmlInput: {
               min: 1,
-              max: 9999,
+              max: 999,
               inputMode: "numeric",
               pattern: "[0-9]*",
             },
@@ -147,6 +154,7 @@ const RecipeInfoForm = ({
           type="number"
           className="create-recipe__servings"
           onChange={handleServingsChange}
+          onKeyDown={blockInvalidNumericKeys}
           onBlur={() => handleFieldBlur("servings")}
           sx={{ width: "100px" }}
           error={shouldShowError("servings")}
@@ -181,6 +189,7 @@ const RecipeInfoForm = ({
           type="number"
           className="create-recipe__calories"
           onChange={handleCaloriesChange}
+          onKeyDown={blockInvalidNumericKeys}
           onBlur={() => handleFieldBlur("calories")}
           sx={{ width: "120px" }}
           error={shouldShowError("calories")}

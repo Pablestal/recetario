@@ -1,92 +1,262 @@
 @use "../../utils/breakpoints" as bp;
 @use "../../styles/variables" as colors;
 
+.recipe-details-page {
+  max-width: 1300px;
+  margin: 0 auto;
+  overflow-x: hidden;
+}
+
 .recipe-details {
-  display: flex;
-  flex-direction: row;
-  gap: 5rem;
-
-  @include bp.mobile {
-    flex-direction: column;
-    gap: 2rem;
-  }
-
   &__title-container {
     display: flex;
     justify-content: space-between;
-    align-items: center;
-    margin-bottom: 1rem;
+    align-items: flex-start;
+    margin-bottom: 1.5rem;
 
     @include bp.mobile {
-      margin-bottom: 0.75rem;
+      margin-bottom: 1rem;
     }
 
     h2 {
-      margin: 0;
+      margin: 0 0 0.25rem;
+      overflow-wrap: break-word;
+
+      @include bp.mobile {
+        font-size: 1.4rem;
+      }
     }
   }
 
-  &__delete-button {
-    transition: transform 0.2s ease;
+  &__title-text {
+    min-width: 0;
+    overflow: hidden;
+  }
 
-    &:hover {
-      transform: scale(1.1);
+  &__subtitle {
+    margin: 0;
+    font-style: italic;
+    color: colors.$neutral-dark-gray;
+    font-size: 0.95rem;
+    overflow-wrap: break-word;
+  }
+
+  &__owner-actions {
+    flex-shrink: 0;
+  }
+
+  // ── Body: sidebar + main column ───────────────────────────────────────
+  &__body {
+    display: grid;
+    grid-template-columns: 360px 1fr;
+    gap: 2rem;
+    align-items: start;
+    min-width: 0;
+
+    @include bp.tablet-only {
+      grid-template-columns: 210px 1fr;
+      gap: 1.25rem;
+    }
+
+    @include bp.until(bp.$tablet) {
+      grid-template-columns: 1fr;
+      gap: 1.25rem;
     }
   }
 
-  &__information-items {
+  &__main-column {
     display: flex;
-    flex-direction: row;
-    gap: 1rem;
-    border: 1px solid colors.$neutral-border;
-    border-radius: 0.2rem;
-    padding: 1rem;
+    flex-direction: column;
+    gap: 2rem;
+    min-width: 0;
 
     @include bp.mobile {
-      flex-direction: row;
-      gap: 0.75rem;
-      padding: 0.75rem;
+      gap: 1.5rem;
     }
   }
 
-  &__ingredients {
-    margin-top: 1rem;
-    border: 1px dashed colors.$color-success;
-    border-radius: 0.2rem;
+  &__sidebar {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    min-width: 0;
+
+    // On mobile the sidebar sits above the main column —
+    // show summary items in a horizontal row to save space
+    @include bp.until(bp.$tablet) {
+      gap: 0.75rem;
+    }
+  }
+
+  // ── Summary card ──────────────────────────────────────────────────────
+  &__summary-card {
+    border: 1px solid colors.$neutral-border;
+    border-radius: 0.5rem;
+    overflow: hidden;
+    background: colors.$background-paper;
+  }
+
+  &__summary-items {
+    display: flex;
+    flex-direction: row;
+    padding: 0.5rem 0;
+  }
+
+  &__summary-item {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.25rem;
+    padding: 0.5rem 0.5rem;
+    border-right: 1px solid colors.$neutral-border;
+    text-align: center;
+
+    &:last-child {
+      border-right: none;
+    }
+  }
+
+  &__summary-icon {
+    font-size: 26px !important;
+    color: colors.$primary-main;
+    flex-shrink: 0;
+  }
+
+  &__summary-text {
+    display: flex;
+    flex-direction: column;
+    gap: 0.1rem;
+  }
+
+  &__summary-label {
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    color: colors.$secondary-main;
+  }
+
+  &__summary-value {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.3rem;
+    font-size: 0.9rem;
+    font-weight: 700;
+    color: colors.$text-primary;
+
+    svg {
+      color: colors.$color-error;
+    }
+  }
+
+  // ── Ingredients card ─────────────────────────────────────────────────
+  &__ingredients-card {
+    border: 1px solid colors.$neutral-border;
+    border-radius: 0.5rem;
+    overflow: hidden;
+    background: colors.$background-paper;
+  }
+
+  &__ingredients-header {
+    padding: 0.75rem 1rem 0.25rem;
+
+    strong {
+      font-size: 0.75rem;
+      font-weight: 800;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: colors.$primary-main;
+    }
   }
 
   &__ingredients-list {
     list-style: none;
-    display: flex;
-    flex-direction: column;
-    gap: 0.5rem;
+    padding: 0.5rem 0;
+    margin: 0;
   }
 
-  &__image-container {
-    width: 100%;
-    height: 200px;
-    overflow: hidden;
-    border-radius: 0.3rem;
+  &__ingredient-item {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    padding: 0.2rem 0.5rem 0.2rem 1rem;
+    font-size: 0.9rem;
+    color: colors.$text-primary;
 
-    @include bp.mobile {
-      height: 200px;
+    &:hover {
+      background: colors.$neutral-light-gray;
+
+      .recipe-details__ingredient-cart-btn {
+        opacity: 1;
+      }
     }
   }
 
-  &__image {
-    width: 100%;
-    height: auto;
-    min-height: 100%;
-    position: relative;
-    top: 50%;
-    transform: translateY(-50%);
-    object-fit: cover;
-    object-position: center;
-    border-radius: 0;
+  &__ingredient-name {
+    flex: 1;
+    min-width: 0;
+    overflow-wrap: break-word;
+  }
+
+  &__ingredient-quantity {
+    font-size: 0.85rem;
+    color: colors.$neutral-dark-gray;
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+
+  &__ingredient-cart-btn {
+    opacity: 0;
+    transition: opacity 0.15s ease;
+    color: colors.$primary-main !important;
+    flex-shrink: 0;
 
     @include bp.mobile {
-      width: 100%;
-      height: 100%;
+      opacity: 1;
+    }
+  }
+
+  &__ingredient-optional {
+    color: colors.$accent-seagrass;
+    font-size: 0.8rem;
+    font-style: italic;
+  }
+
+  // ── Main image ────────────────────────────────────────────────────────
+  &__main-image-container {
+    border-radius: 0.5rem;
+    overflow: hidden;
+    max-height: 420px;
+
+    @include bp.tablet-only {
+      max-height: 320px;
+    }
+
+    @include bp.until(bp.$tablet) {
+      max-height: 240px;
+    }
+  }
+
+  &__main-image {
+    width: 100%;
+    height: 100%;
+    min-height: 200px;
+    object-fit: cover;
+    object-position: center;
+    display: block;
+  }
+
+  // ── Steps section ─────────────────────────────────────────────────────
+  &__steps-title {
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: colors.$text-primary;
+    margin: 0 0 1.5rem;
+
+    @include bp.mobile {
+      font-size: 1.2rem;
+      margin-bottom: 1rem;
     }
   }
 
@@ -94,47 +264,77 @@
     list-style: none;
     padding: 0;
     margin: 0;
-  }
-
-  &__steps-item {
     display: flex;
     flex-direction: column;
-    align-items: baseline;
-    gap: 0.5rem;
-    padding: 1rem;
+    gap: 1.5rem;
 
     @include bp.mobile {
-      padding: 0.75rem;
+      gap: 1.25rem;
+    }
+  }
+
+  &__step-item {
+    display: flex;
+    gap: 1.25rem;
+    align-items: flex-start;
+    position: relative;
+
+    &:not(:last-child)::before {
+      content: "";
+      position: absolute;
+      left: 1rem; // center of the 2rem circle
+      top: calc(2rem + 0.1rem); // bottom edge of circle (height + margin-top)
+      bottom: -1.5rem; // extends through the gap to the next item
+      width: 2px;
+      background: rgba(colors.$primary-main, 0.1);
     }
 
-    &:last-child {
-      border-bottom: none;
+    @include bp.mobile {
+      gap: 0.85rem;
+
+      &:not(:last-child)::before {
+        left: 0.875rem; // center of the 1.75rem mobile circle
+        top: 1.85rem;
+        bottom: -1.25rem;
+      }
+    }
+  }
+
+  &__step-circle {
+    flex-shrink: 0;
+    width: 2rem;
+    height: 2rem;
+    border-radius: 50%;
+    background: colors.$primary-main;
+    color: colors.$neutral-white;
+    font-weight: 700;
+    font-size: 0.95rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 0.1rem;
+
+    @include bp.mobile {
+      width: 1.75rem;
+      height: 1.75rem;
+      font-size: 0.85rem;
     }
   }
 
   &__step-content {
+    flex: 1;
+    min-width: 0;
     display: flex;
     flex-direction: column;
-    gap: 0.5rem;
-    flex: 1;
-  }
-
-  &__step-number {
-    font-weight: 700;
-    font-size: 1.5rem;
-    color: colors.$neutral-dark-gray;
-    margin-bottom: 0.25rem;
-
-    @include bp.mobile {
-      font-size: 1.25rem;
-    }
+    gap: 0.75rem;
   }
 
   &__step-description {
     font-size: 1rem;
-    line-height: 1.6;
+    line-height: 1.65;
     color: colors.$text-primary;
     margin: 0;
+    overflow-wrap: break-word;
 
     @include bp.mobile {
       font-size: 0.95rem;
@@ -142,42 +342,29 @@
   }
 
   &__step-tip {
-    background: rgba(252, 248, 25, 0.08);
-    border: 1px solid colors.$color-warning;
-    border-radius: 0.75rem;
-    padding: 0.5rem;
-    margin-top: 0.5rem;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    border-left: 3px solid colors.$color-warning;
+    background: rgba(254, 127, 45, 0.06);
+    border-radius: 0 0.4rem 0.4rem 0;
+    padding: 0.6rem 0.9rem;
     display: flex;
-    flex-direction: row;
-    gap: 1rem;
-    align-items: center;
-
-    @include bp.mobile {
-      padding: 0.75rem;
-      gap: 0.75rem;
-    }
+    gap: 0.6rem;
+    align-items: flex-start;
   }
 
   &__tip-icon {
-    font-size: 20px !important;
+    font-size: 18px !important;
     color: colors.$secondary-dark;
     flex-shrink: 0;
-
-    @include bp.mobile {
-      font-size: 16px !important;
-    }
+    margin-top: 2px;
   }
 
   &__tip-text {
     margin: 0;
-    color: colors.$text-primary;
     font-size: 0.9rem;
     line-height: 1.5;
+    color: colors.$text-primary;
     font-style: italic;
-
-    @include bp.mobile {
-      font-size: 0.85rem;
-    }
+    overflow-wrap: break-word;
+    min-width: 0;
   }
 }
