@@ -12,6 +12,7 @@
   "edit": "Editar",
   "delete": "Eliminar",
   "addToShoppingList": "Añadir a la lista de la compra",
+  "tip": "Consejo",
   "deleteDialog": {
     "title": "Confirmar eliminación",
     "message": "¿Estás seguro de que quieres eliminar la receta",
