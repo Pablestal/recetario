@@ -1,8 +1,39 @@
 {
   "recipeListTitle": "Recipes",
   "newRecipeButton": "New Recipe",
+  "searchPlaceholder": "Search by name...",
+  "filtersButton": "Filters",
+  "clearFilters": "Clear all",
+  "showResults": "Show {{count}} recipes",
+  "viewGrid": "Grid view",
+  "viewList": "List view",
   "recipeCard": {
-    "minutes": "m",
-    "difficulty": "Difficulty"
+    "minutes": "mins",
+    "servings": "servings",
+    "difficulty": "Difficulty",
+    "edit": "Edit",
+    "delete": "Delete",
+    "kcal": "kcal"
+  },
+  "unknownAuthor": "Unknown",
+  "statFallback": "-",
+  "noResults": {
+    "title": "No recipes found",
+    "subtitle": "Try adjusting your filters or search term."
+  },
+  "filters": {
+    "allRecipes": "All recipes",
+    "myRecipes": "My recipes",
+    "favorites": "Favorites",
+    "favoritesComingSoon": "Coming soon",
+    "time": "Max time",
+    "noTimeLimit": "No limit",
+    "minutes": "min",
+    "calories": "Calories",
+    "noCalorieLimit": "No limit",
+    "kcal": "kcal",
+    "difficulty": "Difficulty",
+    "tags": "Tags",
+    "searchTags": "Search tags..."
   }
 }

@@ -1,19 +1,127 @@
 @use "../../utils/breakpoints" as bp;
 
-.recipe-list {
+.recipe-list-layout {
   display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  gap: 20px;
-  justify-content: start;
+  align-items: flex-start;
+  gap: 24px;
+
+  .recipe-list-sidebar {
+    @media (max-width: 767px) {
+      display: none;
+    }
+  }
+}
+
+.recipe-list-main {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.recipe-list-toolbar {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  position: sticky;
+  top: 84px;
+  z-index: 10;
+  background-color: white;
+  padding-bottom: 8px;
 
   @include bp.mobile {
-    padding: 0;
-    justify-content: center;
+    padding-left: bp.$min-page-margin;
+    padding-right: bp.$min-page-margin;
   }
+
+  &__search {
+    flex: 1;
+  }
+}
+
+.recipe-list {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 20px;
+  list-style: none;
+  padding: 0;
+  padding-right: 2px;
+  margin: 0;
+
+  @media (max-width: 1439px) {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+  @media (max-width: 1159px) {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  @media (max-width: 879px) {
+    grid-template-columns: repeat(1, minmax(0, 1fr));
+  }
+}
+
+.recipe-list-drawer {
+  width: min(75vw, 300px);
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+
+  &__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 12px;
+    flex-shrink: 0;
+  }
+
+  &__content {
+    flex: 1;
+    overflow-y: auto;
+    overflow-x: hidden;
+    padding: 0 12px 16px;
+  }
+
+  &__footer {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+    padding: 12px 16px;
+    border-top: 1px solid #ececec;
+    flex-shrink: 0;
+  }
+}
+
+.recipe-list--list {
+  display: flex;
+  flex-direction: column;
+  grid-template-columns: unset;
+  gap: 0;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  overflow: hidden;
+
+  @include bp.mobile {
+    border-radius: 0;
+    border-left: none;
+    border-right: none;
+  }
+}
+
+.recipe-list__empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 64px 24px;
+  text-align: center;
 }
 
 .no-link-style {
   text-decoration: none;
   color: inherit;
+
+  section {
+    width: 100%;
+  }
 }

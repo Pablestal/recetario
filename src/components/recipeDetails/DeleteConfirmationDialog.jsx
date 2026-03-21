@@ -10,13 +10,14 @@ import WarningAmberIcon from "@mui/icons-material/WarningAmber";
 import { useTranslation } from "react-i18next";
 import "./DeleteConfirmationDialog.scss";
 
-const DeleteConfirmationDialog = ({ open, onClose, onConfirm, recipeName }) => {
+const DeleteConfirmationDialog = ({ open, onClose, onConfirm, recipeName, onClick }) => {
   const { t } = useTranslation("recipeDetails");
 
   return (
     <Dialog
       open={open}
       onClose={onClose}
+      onClick={onClick}
       aria-labelledby="alert-dialog-title"
       aria-describedby="alert-dialog-description"
       className="delete-dialog"
