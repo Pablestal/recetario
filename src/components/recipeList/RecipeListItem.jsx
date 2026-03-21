@@ -1,6 +1,7 @@
 import "./RecipeListItem.scss";
 import { routes } from "../../routes";
 import { useState } from "react";
+import PropTypes from "prop-types";
 import Typography from "@mui/material/Typography";
 import IconButton from "@mui/material/IconButton";
 import Menu from "@mui/material/Menu";
@@ -182,16 +183,30 @@ const RecipeListItem = ({ recipe }) => {
         </div>
       </div>
 
-      <div onClick={(e) => e.stopPropagation()}>
-        <DeleteConfirmationDialog
-          open={openDialog}
-          onClose={() => setOpenDialog(false)}
-          onConfirm={handleConfirmDelete}
-          recipeName={recipe.name}
-        />
-      </div>
+      <DeleteConfirmationDialog
+        open={openDialog}
+        onClose={() => setOpenDialog(false)}
+        onConfirm={handleConfirmDelete}
+        recipeName={recipe.name}
+        onClick={(e) => e.stopPropagation()}
+      />
     </>
   );
+};
+
+RecipeListItem.propTypes = {
+  recipe: PropTypes.shape({
+    id: PropTypes.number.isRequired,
+    user_id: PropTypes.string.isRequired,
+    name: PropTypes.string.isRequired,
+    description: PropTypes.string,
+    created_at: PropTypes.string.isRequired,
+    prep_time: PropTypes.number,
+    servings: PropTypes.number,
+    calories: PropTypes.number,
+    difficulty: PropTypes.number,
+    user: PropTypes.shape({ name: PropTypes.string }),
+  }).isRequired,
 };
 
 export default RecipeListItem;

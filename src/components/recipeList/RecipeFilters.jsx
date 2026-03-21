@@ -1,5 +1,6 @@
 import "./RecipeFilters.scss";
 import { useEffect, useState } from "react";
+import PropTypes from "prop-types";
 import { RECIPE_VIEWS } from "./recipeList.constants";
 import { useTranslation } from "react-i18next";
 import { useTagStore } from "../../stores/useTagStore";
@@ -91,16 +92,15 @@ const RecipeFilters = ({ filters, onChange, onClear, hasActiveFilters, maxTime, 
   const renderDifficultyRow = (level) => {
     const isSelected = filters.difficulties.includes(level);
     return (
-      <div
+      <label
         key={level}
         className="recipe-filters__difficulty-row"
-        onClick={() => handleDifficultyToggle(level)}
       >
         <Checkbox
           checked={isSelected}
           size="small"
           color="secondary"
-          tabIndex={-1}
+          onChange={() => handleDifficultyToggle(level)}
           disableRipple
         />
         <div className="recipe-filters__difficulty-icons">
@@ -108,12 +108,14 @@ const RecipeFilters = ({ filters, onChange, onClear, hasActiveFilters, maxTime, 
             <LocalDiningIcon key={i} sx={{ fontSize: 16, color: "#d32f2f" }} />
           ))}
         </div>
-      </div>
+      </label>
     );
   };
 
+  const asideClass = className ? `recipe-filters ${className}` : "recipe-filters";
+
   return (
-    <aside className={`recipe-filters${className ? ` ${className}` : ""}`}>
+    <aside className={asideClass}>
       {/* View selector */}
       <ToggleButtonGroup
         value={filters.view}
@@ -310,6 +312,24 @@ const RecipeFilters = ({ filters, onChange, onClear, hasActiveFilters, maxTime, 
       )}
     </aside>
   );
+};
+
+RecipeFilters.propTypes = {
+  filters: PropTypes.shape({
+    view: PropTypes.string.isRequired,
+    maxTime: PropTypes.number.isRequired,
+    caloriesRange: PropTypes.arrayOf(PropTypes.number).isRequired,
+    difficulties: PropTypes.arrayOf(PropTypes.number).isRequired,
+    selectedTags: PropTypes.arrayOf(PropTypes.number).isRequired,
+    tagSearch: PropTypes.string.isRequired,
+  }).isRequired,
+  onChange: PropTypes.func.isRequired,
+  onClear: PropTypes.func,
+  hasActiveFilters: PropTypes.bool.isRequired,
+  maxTime: PropTypes.number.isRequired,
+  maxCalories: PropTypes.number.isRequired,
+  availableTags: PropTypes.arrayOf(PropTypes.shape({ id: PropTypes.number.isRequired })),
+  className: PropTypes.string,
 };
 
 export default RecipeFilters;

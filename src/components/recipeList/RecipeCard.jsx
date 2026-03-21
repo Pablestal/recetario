@@ -1,6 +1,7 @@
 import "./RecipeCard.scss";
 import { routes } from "../../routes";
 import { useState } from "react";
+import PropTypes from "prop-types";
 import Card from "@mui/material/Card";
 import CardHeader from "@mui/material/CardHeader";
 import CardContent from "@mui/material/CardContent";
@@ -190,16 +191,30 @@ const RecipeCard = (props) => {
           </CardContent>
         </Card>
       </div>
-      <div onClick={(e) => e.stopPropagation()}>
-        <DeleteConfirmationDialog
-          open={openDialog}
-          onClose={() => setOpenDialog(false)}
-          onConfirm={handleConfirmDelete}
-          recipeName={props.recipe.name}
-        />
-      </div>
+      <DeleteConfirmationDialog
+        open={openDialog}
+        onClose={() => setOpenDialog(false)}
+        onConfirm={handleConfirmDelete}
+        recipeName={props.recipe.name}
+        onClick={(e) => e.stopPropagation()}
+      />
     </section>
   );
+};
+
+RecipeCard.propTypes = {
+  recipe: PropTypes.shape({
+    id: PropTypes.number.isRequired,
+    user_id: PropTypes.string.isRequired,
+    name: PropTypes.string.isRequired,
+    description: PropTypes.string,
+    main_image_url: PropTypes.string,
+    created_at: PropTypes.string.isRequired,
+    prep_time: PropTypes.number,
+    servings: PropTypes.number,
+    calories: PropTypes.number,
+    difficulty: PropTypes.number,
+  }).isRequired,
 };
 
 export default RecipeCard;

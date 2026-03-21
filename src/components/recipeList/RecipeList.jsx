@@ -265,40 +265,48 @@ const RecipeList = () => {
             </Tooltip>
           </ToggleButtonGroup>
         </div>
-        {filteredRecipes.length === 0 && !loading ? (
-          <div className="recipe-list__empty">
-            <Typography variant="h6" color="text.secondary">
-              {t("noResults.title")}
-            </Typography>
-            <Typography variant="body2" color="text.secondary">
-              {t("noResults.subtitle")}
-            </Typography>
-          </div>
-        ) : viewMode === "list" ? (
-          <ul className="recipe-list recipe-list--list">
-            {filteredRecipes.map((recipe) => (
-              <Link
-                key={recipe.id}
-                to={`/recipes/recipe-details/${recipe.id}`}
-                className="no-link-style"
-              >
-                <RecipeListItem recipe={recipe} />
-              </Link>
-            ))}
-          </ul>
-        ) : (
-          <ul className="recipe-list">
-            {filteredRecipes.map((recipe) => (
-              <Link
-                key={recipe.id}
-                to={`/recipes/recipe-details/${recipe.id}`}
-                className="no-link-style"
-              >
-                <RecipeCard recipe={recipe} component={Link} />
-              </Link>
-            ))}
-          </ul>
-        )}
+        {(() => {
+          if (filteredRecipes.length === 0 && !loading) {
+            return (
+              <div className="recipe-list__empty">
+                <Typography variant="h6" color="text.secondary">
+                  {t("noResults.title")}
+                </Typography>
+                <Typography variant="body2" color="text.secondary">
+                  {t("noResults.subtitle")}
+                </Typography>
+              </div>
+            );
+          }
+          if (viewMode === "list") {
+            return (
+              <ul className="recipe-list recipe-list--list">
+                {filteredRecipes.map((recipe) => (
+                  <Link
+                    key={recipe.id}
+                    to={`/recipes/recipe-details/${recipe.id}`}
+                    className="no-link-style"
+                  >
+                    <RecipeListItem recipe={recipe} />
+                  </Link>
+                ))}
+              </ul>
+            );
+          }
+          return (
+            <ul className="recipe-list">
+              {filteredRecipes.map((recipe) => (
+                <Link
+                  key={recipe.id}
+                  to={`/recipes/recipe-details/${recipe.id}`}
+                  className="no-link-style"
+                >
+                  <RecipeCard recipe={recipe} component={Link} />
+                </Link>
+              ))}
+            </ul>
+          );
+        })()}
       </section>
 
       <Drawer
