@@ -35,6 +35,9 @@ const LoginDialog = ({ open, onClose, onSwitchToRegister }) => {
   const signIn = useAuthStore((state) => state.signIn);
   const redirectPath = useAuthStore((state) => state.redirectPath);
   const clearRedirectPath = useAuthStore((state) => state.clearRedirectPath);
+  const loginSuccessCallback = useAuthStore(
+    (state) => state.loginSuccessCallback,
+  );
 
   const validationRules = {
     email: (value) => {
@@ -126,6 +129,9 @@ const LoginDialog = ({ open, onClose, onSwitchToRegister }) => {
         if (redirectPath) {
           navigate(redirectPath);
         }
+
+        // Call success callback if provided (e.g. to apply a pending filter)
+        loginSuccessCallback?.();
 
         // Clean up form state
         setFormData({ email: "", password: "" });

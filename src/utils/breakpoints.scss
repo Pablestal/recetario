@@ -58,21 +58,18 @@ $extra-large-desktop: 1920px; // Large monitors
   }
 }
 
+$content-max-width: 1805px;
+$min-page-margin: 10px;
+
 @mixin horizontal-page-spacing {
-  @include mobile {
-    padding-left: 10px;
-    padding-right: 10px;
-  }
-
-  @include desktop {
-    padding-left: 100px;
-    padding-right: 100px;
-  }
-
-  @include large-desktop {
-    padding-left: 300px;
-    padding-right: 300px;
-  }
+  padding-left: max(
+    #{$min-page-margin},
+    calc((100vw - #{$content-max-width}) / 2)
+  );
+  padding-right: max(
+    #{$min-page-margin},
+    calc((100vw - #{$content-max-width}) / 2)
+  );
 }
 
 // Custom mixins for specific ranges
