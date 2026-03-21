@@ -11,7 +11,8 @@ import EditIcon from "@mui/icons-material/Edit";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
 import AccessTimeOutlinedIcon from "@mui/icons-material/AccessTimeOutlined";
 import PeopleAltOutlinedIcon from "@mui/icons-material/PeopleAltOutlined";
-import SignalCellularAltIcon from "@mui/icons-material/SignalCellularAlt";
+import BoltIcon from "@mui/icons-material/Bolt";
+import LocalFireDepartmentIcon from "@mui/icons-material/LocalFireDepartment";
 import {
   IconButton,
   Menu,
@@ -97,53 +98,52 @@ function RecipeDetails() {
 
   return (
     <section className="recipe-details-page">
-      <div className="recipe-details__title-container">
-        <div className="recipe-details__title-text">
-          <h2>{recipe.name}</h2>
-          {recipe.description && (
-            <p className="recipe-details__subtitle">{recipe.description}</p>
-          )}
-        </div>
-        {isOwner && (
-          <>
-            <IconButton aria-label="more options" onClick={handleMenuOpen}>
-              <MoreVertIcon />
-            </IconButton>
-            <Menu
-              anchorEl={menuAnchor}
-              open={Boolean(menuAnchor)}
-              onClose={handleMenuClose}
-              anchorOrigin={{ vertical: "bottom", horizontal: "right" }}
-              transformOrigin={{ vertical: "top", horizontal: "right" }}
-            >
-              <MenuItem onClick={handleMenuEdit}>
-                <ListItemIcon>
-                  <EditIcon fontSize="small" />
-                </ListItemIcon>
-                <ListItemText>{t("edit")}</ListItemText>
-              </MenuItem>
-              <MenuItem onClick={handleMenuDelete}>
-                <ListItemIcon>
-                  <DeleteIcon fontSize="small" color="error" />
-                </ListItemIcon>
-                <ListItemText sx={{ color: "error.main" }}>
-                  {t("delete")}
-                </ListItemText>
-              </MenuItem>
-            </Menu>
-          </>
-        )}
-      </div>
-
-      <DeleteConfirmationDialog
-        open={openDialog}
-        onClose={handleCloseDialog}
-        onConfirm={handleConfirmDelete}
-        recipeName={recipe.name}
-      />
-
       <div className="recipe-details__body">
         <div className="recipe-details__sidebar">
+          <div className="recipe-details__title-container">
+            <div className="recipe-details__title-text">
+              <h2>{recipe.name}</h2>
+              {recipe.description && (
+                <p className="recipe-details__subtitle">{recipe.description}</p>
+              )}
+            </div>
+            {isOwner && (
+              <>
+                <IconButton aria-label="more options" onClick={handleMenuOpen}>
+                  <MoreVertIcon />
+                </IconButton>
+                <Menu
+                  anchorEl={menuAnchor}
+                  open={Boolean(menuAnchor)}
+                  onClose={handleMenuClose}
+                  anchorOrigin={{ vertical: "bottom", horizontal: "right" }}
+                  transformOrigin={{ vertical: "top", horizontal: "right" }}
+                >
+                  <MenuItem onClick={handleMenuEdit}>
+                    <ListItemIcon>
+                      <EditIcon fontSize="small" />
+                    </ListItemIcon>
+                    <ListItemText>{t("edit")}</ListItemText>
+                  </MenuItem>
+                  <MenuItem onClick={handleMenuDelete}>
+                    <ListItemIcon>
+                      <DeleteIcon fontSize="small" color="error" />
+                    </ListItemIcon>
+                    <ListItemText sx={{ color: "error.main" }}>
+                      {t("delete")}
+                    </ListItemText>
+                  </MenuItem>
+                </Menu>
+              </>
+            )}
+          </div>
+
+          <DeleteConfirmationDialog
+            open={openDialog}
+            onClose={handleCloseDialog}
+            onConfirm={handleConfirmDelete}
+            recipeName={recipe.name}
+          />
           {recipe.main_image_url && (
             <div className="recipe-details__main-image-container">
               <img
@@ -157,36 +157,27 @@ function RecipeDetails() {
             <div className="recipe-details__summary-items">
               <div className="recipe-details__summary-item">
                 <AccessTimeOutlinedIcon className="recipe-details__summary-icon" />
-                <div className="recipe-details__summary-text">
-                  <span className="recipe-details__summary-label">
-                    {t("time").toUpperCase()}
-                  </span>
-                  <strong className="recipe-details__summary-value">
-                    {recipe.prep_time ? recipe.prep_time : "??"}
-                    {t("minutes")}
-                  </strong>
-                </div>
+                <strong className="recipe-details__summary-value">
+                  {recipe.prep_time ? recipe.prep_time : "??"}
+                  {t("minutes")}
+                </strong>
               </div>
               <div className="recipe-details__summary-item">
                 <PeopleAltOutlinedIcon className="recipe-details__summary-icon" />
-                <div className="recipe-details__summary-text">
-                  <span className="recipe-details__summary-label">
-                    {t("servings").toUpperCase()}
-                  </span>
-                  <strong className="recipe-details__summary-value">
-                    {recipe.servings ? recipe.servings : "??"}
-                  </strong>
-                </div>
+                <strong className="recipe-details__summary-value">
+                  {recipe.servings ? recipe.servings : "??"}
+                </strong>
               </div>
               <div className="recipe-details__summary-item">
-                <SignalCellularAltIcon className="recipe-details__summary-icon" />
-                <div className="recipe-details__summary-text">
-                  <span className="recipe-details__summary-label">
-                    {t("difficulty").toUpperCase()}
-                  </span>
-                  <div className="recipe-details__summary-value">
-                    {renderDifficultyIcons(recipe.difficulty)}
-                  </div>
+                <LocalFireDepartmentIcon className="recipe-details__summary-icon" />
+                <strong className="recipe-details__summary-value">
+                  {recipe.calories ? `${recipe.calories} ${t("kcal")}` : "??"}
+                </strong>
+              </div>
+              <div className="recipe-details__summary-item">
+                <BoltIcon className="recipe-details__summary-icon" />
+                <div className="recipe-details__summary-value">
+                  {renderDifficultyIcons(recipe.difficulty)}
                 </div>
               </div>
             </div>
@@ -234,9 +225,6 @@ function RecipeDetails() {
 
         <div className="recipe-details__main-column">
           <div className="recipe-details__steps-section">
-            <h3 className="recipe-details__steps-title">
-              {t("preparationSteps")}
-            </h3>
             <ol className="recipe-details__steps-list">
               {recipe.steps.map((step, index) => (
                 <li key={index} className="recipe-details__step-item">

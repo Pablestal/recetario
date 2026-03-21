@@ -5,6 +5,11 @@
   max-width: 1130px;
   margin: 0 auto;
 
+  @include bp.mobile {
+    padding-left: bp.$min-page-margin;
+    padding-right: bp.$min-page-margin;
+  }
+
   &__numeric-inputs {
     margin-bottom: 30px;
     display: flex;

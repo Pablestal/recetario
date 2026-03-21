@@ -2,7 +2,8 @@
 @use "../../styles/variables" as colors;
 
 .recipe-details-page {
-  overflow-x: hidden;
+  // clip does not create a scroll container, so position: sticky works on children
+  overflow-x: clip;
 }
 
 .recipe-details {
@@ -14,6 +15,8 @@
 
     @include bp.mobile {
       margin-bottom: 1rem;
+      padding-left: bp.$min-page-margin;
+      padding-right: bp.$min-page-margin;
     }
 
     h2 {
@@ -47,17 +50,21 @@
   // ── Body: sidebar + main column ───────────────────────────────────────
   &__body {
     display: grid;
-    grid-template-columns: 360px 1fr;
+    grid-template-columns: 450px 1fr;
     gap: 2rem;
     align-items: start;
     min-width: 0;
 
-    @include bp.tablet-only {
-      grid-template-columns: 210px 1fr;
-      gap: 1.25rem;
+    // Phase 2: steps hits 500px minimum → sidebar starts shrinking (450px → 360px)
+    // Content has 0px padding at this range (mobile, < 1024px)
+    // breakpoint = 450 (sidebar) + 500 (steps min) + 2rem (gap) = 982px
+    @media (max-width: 982px) {
+      grid-template-columns: minmax(360px, 1fr) 500px;
     }
 
-    @include bp.until(bp.$tablet) {
+    // Phase 3: both columns at minimum → single column
+    // breakpoint = 360 (sidebar min) + 500 (steps min) + 2rem (gap) = 892px
+    @media (max-width: 892px) {
       grid-template-columns: 1fr;
       gap: 1.25rem;
     }
@@ -71,6 +78,8 @@
 
     @include bp.mobile {
       gap: 1.5rem;
+      padding-left: bp.$min-page-margin;
+      padding-right: bp.$min-page-margin;
     }
   }
 
@@ -80,16 +89,19 @@
     gap: 1rem;
     min-width: 0;
 
-    // On mobile the sidebar sits above the main column —
-    // show summary items in a horizontal row to save space
-    @include bp.until(bp.$tablet) {
+    @media (min-width: 893px) {
+      position: sticky;
+      top: 108px;
+      align-self: start;
+    }
+
+    @media (max-width: 892px) {
       gap: 0.75rem;
     }
   }
 
   // ── Summary card ──────────────────────────────────────────────────────
   &__summary-card {
-    border: 1px solid colors.$neutral-border;
     border-radius: 0.5rem;
     overflow: hidden;
     background: colors.$background-paper;
@@ -120,19 +132,6 @@
     font-size: 26px !important;
     color: colors.$primary-main;
     flex-shrink: 0;
-  }
-
-  &__summary-text {
-    display: flex;
-    flex-direction: column;
-    gap: 0.1rem;
-  }
-
-  &__summary-label {
-    font-size: 0.72rem;
-    font-weight: 700;
-    letter-spacing: 0.08em;
-    color: colors.$secondary-main;
   }
 
   &__summary-value {
@@ -227,7 +226,6 @@
   // ── Main image ────────────────────────────────────────────────────────
   &__main-image-container {
     width: 100%;
-    margin-top: 1rem;
     border-radius: 0.5rem;
     overflow: hidden;
     max-height: 420px;
@@ -264,18 +262,6 @@
   }
 
   // ── Steps section ─────────────────────────────────────────────────────
-  &__steps-title {
-    font-size: 1.4rem;
-    font-weight: 700;
-    color: colors.$text-primary;
-    margin: 0 0 1.5rem;
-
-    @include bp.mobile {
-      font-size: 1.2rem;
-      margin-bottom: 1rem;
-    }
-  }
-
   &__steps-list {
     list-style: none;
     padding: 0;

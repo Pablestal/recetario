@@ -1,8 +1,39 @@
 {
   "recipeListTitle": "Recetas",
   "newRecipeButton": "Nueva Receta",
+  "searchPlaceholder": "Buscar por nombre...",
+  "filtersButton": "Filtros",
+  "clearFilters": "Limpiar filtros",
+  "showResults": "Ver {{count}} recetas",
+  "viewGrid": "Vista cuadrícula",
+  "viewList": "Vista lista",
   "recipeCard": {
-    "minutes": "m",
-    "difficulty": "Dificultad"
+    "minutes": "mins",
+    "servings": "raciones",
+    "difficulty": "Dificultad",
+    "edit": "Editar",
+    "delete": "Eliminar",
+    "kcal": "kcal"
+  },
+  "unknownAuthor": "Desconocido",
+  "statFallback": "-",
+  "noResults": {
+    "title": "No se han encontrado recetas",
+    "subtitle": "Prueba a ajustar los filtros o el término de búsqueda."
+  },
+  "filters": {
+    "allRecipes": "Todas las recetas",
+    "myRecipes": "Mis recetas",
+    "favorites": "Favoritas",
+    "favoritesComingSoon": "Próximamente",
+    "time": "Tiempo máximo",
+    "noTimeLimit": "Sin límite",
+    "minutes": "min",
+    "calories": "Calorías",
+    "noCalorieLimit": "Sin límite",
+    "kcal": "kcal",
+    "difficulty": "Dificultad",
+    "tags": "Etiquetas",
+    "searchTags": "Buscar etiquetas..."
   }
 }

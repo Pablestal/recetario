@@ -79,7 +79,7 @@ const CreateRecipe = ({ recipeId }) => {
       t("stepper.ingredients"),
       t("stepper.steps"),
     ],
-    [t]
+    [t],
   );
 
   // Load recipe for editing
@@ -182,7 +182,7 @@ const CreateRecipe = ({ recipeId }) => {
         const numValue = parseInt(value);
         if (isNaN(numValue)) return t("validation.servings.invalid");
         if (numValue < 1) return t("validation.servings.min");
-        if (numValue > 99) return t("validation.servings.max");
+        if (numValue > 999) return t("validation.servings.max");
         return null;
       },
 
@@ -220,7 +220,7 @@ const CreateRecipe = ({ recipeId }) => {
         return null;
       },
     }),
-    [t, isValidImageUrl]
+    [t, isValidImageUrl],
   );
 
   const [errors, setErrors] = useState({});
@@ -235,7 +235,7 @@ const CreateRecipe = ({ recipeId }) => {
       }
       return null;
     },
-    [validationRules]
+    [validationRules],
   );
 
   const validateStep = useCallback(
@@ -262,7 +262,7 @@ const CreateRecipe = ({ recipeId }) => {
         case 1: {
           // Ingredients
           const ingredientsError = validationRules.ingredients(
-            recipeForm.ingredients
+            recipeForm.ingredients,
           );
           if (ingredientsError) stepErrors.ingredients = ingredientsError;
           break;
@@ -279,7 +279,7 @@ const CreateRecipe = ({ recipeId }) => {
 
       return stepErrors;
     },
-    [validateField, validationRules, recipeForm]
+    [validateField, validationRules, recipeForm],
   );
 
   const validateForm = useCallback(() => {
@@ -376,7 +376,7 @@ const CreateRecipe = ({ recipeId }) => {
       isEditMode,
       recipeId,
       navigate,
-    ]
+    ],
   );
 
   const handleFieldUpdate = useCallback(
@@ -396,7 +396,7 @@ const CreateRecipe = ({ recipeId }) => {
         }
       }
     },
-    [errors, validateField]
+    [errors, validateField],
   );
 
   const handleFieldBlur = useCallback((fieldName) => {
@@ -412,7 +412,7 @@ const CreateRecipe = ({ recipeId }) => {
         setErrors((prev) => ({ ...prev, tags: null }));
       }
     },
-    [errors.tags]
+    [errors.tags],
   );
 
   const setRecipeForm = useCallback(
@@ -424,7 +424,7 @@ const CreateRecipe = ({ recipeId }) => {
         dispatch({ type: "UPDATE_STATE", payload: updater });
       }
     },
-    [recipeForm]
+    [recipeForm],
   );
 
   const handleIngredientUpdate = useCallback((ingredient) => {
@@ -461,7 +461,7 @@ const CreateRecipe = ({ recipeId }) => {
         }
       }
     },
-    [errors.difficulty, validateField]
+    [errors.difficulty, validateField],
   );
 
   const handlePublicChange = useCallback((event) => {
@@ -477,7 +477,7 @@ const CreateRecipe = ({ recipeId }) => {
       const stepErrors = validateStep(step);
       return Object.keys(stepErrors).length === 0;
     },
-    [validateStep]
+    [validateStep],
   );
 
   const getStepContent = (step, touched) => {

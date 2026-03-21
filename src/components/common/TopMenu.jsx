@@ -296,13 +296,11 @@ const TopMenu = () => {
             ) : (
               /* If user LOOGED, show user menu */
               <Box sx={{ flexGrow: 0 }}>
-                <Tooltip title="Open settings">
-                  <IconButton onClick={handleOpenUserMenu} sx={{ p: 0, ml: 2 }}>
-                    <Avatar alt={user.email}>
-                      {user.email?.[0]?.toUpperCase()}
-                    </Avatar>
-                  </IconButton>
-                </Tooltip>
+                <IconButton onClick={handleOpenUserMenu} sx={{ p: 0, ml: 2 }}>
+                  <Avatar alt={user.email}>
+                    {user.email?.[0]?.toUpperCase()}
+                  </Avatar>
+                </IconButton>
                 <Menu
                   sx={{ mt: "45px" }}
                   id="menu-appbar"

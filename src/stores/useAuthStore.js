@@ -9,6 +9,7 @@ export const useAuthStore = create((set, get) => ({
   authListener: null,
   redirectPath: null,
   showLoginModal: false,
+  loginSuccessCallback: null,
 
   // Register new user
   signUp: async (email, password, userData = {}) => {
@@ -202,12 +203,12 @@ export const useAuthStore = create((set, get) => ({
   },
 
   // Open login modal
-  openLoginModal: () => {
-    set({ showLoginModal: true });
+  openLoginModal: (onSuccess = null) => {
+    set({ showLoginModal: true, loginSuccessCallback: onSuccess });
   },
 
   // Close login modal
   closeLoginModal: () => {
-    set({ showLoginModal: false });
+    set({ showLoginModal: false, loginSuccessCallback: null });
   },
 }));

@@ -1,5 +1,15 @@
+@use "../../utils/breakpoints" as bp;
+
 .breadcrumbs-spacer {
   padding: 10px 0;
+  position: sticky;
+  top: 64px;
+  z-index: 10;
+  background-color: white;
+
+  @include bp.mobile {
+    padding-left: bp.$min-page-margin;
+  }
 }
 
 .breadcrumbs {

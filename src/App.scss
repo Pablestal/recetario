@@ -21,4 +21,9 @@ body,
   flex: 1;
   margin-top: 64px; // Height of fixed AppBar
   @include bp.horizontal-page-spacing;
+
+  @include bp.mobile {
+    padding-left: 0;
+    padding-right: 0;
+  }
 }

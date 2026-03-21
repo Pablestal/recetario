@@ -1,39 +1,75 @@
+@use "../../utils/breakpoints" as bp;
+
 .recipe-card {
-  min-width: 345px;
+  width: 100%;
+
+  @include bp.mobile {
+    .MuiCard-root {
+      border-radius: 0 !important;
+    }
+  }
+
+  .MuiCardHeader-content {
+    min-width: 0;
+  }
+
+  .MuiCardContent-root:last-child {
+    padding-bottom: 12px;
+  }
 
   .MuiCardHeader-title {
     font-size: 1rem;
     font-weight: 600;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
 
   &__description {
-    height: 60px;
+    height: calc(2 * 1.43em); // 2 lines at MUI body2 line-height (1.43)
     overflow: hidden;
     text-overflow: ellipsis;
     display: -webkit-box;
-    -webkit-line-clamp: 3; // Number of lines to display
+    -webkit-line-clamp: 2;
     -webkit-box-orient: vertical;
   }
 
   &__icons {
-    margin-top: 15px;
+    margin-top: 10px;
     display: flex;
     flex-direction: row;
-    align-items: center;
-    gap: 1rem;
-  }
-
-  &__description:empty + &__icons {
-    margin-top: 0;
+    justify-content: space-around;
+    border-top: 1px solid #e0e0e0;
+    padding-top: 8px;
   }
 
   &__icon-item {
     display: flex;
+    flex-direction: column;
     align-items: center;
-    gap: 3px;
+    gap: 2px;
+    flex: 1;
+
+    & + & {
+      border-left: 1px solid #e0e0e0;
+    }
+
+    &__icon {
+      font-size: 22px !important;
+    }
 
     &__difficulty {
-      gap: 0;
+      display: flex;
+      align-items: center;
+      padding-left: 3px;
+    }
+
+    &__label {
+      font-weight: 600;
+      text-transform: uppercase;
+      font-size: 0.65rem !important;
+      letter-spacing: 0.05em;
+      text-align: center;
     }
   }
 }
