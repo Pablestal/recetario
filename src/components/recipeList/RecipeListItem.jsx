@@ -1,4 +1,5 @@
 import "./RecipeListItem.scss";
+import { routes } from "../../routes";
 import { useState } from "react";
 import Typography from "@mui/material/Typography";
 import IconButton from "@mui/material/IconButton";
@@ -54,7 +55,7 @@ const RecipeListItem = ({ recipe }) => {
   const handleEdit = (e) => {
     e.stopPropagation();
     handleMenuClose();
-    navigate(`/recipes/recipe-creation/${recipe.id}`);
+    navigate(routes.recipeEdit(recipe.id));
   };
 
   const handleDeleteClick = (e) => {

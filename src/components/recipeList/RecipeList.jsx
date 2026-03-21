@@ -1,4 +1,5 @@
 import "./RecipeList.scss";
+import { routes } from "../../routes";
 import { useEffect, useMemo, useState } from "react";
 import { RECIPE_VIEWS } from "./recipeList.constants";
 import { Link } from "react-router-dom";
@@ -150,7 +151,7 @@ const RecipeList = () => {
   }, [recipes, filters, userId, dynamicMaxCalories, dynamicMaxTime]);
 
   const handleCreateRecipe = () => {
-    navigate("/recipes/recipe-creation");
+    navigate(routes.recipeCreation);
   };
 
   const handleClearFilters = () => {

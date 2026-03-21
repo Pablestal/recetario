@@ -1,4 +1,5 @@
 import "./RecipeCard.scss";
+import { routes } from "../../routes";
 import { useState } from "react";
 import Card from "@mui/material/Card";
 import CardHeader from "@mui/material/CardHeader";
@@ -62,7 +63,7 @@ const RecipeCard = (props) => {
   const handleEdit = (e) => {
     e.stopPropagation();
     handleMenuClose();
-    navigate(`/recipes/recipe-creation/${props.recipe.id}`);
+    navigate(routes.recipeEdit(props.recipe.id));
   };
 
   const handleDeleteClick = (e) => {

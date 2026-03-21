@@ -1,4 +1,5 @@
 import { Navigate, Route, Routes } from "react-router-dom";
+import { routes } from "./routes";
 import "./App.scss";
 import TopMenu from "./components/common/TopMenu";
 import Footer from "./components/common/Footer";
@@ -41,12 +42,12 @@ const App = () => {
                 <Routes>
                   <Route
                     path="/"
-                    element={<Navigate to="/recipes" replace />}
+                    element={<Navigate to={routes.recipes} replace />}
                   />
-                  <Route path="/profile" element={<HomePage />} />
-                  <Route path="/recipes" element={<RecipeListPage />} />
+                  <Route path={routes.profile} element={<HomePage />} />
+                  <Route path={routes.recipes} element={<RecipeListPage />} />
                   <Route
-                    path="/recipes/recipe-creation"
+                    path={routes.recipeCreation}
                     element={
                       <ProtectedRoute>
                         <RecipeCreationPage />
@@ -54,17 +55,17 @@ const App = () => {
                     }
                   />
                   <Route
-                    path="/recipes/recipe-creation/:id"
+                    path={routes.recipeEdit(":id")}
                     element={
                       <ProtectedRoute>
                         <RecipeCreationPage />
                       </ProtectedRoute>
                     }
                   />
-                  <Route path="/shopping-list" element={<ShoppingListPage />} />
-                  <Route path="/weekly-menu" element={<WeeklyMenuPage />} />
+                  <Route path={routes.shoppingList} element={<ShoppingListPage />} />
+                  <Route path={routes.weeklyMenu} element={<WeeklyMenuPage />} />
                   <Route
-                    path="/recipes/recipe-details/:id"
+                    path={routes.recipeDetails(":id")}
                     element={<RecipeDetailsPage />}
                   />
                 </Routes>

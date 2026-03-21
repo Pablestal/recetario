@@ -1,4 +1,5 @@
 import "./RecipeDetails.scss";
+import { routes } from "../../routes";
 import { useEffect, useState, useRef } from "react";
 import Loading from "../common/Loading";
 import { useRecipeStore } from "../../stores/useRecipeStore";
@@ -64,7 +65,7 @@ function RecipeDetails() {
 
     try {
       await deleteRecipe(id);
-      navigate("/recipes");
+      navigate(routes.recipes);
     } catch (error) {
       console.error("Error al eliminar la receta:", error);
       isDeletingRef.current = false;
@@ -73,7 +74,7 @@ function RecipeDetails() {
   };
 
   const handleEditRecipe = () => {
-    navigate(`/recipes/recipe-creation/${id}`);
+    navigate(routes.recipeEdit(id));
   };
 
   const handleMenuOpen = (e) => setMenuAnchor(e.currentTarget);

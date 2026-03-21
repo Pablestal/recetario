@@ -11,6 +11,7 @@ import Button from "@mui/material/Button";
 import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
 import { useLocation, useNavigate } from "react-router-dom";
+import { routes } from "../../routes";
 import LumeaLogo from "../../assets/Lumea-nobg.png";
 import { useTranslation } from "react-i18next";
 import LanguageSelector from "./LanguageSelector";
@@ -22,14 +23,10 @@ import PersonAddIcon from "@mui/icons-material/PersonAdd";
 import "./TopMenu.scss";
 
 const pages = [
-  { name: "profile", link: "/profile", activeBase: "/profile" },
-  { name: "recipes", link: "/recipes", activeBase: "/recipes" },
-  {
-    name: "shoppingList",
-    link: "/shopping-list",
-    activeBase: "/shopping-list",
-  },
-  { name: "weeklyMenu", link: "/weekly-menu", activeBase: "/weekly-menu" },
+  { name: "profile", link: routes.profile, activeBase: routes.profile },
+  { name: "recipes", link: routes.recipes, activeBase: routes.recipes },
+  { name: "shoppingList", link: routes.shoppingList, activeBase: routes.shoppingList },
+  { name: "weeklyMenu", link: routes.weeklyMenu, activeBase: routes.weeklyMenu },
 ];
 const settings = ["profile", "account", "logout"];
 
@@ -70,7 +67,7 @@ const TopMenu = () => {
   };
 
   const goToHome = () => {
-    navigate("/recipes");
+    navigate(routes.recipes);
   };
 
   const handleSettingClick = async (setting) => {
@@ -78,11 +75,11 @@ const TopMenu = () => {
 
     if (setting === "logout") {
       await signOut();
-      navigate("/profile");
+      navigate(routes.profile);
     } else if (setting === "profile") {
-      navigate("/profile");
+      navigate(routes.profile);
     } else if (setting === "account") {
-      navigate("/account");
+      navigate(routes.account);
     }
   };
 

@@ -1,4 +1,5 @@
 import "./CreateRecipe.scss";
+import { routes } from "../../routes";
 import {
   Button,
   Alert,
@@ -340,7 +341,7 @@ const CreateRecipe = ({ recipeId }) => {
             setSubmitSuccess(true);
 
             // Navigate back to recipe details after update
-            navigate(`/recipes/recipe-details/${recipeId}`);
+            navigate(routes.recipeDetails(recipeId));
           } else {
             // Create new recipe
             const recipeToSubmit = {
