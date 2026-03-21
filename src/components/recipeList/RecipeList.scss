@@ -43,10 +43,10 @@
 .recipe-list {
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
-  padding-right: 2px !important;
   gap: 20px;
   list-style: none;
   padding: 0;
+  padding-right: 2px;
   margin: 0;
 
   @media (max-width: 1439px) {
