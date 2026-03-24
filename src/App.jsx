@@ -10,6 +10,7 @@ import WeeklyMenuPage from "./pages/WeeklyMenuPage";
 import { ThemeProvider } from "@mui/material/styles";
 import theme from "./MuiTheme";
 import RecipeCreationPage from "./pages/RecipeCreationPage";
+import UserProfilePage from "./pages/UserProfilePage";
 import RecipeDetailsPage from "./pages/RecipeDetailsPage";
 import { useEffect } from "react";
 import { useAuthStore } from "./stores/useAuthStore";
@@ -44,7 +45,14 @@ const App = () => {
                     path="/"
                     element={<Navigate to={routes.recipes} replace />}
                   />
-                  <Route path={routes.profile} element={<HomePage />} />
+                  <Route
+                    path={routes.profile}
+                    element={
+                      <ProtectedRoute>
+                        <UserProfilePage />
+                      </ProtectedRoute>
+                    }
+                  />
                   <Route path={routes.recipes} element={<RecipeListPage />} />
                   <Route
                     path={routes.recipeCreation}

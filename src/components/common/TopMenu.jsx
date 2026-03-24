@@ -20,15 +20,30 @@ import LoginDialog from "../auth/LoginDialog";
 import RegisterDialog from "../auth/RegisterDialog";
 import LoginIcon from "@mui/icons-material/Login";
 import PersonAddIcon from "@mui/icons-material/PersonAdd";
+import ConstructionIcon from "@mui/icons-material/Construction";
 import "./TopMenu.scss";
 
 const pages = [
   { name: "profile", link: routes.profile, activeBase: routes.profile },
   { name: "recipes", link: routes.recipes, activeBase: routes.recipes },
-  { name: "shoppingList", link: routes.shoppingList, activeBase: routes.shoppingList },
-  { name: "weeklyMenu", link: routes.weeklyMenu, activeBase: routes.weeklyMenu },
+  {
+    name: "shoppingList",
+    link: routes.shoppingList,
+    activeBase: routes.shoppingList,
+    disabled: true,
+  },
+  {
+    name: "weeklyMenu",
+    link: routes.weeklyMenu,
+    activeBase: routes.weeklyMenu,
+    disabled: true,
+  },
 ];
-const settings = ["profile", "account", "logout"];
+const settings = [
+  { name: "profile" },
+  { name: "account", disabled: true },
+  { name: "logout" },
+];
 
 const TopMenu = () => {
   const { t } = useTranslation("navigation");
@@ -71,14 +86,15 @@ const TopMenu = () => {
   };
 
   const handleSettingClick = async (setting) => {
+    if (setting.disabled) return;
     handleCloseUserMenu();
 
-    if (setting === "logout") {
+    if (setting.name === "logout") {
       await signOut();
+      navigate(routes.recipes);
+    } else if (setting.name === "profile") {
       navigate(routes.profile);
-    } else if (setting === "profile") {
-      navigate(routes.profile);
-    } else if (setting === "account") {
+    } else if (setting.name === "account") {
       navigate(routes.account);
     }
   };
@@ -161,11 +177,22 @@ const TopMenu = () => {
                 {pages.map((page, index) => (
                   <MenuItem
                     key={index}
-                    onClick={() => goTo(page)}
+                    onClick={() => !page.disabled && goTo(page)}
+                    disabled={page.disabled}
                     className={`mobile-menu-item${location.pathname.startsWith(page.activeBase) ? " mobile-menu-item--active" : ""}`}
                   >
-                    <Typography sx={{ textAlign: "center" }}>
+                    <Typography
+                      sx={{
+                        textAlign: "center",
+                        display: "flex",
+                        alignItems: "center",
+                        gap: 0.75,
+                      }}
+                    >
                       {t(`navigation.${page.name}`)}
+                      {page.disabled && (
+                        <ConstructionIcon sx={{ fontSize: 16 }} />
+                      )}
                     </Typography>
                   </MenuItem>
                 ))}
@@ -201,17 +228,20 @@ const TopMenu = () => {
               {pages.map((page, index) => (
                 <Button
                   key={index}
+                  disabled={page.disabled}
                   className={`menu-button${location.pathname.startsWith(page.activeBase) ? " menu-button--active" : ""}`}
                   sx={{
                     color: "primary.main",
                     display: "flex",
                     alignItems: "center",
+                    gap: 0.75,
                     height: "100%",
                     px: 2,
                   }}
                   onClick={() => goTo(page)}
                 >
                   {t(`navigation.${page.name}`)}
+                  {page.disabled && <ConstructionIcon sx={{ fontSize: 16 }} />}
                 </Button>
               ))}
             </Box>
@@ -316,11 +346,22 @@ const TopMenu = () => {
                 >
                   {settings.map((setting) => (
                     <MenuItem
-                      key={setting}
+                      key={setting.name}
+                      disabled={setting.disabled}
                       onClick={() => handleSettingClick(setting)}
                     >
-                      <Typography sx={{ textAlign: "center" }}>
-                        {t(`navigation.${setting}`)}
+                      <Typography
+                        sx={{
+                          textAlign: "center",
+                          display: "flex",
+                          alignItems: "center",
+                          gap: 0.75,
+                        }}
+                      >
+                        {t(`navigation.${setting.name}`)}
+                        {setting.disabled && (
+                          <ConstructionIcon sx={{ fontSize: 16 }} />
+                        )}
                       </Typography>
                     </MenuItem>
                   ))}

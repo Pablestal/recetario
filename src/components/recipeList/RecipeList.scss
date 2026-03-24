@@ -4,6 +4,7 @@
   display: flex;
   align-items: flex-start;
   gap: 24px;
+  padding-top: 25px;
 
   .recipe-list-sidebar {
     @media (max-width: 767px) {
@@ -25,7 +26,6 @@
   align-items: center;
   gap: 12px;
   position: sticky;
-  top: 84px;
   z-index: 10;
   background-color: white;
   padding-bottom: 8px;

@@ -25,17 +25,7 @@
     text-overflow: ellipsis;
   }
 
-  &__description {
-    height: calc(2 * 1.43em); // 2 lines at MUI body2 line-height (1.43)
-    overflow: hidden;
-    text-overflow: ellipsis;
-    display: -webkit-box;
-    -webkit-line-clamp: 2;
-    -webkit-box-orient: vertical;
-  }
-
   &__icons {
-    margin-top: 10px;
     display: flex;
     flex-direction: row;
     justify-content: space-around;

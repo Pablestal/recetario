@@ -2,7 +2,7 @@ import "./RecipeList.scss";
 import { routes } from "../../routes";
 import { useEffect, useMemo, useState } from "react";
 import { RECIPE_VIEWS } from "./recipeList.constants";
-import { Link } from "react-router-dom";
+import { Link, useSearchParams } from "react-router-dom";
 import { useRecipeStore } from "../../stores/useRecipeStore";
 import { useAuthStore } from "../../stores/useAuthStore";
 import RecipeCard from "./RecipeCard";
@@ -52,8 +52,12 @@ const RecipeList = () => {
   const userId = useAuthStore((state) => state.user?.id);
   const openLoginModal = useAuthStore((state) => state.openLoginModal);
   const navigate = useSmartNavigate();
+  const [searchParams] = useSearchParams();
 
-  const [filters, setFilters] = useState(initialFilters);
+  const [filters, setFilters] = useState(() => ({
+    ...initialFilters,
+    view: searchParams.get("view") ?? initialFilters.view,
+  }));
   const [viewMode, setViewMode] = useState(
     () => localStorage.getItem("recipeViewMode") ?? "grid",
   );
