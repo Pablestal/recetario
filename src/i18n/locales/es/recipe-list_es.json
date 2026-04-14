@@ -3,7 +3,7 @@
   "newRecipeButton": "Nueva Receta",
   "searchPlaceholder": "Buscar por nombre...",
   "filtersButton": "Filtros",
-  "clearFilters": "Limpiar filtros",
+  "clearFilters": "Limpiar",
   "showResults": "Ver {{count}} recetas",
   "viewGrid": "Vista cuadrícula",
   "viewList": "Vista lista",
@@ -13,7 +13,9 @@
     "difficulty": "Dificultad",
     "edit": "Editar",
     "delete": "Eliminar",
-    "kcal": "kcal"
+    "kcal": "kcal",
+    "addBookmark": "Añadir a marcadores",
+    "removeBookmark": "Quitar de marcadores"
   },
   "unknownAuthor": "Desconocido",
   "statFallback": "-",
@@ -24,8 +26,7 @@
   "filters": {
     "allRecipes": "Todas las recetas",
     "myRecipes": "Mis recetas",
-    "favorites": "Favoritas",
-    "favoritesComingSoon": "Próximamente",
+    "collections": "Colecciones",
     "time": "Tiempo máximo",
     "noTimeLimit": "Sin límite",
     "minutes": "min",
@@ -35,5 +36,27 @@
     "difficulty": "Dificultad",
     "tags": "Etiquetas",
     "searchTags": "Buscar etiquetas..."
+  },
+  "removeBookmarkDialog": {
+    "title": "Quitar de colecciones",
+    "message": "Esta receta se eliminará de todas tus colecciones. ¿Estás seguro?",
+    "cancel": "Cancelar",
+    "confirm": "Eliminar"
+  },
+  "addToCollectionDialog": {
+    "title": "Añadir a colección",
+    "searchPlaceholder": "Buscar colecciones...",
+    "close": "Cerrar",
+    "confirm": "Añadir a colecciones",
+    "createCollection": "Crear colección",
+    "defaultCollectionName": "Favoritos"
+  },
+  "createCollectionDialog": {
+    "title": "Nueva colección",
+    "nameLabel": "Nombre de la colección",
+    "namePlaceholder": "p.ej. Recetas de verano",
+    "makePublic": "Hacer pública",
+    "makePublicDescription": "Visible para otros usuarios de Lumea",
+    "create": "Crear"
   }
 }

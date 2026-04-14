@@ -1,6 +1,6 @@
 import "./RecipeCard.scss";
 import { routes } from "../../routes";
-import { useState } from "react";
+import { useState, useRef } from "react";
 import PropTypes from "prop-types";
 import Card from "@mui/material/Card";
 import CardHeader from "@mui/material/CardHeader";
@@ -25,6 +25,7 @@ import { useNavigate } from "react-router-dom";
 import { useAuthStore } from "../../stores/useAuthStore";
 import { useRecipeStore } from "../../stores/useRecipeStore";
 import DeleteConfirmationDialog from "../recipeDetails/DeleteConfirmationDialog";
+import BookmarkButton from "./BookmarkButton";
 
 const RecipeCard = (props) => {
   const { i18n } = useTranslation();
@@ -35,6 +36,7 @@ const RecipeCard = (props) => {
 
   const [menuAnchor, setMenuAnchor] = useState(null);
   const [openDialog, setOpenDialog] = useState(false);
+  const cardRef = useRef(null);
 
   const date = new Date(props.recipe.created_at);
   const formattedDate = date.toLocaleDateString(i18n.language, {
@@ -51,24 +53,26 @@ const RecipeCard = (props) => {
     ));
   };
 
+  // Prevent card navigation when portal events (dialogs, menus) bubble through
+  // the React tree: their e.target lives outside this card's DOM node.
+  const handleCardClick = (e) => {
+    if (!cardRef.current?.contains(e.target)) e.preventDefault();
+  };
+
   const handleMenuOpen = (e) => {
     e.preventDefault();
-    e.stopPropagation();
     setMenuAnchor(e.currentTarget);
   };
-  const handleMenuClose = (e) => {
-    e?.stopPropagation();
+  const handleMenuClose = () => {
     setMenuAnchor(null);
   };
 
-  const handleEdit = (e) => {
-    e.stopPropagation();
+  const handleEdit = () => {
     handleMenuClose();
     navigate(routes.recipeEdit(props.recipe.id));
   };
 
-  const handleDeleteClick = (e) => {
-    e.stopPropagation();
+  const handleDeleteClick = () => {
     handleMenuClose();
     setOpenDialog(true);
   };
@@ -79,7 +83,7 @@ const RecipeCard = (props) => {
   };
 
   return (
-    <section>
+    <section ref={cardRef} onClick={handleCardClick}>
       <div className="recipe-card">
         <Card sx={{ width: "100%" }} variant="outlined">
           <CardHeader
@@ -90,35 +94,45 @@ const RecipeCard = (props) => {
             }
             title={props.recipe.name}
             titleTypographyProps={{ title: props.recipe.name }}
-            subheader={formattedDate}
+            subheader={<span style={{ fontSize: "0.75rem" }}>{formattedDate}</span>}
             action={
-              isOwner && (
+              user && (
                 <>
-                  <IconButton
-                    aria-label="more options"
-                    onClick={handleMenuOpen}
-                  >
-                    <MoreVertIcon />
-                  </IconButton>
-                  <Menu
-                    anchorEl={menuAnchor}
-                    open={Boolean(menuAnchor)}
-                    onClose={(e) => handleMenuClose(e)}
-                    anchorOrigin={{ vertical: "bottom", horizontal: "right" }}
-                    transformOrigin={{ vertical: "top", horizontal: "right" }}
-                  >
-                    <MenuItem onClick={(e) => handleEdit(e)}>
-                      <EditIcon fontSize="small" sx={{ mr: 1 }} />
-                      {t("recipeCard.edit")}
-                    </MenuItem>
-                    <MenuItem
-                      onClick={(e) => handleDeleteClick(e)}
-                      sx={{ color: "error.main" }}
-                    >
-                      <DeleteIcon fontSize="small" sx={{ mr: 1 }} />
-                      {t("recipeCard.delete")}
-                    </MenuItem>
-                  </Menu>
+                  <BookmarkButton
+                    recipeId={props.recipe.id}
+                    isBookmarked={props.recipe.is_bookmarked ?? false}
+                  />
+                  {isOwner && (
+                    <>
+                      <IconButton
+                        aria-label="more options"
+                        onClick={handleMenuOpen}
+                      >
+                        <MoreVertIcon />
+                      </IconButton>
+                      <Menu
+                        anchorEl={menuAnchor}
+                        open={Boolean(menuAnchor)}
+                        onClose={handleMenuClose}
+                        anchorOrigin={{ vertical: "bottom", horizontal: "right" }}
+                        transformOrigin={{ vertical: "top", horizontal: "right" }}
+                        transitionDuration={{ enter: 200, exit: 0 }}
+                        disableScrollLock
+                      >
+                        <MenuItem onClick={handleEdit}>
+                          <EditIcon fontSize="small" sx={{ mr: 1 }} />
+                          {t("recipeCard.edit")}
+                        </MenuItem>
+                        <MenuItem
+                          onClick={handleDeleteClick}
+                          sx={{ color: "error.main" }}
+                        >
+                          <DeleteIcon fontSize="small" sx={{ mr: 1 }} />
+                          {t("recipeCard.delete")}
+                        </MenuItem>
+                      </Menu>
+                    </>
+                  )}
                 </>
               )
             }
@@ -129,13 +143,6 @@ const RecipeCard = (props) => {
             title={props.recipe.name}
           />
           <CardContent>
-            <Typography
-              variant="body2"
-              sx={{ color: "text.secondary" }}
-              className="recipe-card__description"
-            >
-              {props.recipe.description}
-            </Typography>
             <div className="recipe-card__icons">
               <div className="recipe-card__icon-item">
                 <AccessTimeIcon
@@ -196,7 +203,6 @@ const RecipeCard = (props) => {
         onClose={() => setOpenDialog(false)}
         onConfirm={handleConfirmDelete}
         recipeName={props.recipe.name}
-        onClick={(e) => e.stopPropagation()}
       />
     </section>
   );
@@ -214,6 +220,7 @@ RecipeCard.propTypes = {
     servings: PropTypes.number,
     calories: PropTypes.number,
     difficulty: PropTypes.number,
+    is_bookmarked: PropTypes.bool,
   }).isRequired,
 };
 

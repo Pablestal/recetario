@@ -70,7 +70,7 @@ const CreateRecipe = ({ recipeId }) => {
   const navigate = useNavigate();
   const [activeStep, setActiveStep] = useState(0);
   const [recipeForm, dispatch] = useReducer(formReducer, INITIAL_RECIPE);
-  const [isLoadingRecipe, setIsLoadingRecipe] = useState(false);
+  const [isLoadingRecipe, setIsLoadingRecipe] = useState(!!recipeId);
 
   const isEditMode = !!recipeId;
 

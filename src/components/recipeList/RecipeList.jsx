@@ -2,9 +2,10 @@ import "./RecipeList.scss";
 import { routes } from "../../routes";
 import { useEffect, useMemo, useState } from "react";
 import { RECIPE_VIEWS } from "./recipeList.constants";
-import { Link } from "react-router-dom";
+import { Link, useSearchParams } from "react-router-dom";
 import { useRecipeStore } from "../../stores/useRecipeStore";
 import { useAuthStore } from "../../stores/useAuthStore";
+import { useCollectionStore } from "../../stores/useCollectionStore";
 import RecipeCard from "./RecipeCard";
 import RecipeListItem from "./RecipeListItem";
 import RecipeFilters from "./RecipeFilters";
@@ -51,9 +52,17 @@ const RecipeList = () => {
   const getRecipes = useRecipeStore((state) => state.getRecipes);
   const userId = useAuthStore((state) => state.user?.id);
   const openLoginModal = useAuthStore((state) => state.openLoginModal);
+  const collectionRecipeIds = useCollectionStore((state) => state.collectionRecipeIds);
+  const fetchCollectionRecipeIds = useCollectionStore((state) => state.fetchCollectionRecipeIds);
+  const clearCollectionRecipeIds = useCollectionStore((state) => state.clearCollectionRecipeIds);
   const navigate = useSmartNavigate();
+  const [searchParams] = useSearchParams();
 
-  const [filters, setFilters] = useState(initialFilters);
+  const [filters, setFilters] = useState(() => ({
+    ...initialFilters,
+    view: searchParams.get("view") ?? initialFilters.view,
+  }));
+  const [viewLoading, setViewLoading] = useState(false);
   const [viewMode, setViewMode] = useState(
     () => localStorage.getItem("recipeViewMode") ?? "grid",
   );
@@ -64,6 +73,16 @@ const RecipeList = () => {
     getRecipes();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [userId]);
+
+  useEffect(() => {
+    if (filters.view.startsWith("collection_")) {
+      const id = parseInt(filters.view.split("_")[1], 10);
+      fetchCollectionRecipeIds(id).finally(() => setViewLoading(false));
+    } else {
+      clearCollectionRecipeIds();
+      setViewLoading(false);
+    }
+  }, [filters.view]); // eslint-disable-line react-hooks/exhaustive-deps
 
   const availableTags = useMemo(() => {
     const tagMap = new Map();
@@ -98,10 +117,14 @@ const RecipeList = () => {
 
   const handleFilterChange = (partial) => {
     if (partial.view === RECIPE_VIEWS.MINE && !userId) {
-      openLoginModal(() =>
-        setFilters((prev) => ({ ...prev, view: RECIPE_VIEWS.MINE })),
-      );
+      openLoginModal(() => {
+        setViewLoading(true);
+        setFilters((prev) => ({ ...prev, view: RECIPE_VIEWS.MINE }));
+      });
       return;
+    }
+    if (partial.view !== undefined && partial.view !== filters.view) {
+      setViewLoading(true);
     }
     setFilters((prev) => ({ ...prev, ...partial }));
   };
@@ -146,9 +169,13 @@ const RecipeList = () => {
           return false;
       }
 
+      if (filters.view.startsWith("collection_") && collectionRecipeIds !== null) {
+        if (!collectionRecipeIds.includes(recipe.id)) return false;
+      }
+
       return true;
     });
-  }, [recipes, filters, userId, dynamicMaxCalories, dynamicMaxTime]);
+  }, [recipes, filters, userId, dynamicMaxCalories, dynamicMaxTime, collectionRecipeIds]);
 
   const handleCreateRecipe = () => {
     navigate(routes.recipeCreation);
@@ -265,7 +292,8 @@ const RecipeList = () => {
             </Tooltip>
           </ToggleButtonGroup>
         </div>
-        {(() => {
+        {viewLoading && <Loading />}
+        {!viewLoading && (() => {
           if (filteredRecipes.length === 0 && !loading) {
             return (
               <div className="recipe-list__empty">

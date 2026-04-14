@@ -46,6 +46,8 @@ Namespaces: `common`, `navigation`, `auth`, `create-recipe`, `recipeList`, `reci
 
 ## Guidelines
 
+- For async loading states, always use the `Loading` component (`src/components/common/Loading.jsx`). It renders a fixed LinearProgress bar below the AppBar. Never use `CircularProgress` or custom spinners for page-level loading.
+- All UI must be responsive. Use the breakpoint mixins in `src/utils/breakpoints.scss` (`bp.mobile` < 1024px, `bp.tablet-only` 768–1023px, `bp.until($bp.$mobile)` < 480px). Always cover phone, tablet, and desktop.
 - All code, comments, variable names, and project files must be written in English.
 - Once a problem is resolved, remove any defensive code added during investigation (multiple fallback patterns, chained `??` to handle unknown structures, "Pattern A / Pattern B" comments, etc.). The final code must reflect only the confirmed real structure.
 - Keep code clean and readable. Do not leave temporary workarounds in production code.

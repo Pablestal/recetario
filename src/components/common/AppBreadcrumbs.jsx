@@ -34,10 +34,11 @@ const AppBreadcrumbs = () => {
 
   const match = BREADCRUMB_CONFIG.find(({ pattern }) => pattern.test(pathname));
 
+  if (!match) return null;
+
   return (
     <div className="breadcrumbs-spacer">
-      {match && (
-        <Breadcrumbs aria-label="breadcrumb" className="breadcrumbs">
+      <Breadcrumbs aria-label="breadcrumb" className="breadcrumbs">
           {match.crumbs.map((crumb, index) => {
             const isLast = index === match.crumbs.length - 1;
             return isLast ? (
@@ -56,7 +57,6 @@ const AppBreadcrumbs = () => {
             );
           })}
         </Breadcrumbs>
-      )}
     </div>
   );
 };

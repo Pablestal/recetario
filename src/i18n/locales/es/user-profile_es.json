@@ -1,0 +1,41 @@
+{
+  "editProfile": "Editar perfil",
+  "follow": "Seguir",
+  "unfollow": "Dejar de seguir",
+  "userNotFound": "Usuario no encontrado.",
+  "recipes": "Recetas",
+  "followers": "Seguidores",
+  "following": "Siguiendo",
+  "tabRecipes": "Recetas",
+  "tabCollections": "Colecciones",
+  "viewAll": "Ver todas las recetas",
+  "noRecipes": "Aún no hay recetas.",
+  "createCollection": "Crear nueva colección",
+  "noCollections": "Aún no hay colecciones.",
+  "noPublicCollections": "Este usuario no tiene colecciones públicas.",
+  "privateCollection": "Privada",
+  "publicCollection": "Pública",
+  "collectionDetail": {
+    "backToCollections": "Volver a colecciones",
+    "deleteCollection": "Eliminar colección",
+    "deleteCollectionTitle": "¿Eliminar colección?",
+    "deleteCollectionMessage": "La colección \"{{name}}\" se eliminará permanentemente. Las recetas no se verán afectadas.",
+    "deleteCollectionConfirm": "Eliminar",
+    "deleteCollectionCancel": "Cancelar",
+    "selectedCount": "{{count}} elementos seleccionados",
+    "deleteSelected": "Eliminar seleccionados ({{count}})",
+    "loadError": "No se pudo cargar esta colección.",
+    "makePublic": "Hacer pública",
+    "makePrivate": "Hacer privada",
+    "noRecipes": "Esta colección no tiene recetas todavía.",
+    "viewRecipe": "Ver receta",
+    "statMin": "min"
+  },
+  "difficultyLabels": {
+    "1": "Principiante",
+    "2": "Fácil",
+    "3": "Medio",
+    "4": "Avanzado",
+    "5": "Experto"
+  }
+}
