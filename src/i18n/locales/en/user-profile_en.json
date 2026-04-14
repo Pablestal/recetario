@@ -1,0 +1,41 @@
+{
+  "editProfile": "Edit profile",
+  "follow": "Follow",
+  "unfollow": "Unfollow",
+  "userNotFound": "User not found.",
+  "recipes": "Recipes",
+  "followers": "Followers",
+  "following": "Following",
+  "tabRecipes": "Recipes",
+  "tabCollections": "Collections",
+  "viewAll": "View all recipes",
+  "noRecipes": "No recipes yet.",
+  "createCollection": "Create New Collection",
+  "noCollections": "No collections yet.",
+  "noPublicCollections": "This user has no public collections.",
+  "privateCollection": "Private",
+  "publicCollection": "Public",
+  "collectionDetail": {
+    "backToCollections": "Back to Collections",
+    "deleteCollection": "Delete Collection",
+    "deleteCollectionTitle": "Delete collection?",
+    "deleteCollectionMessage": "The collection \"{{name}}\" will be permanently deleted. Recipes will not be affected.",
+    "deleteCollectionConfirm": "Delete",
+    "deleteCollectionCancel": "Cancel",
+    "selectedCount": "{{count}} items selected",
+    "deleteSelected": "Delete Selected ({{count}})",
+    "loadError": "This collection could not be loaded.",
+    "makePublic": "Make public",
+    "makePrivate": "Make private",
+    "noRecipes": "This collection has no recipes yet.",
+    "viewRecipe": "View recipe",
+    "statMin": "min"
+  },
+  "difficultyLabels": {
+    "1": "Beginner",
+    "2": "Easy",
+    "3": "Medium",
+    "4": "Advanced",
+    "5": "Expert"
+  }
+}

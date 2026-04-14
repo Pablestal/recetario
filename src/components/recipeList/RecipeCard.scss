@@ -1,4 +1,5 @@
 @use "../../utils/breakpoints" as bp;
+@use "../../styles/variables" as v;
 
 .recipe-card {
   width: 100%;
@@ -25,22 +26,16 @@
     text-overflow: ellipsis;
   }
 
-  &__description {
-    height: calc(2 * 1.43em); // 2 lines at MUI body2 line-height (1.43)
-    overflow: hidden;
-    text-overflow: ellipsis;
-    display: -webkit-box;
-    -webkit-line-clamp: 2;
-    -webkit-box-orient: vertical;
-  }
-
   &__icons {
-    margin-top: 10px;
     display: flex;
     flex-direction: row;
     justify-content: space-around;
     border-top: 1px solid #e0e0e0;
     padding-top: 8px;
+  }
+
+  &__bookmark-icon--active {
+    color: v.$secondary-light;
   }
 
   &__icon-item {

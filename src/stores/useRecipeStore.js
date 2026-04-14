@@ -94,4 +94,11 @@ export const useRecipeStore = create((set) => ({
       throw error;
     }
   },
+
+  updateRecipeIsBookmarked: (recipeId, isBookmarked) =>
+    set((state) => ({
+      recipes: state.recipes.map((r) =>
+        r.id === recipeId ? { ...r, is_bookmarked: isBookmarked } : r
+      ),
+    })),
 }));
