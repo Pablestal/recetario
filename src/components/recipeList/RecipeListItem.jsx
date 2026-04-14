@@ -1,6 +1,6 @@
 import "./RecipeListItem.scss";
 import { routes } from "../../routes";
-import { useState } from "react";
+import { useState, useRef } from "react";
 import PropTypes from "prop-types";
 import Typography from "@mui/material/Typography";
 import IconButton from "@mui/material/IconButton";
@@ -11,7 +11,7 @@ import PeopleAltOutlinedIcon from "@mui/icons-material/PeopleAltOutlined";
 import BoltIcon from "@mui/icons-material/Bolt";
 import LocalFireDepartmentIcon from "@mui/icons-material/LocalFireDepartment";
 import LocalDiningIcon from "@mui/icons-material/LocalDiningOutlined";
-import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
+import BookmarkButton from "./BookmarkButton";
 import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
 import EditIcon from "@mui/icons-material/Edit";
@@ -30,6 +30,7 @@ const RecipeListItem = ({ recipe }) => {
 
   const [menuAnchor, setMenuAnchor] = useState(null);
   const [openDialog, setOpenDialog] = useState(false);
+  const itemRef = useRef(null);
 
   const formattedDate = new Date(recipe.created_at).toLocaleDateString(
     i18n.language,
@@ -42,25 +43,25 @@ const RecipeListItem = ({ recipe }) => {
 
   const isOwner = user?.id === recipe.user_id;
 
+  const handleItemClick = (e) => {
+    if (!itemRef.current?.contains(e.target)) e.preventDefault();
+  };
+
   const handleMenuOpen = (e) => {
     e.preventDefault();
-    e.stopPropagation();
     setMenuAnchor(e.currentTarget);
   };
 
-  const handleMenuClose = (e) => {
-    e?.stopPropagation();
+  const handleMenuClose = () => {
     setMenuAnchor(null);
   };
 
-  const handleEdit = (e) => {
-    e.stopPropagation();
+  const handleEdit = () => {
     handleMenuClose();
     navigate(routes.recipeEdit(recipe.id));
   };
 
-  const handleDeleteClick = (e) => {
-    e.stopPropagation();
+  const handleDeleteClick = () => {
     handleMenuClose();
     setOpenDialog(true);
   };
@@ -72,7 +73,7 @@ const RecipeListItem = ({ recipe }) => {
 
   return (
     <>
-      <div className="recipe-list-item">
+      <div ref={itemRef} className="recipe-list-item" onClick={handleItemClick}>
         <div className="recipe-list-item__content">
           <Typography variant="subtitle2" className="recipe-list-item__name">
             {recipe.name}
@@ -150,7 +151,7 @@ const RecipeListItem = ({ recipe }) => {
             {recipe.user?.name ?? t("unknownAuthor")} · {formattedDate}
           </Typography>
           <div className="recipe-list-item__actions-icons">
-            <FavoriteBorderIcon sx={{ fontSize: 18, color: "text.disabled" }} />
+            <BookmarkButton recipeId={recipe.id} isBookmarked={recipe.is_bookmarked ?? false} />
             {isOwner ? (
               <>
                 <IconButton size="small" onClick={handleMenuOpen}>
@@ -162,6 +163,8 @@ const RecipeListItem = ({ recipe }) => {
                   onClose={handleMenuClose}
                   anchorOrigin={{ vertical: "bottom", horizontal: "right" }}
                   transformOrigin={{ vertical: "top", horizontal: "right" }}
+                  transitionDuration={{ enter: 200, exit: 0 }}
+                  disableScrollLock
                 >
                   <MenuItem onClick={handleEdit}>
                     <EditIcon fontSize="small" sx={{ mr: 1 }} />
@@ -188,7 +191,6 @@ const RecipeListItem = ({ recipe }) => {
         onClose={() => setOpenDialog(false)}
         onConfirm={handleConfirmDelete}
         recipeName={recipe.name}
-        onClick={(e) => e.stopPropagation()}
       />
     </>
   );
@@ -206,6 +208,7 @@ RecipeListItem.propTypes = {
     calories: PropTypes.number,
     difficulty: PropTypes.number,
     user: PropTypes.shape({ name: PropTypes.string }),
+    is_bookmarked: PropTypes.bool,
   }).isRequired,
 };
 

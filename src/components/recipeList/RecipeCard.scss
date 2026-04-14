@@ -1,4 +1,5 @@
 @use "../../utils/breakpoints" as bp;
+@use "../../styles/variables" as v;
 
 .recipe-card {
   width: 100%;
@@ -31,6 +32,10 @@
     justify-content: space-around;
     border-top: 1px solid #e0e0e0;
     padding-top: 8px;
+  }
+
+  &__bookmark-icon--active {
+    color: v.$secondary-light;
   }
 
   &__icon-item {

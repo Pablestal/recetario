@@ -23,8 +23,7 @@ import PersonAddIcon from "@mui/icons-material/PersonAdd";
 import ConstructionIcon from "@mui/icons-material/Construction";
 import "./TopMenu.scss";
 
-const pages = [
-  { name: "profile", link: routes.profile, activeBase: routes.profile },
+const staticPages = [
   { name: "recipes", link: routes.recipes, activeBase: routes.recipes },
   {
     name: "shoppingList",
@@ -55,6 +54,14 @@ const TopMenu = () => {
   const [registerOpen, setRegisterOpen] = React.useState(false);
 
   const user = useAuthStore((state) => state.user);
+  const profile = useAuthStore((state) => state.profile);
+
+  const pages = [
+    ...(user && profile?.username
+      ? [{ name: "profile", link: routes.profile(profile.username), activeBase: "/profile" }]
+      : []),
+    ...staticPages,
+  ];
   const signOut = useAuthStore((state) => state.signOut);
   const showLoginModal = useAuthStore((state) => state.showLoginModal);
   const openLoginModal = useAuthStore((state) => state.openLoginModal);
@@ -93,7 +100,7 @@ const TopMenu = () => {
       await signOut();
       navigate(routes.recipes);
     } else if (setting.name === "profile") {
-      navigate(routes.profile);
+      if (profile?.username) navigate(routes.profile(profile.username));
     } else if (setting.name === "account") {
       navigate(routes.account);
     }
@@ -343,6 +350,7 @@ const TopMenu = () => {
                   }}
                   open={Boolean(anchorElUser)}
                   onClose={handleCloseUserMenu}
+                  disableScrollLock
                 >
                   {settings.map((setting) => (
                     <MenuItem

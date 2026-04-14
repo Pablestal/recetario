@@ -9,17 +9,18 @@ import Slider from "@mui/material/Slider";
 import Checkbox from "@mui/material/Checkbox";
 import Chip from "@mui/material/Chip";
 import TextField from "@mui/material/TextField";
-import Tooltip from "@mui/material/Tooltip";
 import Divider from "@mui/material/Divider";
 import Button from "@mui/material/Button";
 import ToggleButton from "@mui/material/ToggleButton";
 import ToggleButtonGroup from "@mui/material/ToggleButtonGroup";
 import LocalDiningIcon from "@mui/icons-material/LocalDiningOutlined";
+import BookmarkIcon from "@mui/icons-material/Bookmark";
 import SearchIcon from "@mui/icons-material/Search";
 import InputAdornment from "@mui/material/InputAdornment";
 import FormatListBulletedIcon from "@mui/icons-material/FormatListBulleted";
 import PersonOutlineIcon from "@mui/icons-material/PersonOutline";
-import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
+import { useAuthStore } from "../../stores/useAuthStore";
+import { useCollectionStore } from "../../stores/useCollectionStore";
 
 const MAX_VISIBLE_TAGS = 6;
 
@@ -27,6 +28,13 @@ const RecipeFilters = ({ filters, onChange, onClear, hasActiveFilters, maxTime, 
   const { t, i18n } = useTranslation("recipeList");
   const storeTags = useTagStore((state) => state.tags);
   const getTagsByLanguage = useTagStore((state) => state.getTagsByLanguage);
+  const user = useAuthStore((state) => state.user);
+  const collections = useCollectionStore((state) => state.collections);
+  const fetchCollections = useCollectionStore((state) => state.fetchCollections);
+
+  useEffect(() => {
+    if (user?.id) fetchCollections(user.id);
+  }, [user?.id]); // eslint-disable-line react-hooks/exhaustive-deps
 
   useEffect(() => {
     getTagsByLanguage(i18n.language);
@@ -43,7 +51,17 @@ const RecipeFilters = ({ filters, onChange, onClear, hasActiveFilters, maxTime, 
   useEffect(() => { setCalMaxStr(String(filters.caloriesRange[1])); }, [filters.caloriesRange]);
 
   const handleViewChange = (_, newView) => {
-    if (newView !== null) onChange({ view: newView });
+    if (newView === null) return;
+    if (newView === "collections") {
+      const defaultCollection = collections.find((c) => c.is_default);
+      onChange({ view: `collection_${(defaultCollection ?? collections[0]).id}` });
+      return;
+    }
+    onChange({ view: newView });
+  };
+
+  const handleCollectionChipClick = (collectionId) => {
+    onChange({ view: `collection_${collectionId}` });
   };
 
   const commitTime = () => {
@@ -118,7 +136,7 @@ const RecipeFilters = ({ filters, onChange, onClear, hasActiveFilters, maxTime, 
     <aside className={asideClass}>
       {/* View selector */}
       <ToggleButtonGroup
-        value={filters.view}
+        value={filters.view.startsWith("collection") ? "collections" : filters.view}
         exclusive
         onChange={handleViewChange}
         orientation="vertical"
@@ -133,19 +151,30 @@ const RecipeFilters = ({ filters, onChange, onClear, hasActiveFilters, maxTime, 
           <PersonOutlineIcon fontSize="small" sx={{ mr: 1 }} />
           {t("filters.myRecipes")}
         </ToggleButton>
-        <Tooltip title={t("filters.favoritesComingSoon")} placement="right">
-          <span>
-            <ToggleButton
-              value={RECIPE_VIEWS.FAVORITES}
-              disabled
-              className="recipe-filters__view-btn"
-            >
-              <FavoriteBorderIcon fontSize="small" sx={{ mr: 1 }} />
-              {t("filters.favorites")}
-            </ToggleButton>
-          </span>
-        </Tooltip>
+        {user && collections.length > 0 && (
+          <ToggleButton value="collections" className="recipe-filters__view-btn">
+            <BookmarkIcon fontSize="small" sx={{ mr: 1 }} />
+            {t("filters.collections")}
+          </ToggleButton>
+        )}
       </ToggleButtonGroup>
+
+      {filters.view.startsWith("collection") && (
+        <div className="recipe-filters__collection-chips">
+          {[...collections]
+            .sort((a, b) => (b.is_default ? 1 : 0) - (a.is_default ? 1 : 0))
+            .map((c) => (
+              <Chip
+                key={c.id}
+                label={c.is_default ? t("addToCollectionDialog.defaultCollectionName") : c.name}
+                onClick={() => handleCollectionChipClick(c.id)}
+                variant={filters.view === `collection_${c.id}` ? "filled" : "outlined"}
+                color="secondary"
+                size="small"
+              />
+            ))}
+        </div>
+      )}
 
       <Divider sx={{ my: 2 }} />
 

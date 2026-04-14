@@ -46,12 +46,8 @@ const App = () => {
                     element={<Navigate to={routes.recipes} replace />}
                   />
                   <Route
-                    path={routes.profile}
-                    element={
-                      <ProtectedRoute>
-                        <UserProfilePage />
-                      </ProtectedRoute>
-                    }
+                    path={routes.profile(":username")}
+                    element={<UserProfilePage />}
                   />
                   <Route path={routes.recipes} element={<RecipeListPage />} />
                   <Route

@@ -1,0 +1,207 @@
+@use "../../utils/breakpoints" as bp;
+
+.collection-detail {
+  // ── Back link ─────────────────────────────────────────────────────────────
+
+  &__back {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: #555;
+    font-size: 0.875rem;
+    padding: 0;
+    margin-bottom: 1.25rem;
+
+    &:hover {
+      color: #1a1a1a;
+    }
+  }
+
+  // ── Title row ─────────────────────────────────────────────────────────────
+
+  &__title-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+    min-width: 0;
+  }
+
+  &__title {
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  &__actions {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    flex-shrink: 0;
+    padding-right: 0.5rem;
+  }
+
+  &__delete-btn {
+    @include bp.mobile {
+      min-width: unset !important;
+      padding: 6px 8px !important;
+
+      .MuiButton-startIcon {
+        margin-right: 0;
+        margin-left: 0;
+      }
+
+      .collection-detail__delete-label {
+        display: none;
+      }
+    }
+  }
+
+  // ── Selection bar ─────────────────────────────────────────────────────────
+
+  &__selection-bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    background-color: #e0f2f1;
+    border-radius: 8px;
+    padding: 12px 16px;
+    margin-bottom: 1rem;
+
+    @include bp.until(bp.$tablet) {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 8px;
+    }
+  }
+
+  // ── Recipe list ───────────────────────────────────────────────────────────
+
+  &__list {
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    overflow: hidden;
+    background: #fff;
+  }
+}
+
+// ── Recipe item ─────────────────────────────────────────────────────────────
+
+.collection-recipe-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 16px;
+  border-bottom: 1px solid #e0e0e0;
+  background: #fff;
+  cursor: pointer;
+  transition: background-color 0.15s ease;
+
+  &:last-child {
+    border-bottom: none;
+  }
+
+  &:hover {
+    background-color: #fafafa;
+  }
+
+  &--selected {
+    background-color: #f1fffe;
+
+    &:hover {
+      background-color: #e8f9f8;
+    }
+  }
+
+  &__thumbnail {
+    width: 72px;
+    height: 72px;
+    object-fit: cover;
+    border-radius: 6px;
+    flex-shrink: 0;
+
+    @include bp.until(bp.$tablet) {
+      width: 56px;
+      height: 56px;
+    }
+  }
+
+  &__content {
+    flex: 1;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  &__name {
+    font-weight: 700 !important;
+    font-size: 0.95rem !important;
+    color: #1a1a1a;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  &__meta {
+    display: grid;
+    grid-template-columns: 80px 50px 75px 90px 16px 1fr;
+    align-items: center;
+    gap: 0 4px;
+    min-width: 0;
+
+    @include bp.until(bp.$tablet) {
+      grid-template-columns: 50px 50px 50px 90px;
+    }
+  }
+
+  &__stat {
+    display: flex;
+    align-items: center;
+    gap: 3px;
+    white-space: nowrap;
+  }
+
+  &__stat-text {
+    color: #78909c;
+  }
+
+  &__difficulty {
+    display: flex;
+    align-items: center;
+  }
+
+  &__divider {
+    color: #bdbdbd;
+    font-size: 0.75rem;
+
+    @include bp.until(bp.$tablet) {
+      display: none;
+    }
+  }
+
+  &__description {
+    color: #78909c;
+    font-size: 0.8rem !important;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    min-width: 0;
+
+    @include bp.until(bp.$tablet) {
+      display: none;
+    }
+  }
+
+  &__unit {
+    @include bp.until(bp.$tablet) {
+      display: none;
+    }
+  }
+}

@@ -75,6 +75,15 @@
       opacity: 1;
       text-decoration: underline !important;
     }
+
+    &--disabled {
+      opacity: 0.5;
+      pointer-events: none;
+
+      &:hover {
+        text-decoration: none !important;
+      }
+    }
   }
 
   &__social {

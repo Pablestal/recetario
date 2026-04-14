@@ -13,7 +13,9 @@
     "difficulty": "Difficulty",
     "edit": "Edit",
     "delete": "Delete",
-    "kcal": "kcal"
+    "kcal": "kcal",
+    "addBookmark": "Add to bookmarks",
+    "removeBookmark": "Remove from bookmarks"
   },
   "unknownAuthor": "Unknown",
   "statFallback": "-",
@@ -24,8 +26,7 @@
   "filters": {
     "allRecipes": "All recipes",
     "myRecipes": "My recipes",
-    "favorites": "Favorites",
-    "favoritesComingSoon": "Coming soon",
+    "collections": "Collections",
     "time": "Max time",
     "noTimeLimit": "No limit",
     "minutes": "min",
@@ -35,5 +36,27 @@
     "difficulty": "Difficulty",
     "tags": "Tags",
     "searchTags": "Search tags..."
+  },
+  "removeBookmarkDialog": {
+    "title": "Remove from collections",
+    "message": "This recipe will be removed from all your collections. Are you sure?",
+    "cancel": "Cancel",
+    "confirm": "Remove"
+  },
+  "addToCollectionDialog": {
+    "title": "Add to Collection",
+    "searchPlaceholder": "Search collections...",
+    "close": "Close",
+    "confirm": "Add to Collections",
+    "createCollection": "Create collection",
+    "defaultCollectionName": "Favorites"
+  },
+  "createCollectionDialog": {
+    "title": "New Collection",
+    "nameLabel": "Collection Name",
+    "namePlaceholder": "e.g. Summer Grilling",
+    "makePublic": "Make Public",
+    "makePublicDescription": "Visible to other Lumea users",
+    "create": "Create"
   }
 }

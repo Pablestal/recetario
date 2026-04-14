@@ -1,199 +1,212 @@
 import "./UserProfile.scss";
-import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useEffect, useMemo, useState } from "react";
+import { useNavigate, useParams } from "react-router-dom";
 import { useTranslation } from "react-i18next";
-import { Avatar, Button, Tab, Tabs, Typography } from "@mui/material";
-import LocationOnIcon from "@mui/icons-material/LocationOn";
-import ConstructionIcon from "@mui/icons-material/Construction";
-import { Link } from "react-router-dom";
-import Loading from "../common/Loading";
+import { Button, Tab, Tabs, Typography } from "@mui/material";
 import { useAuthStore } from "../../stores/useAuthStore";
+import { useRecipeStore } from "../../stores/useRecipeStore";
 import { routes } from "../../routes";
 import { RECIPE_VIEWS } from "../recipeList/recipeList.constants";
-import RecipeCard from "../recipeList/RecipeCard";
+import Loading from "../common/Loading";
+import ProfileHeader from "./ProfileHeader";
+import ProfileRecipesTab from "./ProfileRecipesTab";
+import ProfileCollectionsTab from "./ProfileCollectionsTab";
 
 const API_URL = import.meta.env.VITE_API_URL || "http://localhost:3000";
 
-const PROFILE_TABS = { RECIPES: 0, COLLECTIONS: 1, FAVORITES: 2 };
-
-const UnderConstruction = ({ t }) => (
-  <div className="user-profile__under-construction">
-    <ConstructionIcon sx={{ fontSize: 52, color: "text.disabled" }} />
-    <Typography variant="h6" color="text.secondary">
-      {t("underConstruction")}
-    </Typography>
-    <Typography variant="body2" color="text.disabled">
-      {t("underConstructionSubtitle")}
-    </Typography>
-  </div>
-);
+const PROFILE_TABS = { RECIPES: 0, COLLECTIONS: 1 };
 
 const UserProfile = () => {
+  const { username } = useParams();
   const { t } = useTranslation("userProfile");
   const navigate = useNavigate();
-  const profile = useAuthStore((state) => state.profile);
-  const user = useAuthStore((state) => state.user);
+
+  const loggedUser = useAuthStore((state) => state.user);
   const getToken = useAuthStore((state) => state.getToken);
 
-  const [activeTab, setActiveTab] = useState(PROFILE_TABS.RECIPES);
+  const [profile, setProfile] = useState(null);
   const [stats, setStats] = useState({
     recipe_count: 0,
     followers_count: 0,
     following_count: 0,
   });
   const [previewRecipes, setPreviewRecipes] = useState([]);
-  const [loadingRecipes, setLoadingRecipes] = useState(true);
+  const [collections, setCollections] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [notFound, setNotFound] = useState(false);
+  const [isFollowing, setIsFollowing] = useState(false);
+  const [followLoading, setFollowLoading] = useState(false);
+
+  const [activeTab, setActiveTab] = useState(
+    () => Number(localStorage.getItem("profile_active_tab")) || PROFILE_TABS.RECIPES,
+  );
+
+  const storeRecipes = useRecipeStore((state) => state.recipes);
+
+  const isOwner = !!(loggedUser?.id && profile?.id && loggedUser.id === profile.id);
+  const showFollowButton = !!(loggedUser && profile && !isOwner);
 
   useEffect(() => {
-    if (!user?.id) return;
-
     const fetchData = async () => {
+      setLoading(true);
+      setNotFound(false);
+
       const token = await getToken();
       const headers = token ? { Authorization: `Bearer ${token}` } : {};
 
-      const [profileRes, recipesRes] = await Promise.all([
-        fetch(`${API_URL}/users/${user.id}`, { headers }),
-        fetch(`${API_URL}/users/${user.id}/recipes?limit=8`, { headers }),
-      ]);
+      const profileRes = await fetch(`${API_URL}/users/username/${username}`, { headers });
 
-      if (profileRes.ok) {
-        const { data } = await profileRes.json();
-        setStats({
-          recipe_count: data.recipe_count,
-          followers_count: data.followers_count,
-          following_count: data.following_count,
-        });
+      if (!profileRes.ok) {
+        setNotFound(true);
+        setLoading(false);
+        return;
       }
+
+      const { data: profileData } = await profileRes.json();
+      setProfile(profileData);
+      setStats({
+        recipe_count: profileData.recipe_count,
+        followers_count: profileData.followers_count,
+        following_count: profileData.following_count,
+      });
+
+      const requests = [
+        fetch(`${API_URL}/users/${profileData.id}/recipes?limit=8`, { headers }),
+        fetch(`${API_URL}/users/${profileData.id}/collections`, { headers }),
+      ];
+
+      if (token && loggedUser?.id !== profileData.id) {
+        requests.push(
+          fetch(`${API_URL}/users/${profileData.id}/is-following`, { headers }),
+        );
+      }
+
+      const [recipesRes, collectionsRes, followingRes] = await Promise.all(requests);
 
       if (recipesRes.ok) {
         const { data } = await recipesRes.json();
-        setPreviewRecipes(data);
+        setPreviewRecipes(
+          data.map((r) => ({ ...r, user_id: r.user_id ?? profileData.id })),
+        );
       }
 
-      setLoadingRecipes(false);
+      if (collectionsRes.ok) {
+        const { data } = await collectionsRes.json();
+        setCollections(data);
+      }
+
+      if (followingRes?.ok) {
+        const { data } = await followingRes.json();
+        setIsFollowing(data.isFollowing);
+      }
+
+      setLoading(false);
     };
 
     fetchData();
-  }, [user?.id, getToken]);
+  }, [username, getToken]); // eslint-disable-line react-hooks/exhaustive-deps
 
-  const handleViewAll = () => {
-    navigate(`${routes.recipes}?view=${RECIPE_VIEWS.MINE}`);
+  const handleFollow = async () => {
+    setFollowLoading(true);
+    const wasFollowing = isFollowing;
+    setIsFollowing(!wasFollowing);
+    setStats((prev) => ({
+      ...prev,
+      followers_count: prev.followers_count + (wasFollowing ? -1 : 1),
+    }));
+
+    try {
+      const token = await getToken();
+      const headers = { Authorization: `Bearer ${token}` };
+      if (wasFollowing) {
+        await fetch(`${API_URL}/users/${profile.id}/follow`, { method: "DELETE", headers });
+      } else {
+        await fetch(`${API_URL}/users/${profile.id}/follow`, { method: "POST", headers });
+      }
+    } catch {
+      setIsFollowing(wasFollowing);
+      setStats((prev) => ({
+        ...prev,
+        followers_count: prev.followers_count + (wasFollowing ? 1 : -1),
+      }));
+    } finally {
+      setFollowLoading(false);
+    }
   };
 
-  if (loadingRecipes) return <Loading />;
+  const recipesWithBookmarks = useMemo(
+    () =>
+      previewRecipes.map((recipe) => {
+        const updated = storeRecipes.find((r) => r.id === recipe.id);
+        return updated !== undefined
+          ? { ...recipe, is_bookmarked: updated.is_bookmarked }
+          : recipe;
+      }),
+    [previewRecipes, storeRecipes],
+  );
+
+  const handleViewAll = () =>
+    navigate(`${routes.recipes}?view=${RECIPE_VIEWS.MINE}`);
+
+  if (loading) return <Loading />;
+
+  if (notFound) {
+    return (
+      <div className="user-profile">
+        <Typography color="text.secondary" sx={{ py: 10, textAlign: "center" }}>
+          {t("userNotFound")}
+        </Typography>
+      </div>
+    );
+  }
 
   return (
     <div className="user-profile">
       <div className="user-profile__banner" />
 
-      <div className="user-profile__header">
-        <Avatar
-          src={profile?.avatar_url}
-          className="user-profile__avatar"
-          sx={{ width: 96, height: 96 }}
-        >
-          {profile?.name?.[0]?.toUpperCase()}
-        </Avatar>
-
-        <div className="user-profile__header-body">
-          <div className="user-profile__header-top">
-            <div>
-              <Typography variant="h5" fontWeight={600}>
-                {profile?.name}
-              </Typography>
-              {profile?.location && (
-                <div className="user-profile__location">
-                  <LocationOnIcon fontSize="small" color="action" />
-                  <Typography variant="body2" color="text.secondary">
-                    {profile.location}
-                  </Typography>
-                </div>
-              )}
-            </div>
+      <ProfileHeader
+        profile={profile}
+        stats={stats}
+        isOwner={isOwner}
+        followButton={
+          showFollowButton ? (
             <Button
-              variant="outlined"
+              variant={isFollowing ? "outlined" : "contained"}
               size="small"
-              onClick={() => navigate(routes.account)}
+              disabled={followLoading}
+              onClick={handleFollow}
+              color="secondary"
             >
-              {t("editProfile")}
+              {isFollowing ? t("unfollow") : t("follow")}
             </Button>
-          </div>
-
-          {profile?.bio && (
-            <Typography variant="body2" color="text.secondary" sx={{ mb: 1.5 }}>
-              {profile.bio}
-            </Typography>
-          )}
-
-          <div className="user-profile__stats">
-            <span>
-              <strong>{stats.recipe_count}</strong> {t("recipes")}
-            </span>
-            <span className="user-profile__stats-dot">·</span>
-            <span>
-              <strong>{stats.followers_count}</strong> {t("followers")}
-            </span>
-            <span className="user-profile__stats-dot">·</span>
-            <span>
-              <strong>{stats.following_count}</strong> {t("following")}
-            </span>
-          </div>
-        </div>
-      </div>
-
-      <div className="user-profile__tabs-wrapper">
-        <Tabs
-          value={activeTab}
-          onChange={(_, v) => setActiveTab(v)}
-          textColor="secondary"
-          indicatorColor="secondary"
-        >
-          <Tab label={t("tabRecipes")} />
-          <Tab label={t("tabCollections")} />
-          <Tab label={t("tabFavorites")} />
-        </Tabs>
-      </div>
+          ) : null
+        }
+        tabs={
+          <Tabs
+            value={activeTab}
+            onChange={(_, v) => {
+              setActiveTab(v);
+              if (isOwner) localStorage.setItem("profile_active_tab", v);
+            }}
+            textColor="secondary"
+            indicatorColor="secondary"
+          >
+            <Tab label={t("tabRecipes")} />
+            <Tab label={t("tabCollections")} />
+          </Tabs>
+        }
+      />
 
       <div className="user-profile__tab-content">
         {activeTab === PROFILE_TABS.RECIPES && (
-          <>
-            {previewRecipes.length === 0 && (
-              <Typography
-                color="text.secondary"
-                sx={{ py: 6, textAlign: "center" }}
-              >
-                {t("noRecipes")}
-              </Typography>
-            )}
-            {previewRecipes.length > 0 && (
-              <>
-                <div className="user-profile__recipe-grid">
-                  {previewRecipes.map((recipe) => (
-                    <Link
-                      key={recipe.id}
-                      to={routes.recipeDetails(recipe.id)}
-                      className="no-link-style"
-                    >
-                      <RecipeCard recipe={recipe} />
-                    </Link>
-                  ))}
-                </div>
-                <div className="user-profile__view-all">
-                  <Button
-                    variant="outlined"
-                    color="secondary"
-                    onClick={handleViewAll}
-                  >
-                    {t("viewAll")}
-                  </Button>
-                </div>
-              </>
-            )}
-          </>
+          <ProfileRecipesTab
+            recipes={recipesWithBookmarks}
+            onViewAll={isOwner ? handleViewAll : null}
+          />
         )}
-
-        {activeTab === PROFILE_TABS.COLLECTIONS && <UnderConstruction t={t} />}
-        {activeTab === PROFILE_TABS.FAVORITES && <UnderConstruction t={t} />}
+        {activeTab === PROFILE_TABS.COLLECTIONS && (
+          <ProfileCollectionsTab userId={profile.id} isOwner={isOwner} initialCollections={collections} />
+        )}
       </div>
     </div>
   );

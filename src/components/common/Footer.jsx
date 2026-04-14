@@ -1,6 +1,7 @@
 import { Box, Container, Typography, Link, IconButton } from "@mui/material";
 import { routes } from "../../routes";
 import { GitHub, Twitter, Instagram, Email } from "@mui/icons-material";
+import ConstructionIcon from "@mui/icons-material/Construction";
 import { useTranslation } from "react-i18next";
 import "./Footer.scss";
 
@@ -31,11 +32,13 @@ const Footer = () => {
               <Link href={routes.recipes} className="footer__link">
                 {t("navigation.recipes")}
               </Link>
-              <Link href={routes.shoppingList} className="footer__link">
+              <Link href={routes.shoppingList} className="footer__link footer__link--disabled">
                 {t("navigation.shoppingList")}
+                <ConstructionIcon sx={{ fontSize: 14, ml: 0.5, verticalAlign: "middle" }} />
               </Link>
-              <Link href={routes.weeklyMenu} className="footer__link">
+              <Link href={routes.weeklyMenu} className="footer__link footer__link--disabled">
                 {t("navigation.weeklyMenu")}
+                <ConstructionIcon sx={{ fontSize: 14, ml: 0.5, verticalAlign: "middle" }} />
               </Link>
             </Box>
           </Box>
