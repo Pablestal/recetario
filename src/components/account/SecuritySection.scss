@@ -1,0 +1,65 @@
+@use "../../utils/breakpoints" as bp;
+
+.security-section {
+  padding: 24px;
+
+  &__header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 16px;
+
+    @include bp.until(bp.$tablet) {
+      flex-direction: column;
+      align-items: stretch;
+    }
+  }
+
+  &__header-buttons {
+    display: flex;
+    gap: 8px;
+    flex-shrink: 0;
+
+    @include bp.until(bp.$tablet) {
+      flex-direction: column;
+    }
+  }
+
+  &__header-text {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  &__title-row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  &__form {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    margin-top: 24px;
+    max-width: 480px;
+
+    @include bp.until(bp.$tablet) {
+      max-width: 100%;
+    }
+  }
+
+  &__actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 8px;
+
+    @include bp.until(bp.$tablet) {
+      flex-direction: column-reverse;
+
+      .MuiButton-root {
+        width: 100%;
+      }
+    }
+  }
+}

@@ -66,21 +66,15 @@
   }
 
   &__avatar {
-    margin-top: -48px !important;
+    margin-top: -54px !important;
     border: 4px solid #fff !important;
     flex-shrink: 0;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
 
     @include bp.tablet-only {
-      margin-top: -40px !important;
-      width: 88px !important;
-      height: 88px !important;
-    }
-
-    @include bp.until(bp.$tablet) {
-      margin-top: -36px !important;
-      width: 72px !important;
-      height: 72px !important;
+      margin-top: -46px !important;
+      width: 92px !important;
+      height: 92px !important;
     }
   }
 

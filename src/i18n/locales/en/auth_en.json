@@ -6,6 +6,13 @@
   "password": "Password",
   "confirmPassword": "Confirm Password",
   "name": "Name",
+  "username": "Username",
+  "usernameChecking": "Checking availability...",
+  "usernameAvailable": "Username available",
+  "usernameTaken": "Username already taken",
+  "emailChecking": "Checking availability...",
+  "emailAvailable": "Email available",
+  "emailTaken": "An account with this email already exists",
   "cancel": "Cancel",
   "loading": "Loading...",
   "noAccount": "Don't have an account?",
@@ -29,6 +36,10 @@
     "name": {
       "required": "Name is required",
       "minLength": "Name must be at least 2 characters"
+    },
+    "username": {
+      "required": "Username is required",
+      "pattern": "3–30 characters: letters, numbers or underscores only"
     }
   },
   "errors": {

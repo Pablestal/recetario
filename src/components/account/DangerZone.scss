@@ -1,0 +1,18 @@
+@use "../../utils/breakpoints" as bp;
+
+.danger-zone {
+  padding: 24px;
+
+  &__header {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 8px;
+  }
+
+  &__delete-btn {
+    @include bp.until(bp.$tablet) {
+      width: 100%;
+    }
+  }
+}

@@ -1,0 +1,53 @@
+{
+  "account": {
+    "profileSection": {
+      "title": "Personal Info",
+      "subtitle": "Manage your profile",
+      "coverPhotoAlt": "Cover photo",
+      "coverPhotoTooltip": "Coming soon",
+      "avatarTooltip": "Coming soon",
+      "name": "Display name",
+      "username": "Username",
+      "location": "Location",
+      "bio": "Bio",
+      "saveChanges": "Save changes",
+      "nameTooLong": "Name must be at most 100 characters",
+      "usernameInvalid": "Username must be 3–30 characters: letters, numbers or underscores only",
+      "usernameTaken": "This username is already taken",
+      "locationTooLong": "Location must be at most 100 characters",
+      "bioTooLong": "Bio must be at most 500 characters",
+      "saveSuccess": "Profile updated successfully"
+    },
+    "securitySection": {
+      "title": "Security",
+      "subtitle": "Change your password or email address",
+      "changePasswordButton": "Change password",
+      "currentPassword": "Current password",
+      "newPassword": "New password",
+      "confirmPassword": "Confirm new password",
+      "updatePassword": "Update password",
+      "passwordMismatch": "Passwords do not match",
+      "passwordTooWeak": "Password must be at least 8 characters with uppercase, lowercase and a number",
+      "wrongPassword": "Current password is incorrect",
+      "passwordUpdateSuccess": "Password updated successfully",
+      "changeEmailButton": "Change email",
+      "newEmail": "New email address",
+      "confirmEmail": "Confirm new email address",
+      "updateEmail": "Update email",
+      "emailMismatch": "Email addresses do not match",
+      "invalidEmail": "Enter a valid email address",
+      "wrongPasswordForEmail": "Current password is incorrect",
+      "emailUpdateSuccess": "Email updated successfully",
+      "cancel": "Cancel"
+    },
+    "dangerZone": {
+      "title": "Danger zone",
+      "warning": "This action is permanent and cannot be undone. All your recipes and data will be deleted.",
+      "deleteAccount": "Delete account",
+      "confirmTitle": "Delete account",
+      "confirmMessage": "Are you sure you want to delete your account? This action cannot be undone.",
+      "confirmButton": "Delete account",
+      "cancelButton": "Cancel"
+    }
+  }
+}

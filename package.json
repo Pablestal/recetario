@@ -41,6 +41,7 @@
     "globals": "^16.0.0",
     "prettier": "^3.5.3",
     "sass-embedded": "^1.89.2",
+    "sharp": "^0.34.5",
     "vite": "^6.3.1"
   }
 }
