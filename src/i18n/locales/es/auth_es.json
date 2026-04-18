@@ -6,6 +6,13 @@
   "password": "Contraseña",
   "confirmPassword": "Confirmar Contraseña",
   "name": "Nombre",
+  "username": "Nombre de usuario",
+  "usernameChecking": "Comprobando disponibilidad...",
+  "usernameAvailable": "Nombre de usuario disponible",
+  "usernameTaken": "Este nombre de usuario ya está en uso",
+  "emailChecking": "Comprobando disponibilidad...",
+  "emailAvailable": "Email disponible",
+  "emailTaken": "Ya existe una cuenta con este email",
   "cancel": "Cancelar",
   "loading": "Cargando...",
   "noAccount": "¿No tienes cuenta?",
@@ -29,6 +36,10 @@
     "name": {
       "required": "El nombre es obligatorio",
       "minLength": "El nombre debe tener al menos 2 caracteres"
+    },
+    "username": {
+      "required": "El nombre de usuario es obligatorio",
+      "pattern": "Entre 3 y 30 caracteres: solo letras, números o guiones bajos"
     }
   },
   "errors": {

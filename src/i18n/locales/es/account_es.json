@@ -1,0 +1,53 @@
+{
+  "account": {
+    "profileSection": {
+      "title": "Información personal",
+      "subtitle": "Gestiona tu perfil",
+      "coverPhotoAlt": "Foto de portada",
+      "coverPhotoTooltip": "Próximamente",
+      "avatarTooltip": "Próximamente",
+      "name": "Nombre",
+      "username": "Nombre de usuario",
+      "location": "Ubicación",
+      "bio": "Biografía",
+      "saveChanges": "Guardar cambios",
+      "nameTooLong": "El nombre debe tener máximo 100 caracteres",
+      "usernameInvalid": "El nombre de usuario debe tener entre 3 y 30 caracteres: solo letras, números o guiones bajos",
+      "usernameTaken": "Este nombre de usuario ya está en uso",
+      "locationTooLong": "La ubicación debe tener máximo 100 caracteres",
+      "bioTooLong": "La bio debe tener máximo 500 caracteres",
+      "saveSuccess": "Perfil actualizado correctamente"
+    },
+    "securitySection": {
+      "title": "Seguridad",
+      "subtitle": "Cambia tu contraseña o dirección de email",
+      "changePasswordButton": "Cambiar contraseña",
+      "currentPassword": "Contraseña actual",
+      "newPassword": "Nueva contraseña",
+      "confirmPassword": "Confirmar nueva contraseña",
+      "updatePassword": "Actualizar contraseña",
+      "passwordMismatch": "Las contraseñas no coinciden",
+      "passwordTooWeak": "La contraseña debe tener mínimo 8 caracteres con mayúsculas, minúsculas y un número",
+      "wrongPassword": "La contraseña actual es incorrecta",
+      "passwordUpdateSuccess": "Contraseña actualizada correctamente",
+      "changeEmailButton": "Cambiar email",
+      "newEmail": "Nuevo email",
+      "confirmEmail": "Confirmar nuevo email",
+      "updateEmail": "Actualizar email",
+      "emailMismatch": "Los emails no coinciden",
+      "invalidEmail": "Introduce un email válido",
+      "wrongPasswordForEmail": "La contraseña actual es incorrecta",
+      "emailUpdateSuccess": "Email actualizado correctamente",
+      "cancel": "Cancelar"
+    },
+    "dangerZone": {
+      "title": "Zona de peligro",
+      "warning": "Esta acción es permanente y no se puede deshacer. Se eliminarán todas tus recetas y datos.",
+      "deleteAccount": "Eliminar cuenta",
+      "confirmTitle": "Eliminar cuenta",
+      "confirmMessage": "¿Estás seguro de que quieres eliminar tu cuenta? Esta acción no se puede deshacer.",
+      "confirmButton": "Eliminar cuenta",
+      "cancelButton": "Cancelar"
+    }
+  }
+}

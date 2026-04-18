@@ -1,15 +1,22 @@
+import { useEffect } from "react";
+import { Navigate, useLocation, useNavigate } from "react-router-dom";
 import { useAuthStore } from "../../stores/useAuthStore";
+import { routes } from "../../routes";
 
 const ProtectedRoute = ({ children }) => {
   const user = useAuthStore((state) => state.user);
+  const openLoginModal = useAuthStore((state) => state.openLoginModal);
+  const navigate = useNavigate();
+  const location = useLocation();
 
-  // If user is not authenticated, don't render anything
-  // The RouteGuard will handle the navigation and modal
-  if (!user) {
-    return null;
-  }
+  useEffect(() => {
+    if (!user) {
+      openLoginModal(() => navigate(location.pathname, { replace: true }));
+    }
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
-  // If user is authenticated, render the protected content
+  if (!user) return <Navigate to={routes.recipes} replace />;
+
   return children;
 };
 

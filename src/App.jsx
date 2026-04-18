@@ -12,6 +12,7 @@ import theme from "./MuiTheme";
 import RecipeCreationPage from "./pages/RecipeCreationPage";
 import UserProfilePage from "./pages/UserProfilePage";
 import RecipeDetailsPage from "./pages/RecipeDetailsPage";
+import AccountPage from "./pages/AccountPage";
 import { useEffect } from "react";
 import { useAuthStore } from "./stores/useAuthStore";
 import Loading from "./components/common/Loading";
@@ -71,6 +72,14 @@ const App = () => {
                   <Route
                     path={routes.recipeDetails(":id")}
                     element={<RecipeDetailsPage />}
+                  />
+                  <Route
+                    path={routes.account}
+                    element={
+                      <ProtectedRoute>
+                        <AccountPage />
+                      </ProtectedRoute>
+                    }
                   />
                 </Routes>
               </div>

@@ -1,5 +1,8 @@
 import { create } from "zustand";
+import axios from "axios";
 import { supabase } from "../config/supabase";
+
+const API_URL = `${import.meta.env.VITE_API_URL || "http://localhost:3000"}`;
 
 export const useAuthStore = create((set, get) => ({
   user: null,
@@ -29,6 +32,7 @@ export const useAuthStore = create((set, get) => ({
             id: data.user.id,
             email: data.user.email,
             name: userData.name || null,
+            username: userData.username || null,
           },
           {
             onConflict: "id",
@@ -65,8 +69,12 @@ export const useAuthStore = create((set, get) => ({
 
   // Sign out user
   signOut: async () => {
-    const { error } = await supabase.auth.signOut();
-    if (error) throw error;
+    const { error } = await supabase.auth.signOut({ scope: "local" });
+    if (error) {
+      Object.keys(localStorage)
+        .filter((k) => k.startsWith("sb-") && k.endsWith("-auth-token"))
+        .forEach((k) => localStorage.removeItem(k));
+    }
     set({ user: null, profile: null, session: null });
   },
 
@@ -100,6 +108,46 @@ export const useAuthStore = create((set, get) => ({
     if (error) throw error;
     set({ profile: data });
     return data;
+  },
+
+  // Update profile data via REST API
+  updateProfileData: async (userId, updates) => {
+    const token = await get().getToken();
+    const headers = token ? { Authorization: `Bearer ${token}` } : {};
+    await axios.patch(`${API_URL}/users/${userId}`, updates, { headers });
+    return await get().loadProfile(userId);
+  },
+
+  // Change password via REST API
+  changePassword: async (userId, currentPassword, newPassword) => {
+    const token = await get().getToken();
+    const headers = token ? { Authorization: `Bearer ${token}` } : {};
+    const response = await axios.post(
+      `${API_URL}/users/${userId}/change-password`,
+      { currentPassword, newPassword },
+      { headers }
+    );
+    return response.data;
+  },
+
+  // Change email via REST API
+  changeEmail: async (userId, currentPassword, newEmail) => {
+    const token = await get().getToken();
+    const headers = token ? { Authorization: `Bearer ${token}` } : {};
+    const response = await axios.post(
+      `${API_URL}/users/${userId}/change-email`,
+      { currentPassword, newEmail },
+      { headers }
+    );
+    return response.data;
+  },
+
+  // Delete account via REST API then sign out
+  deleteAccount: async (userId) => {
+    const token = await get().getToken();
+    const headers = token ? { Authorization: `Bearer ${token}` } : {};
+    await axios.delete(`${API_URL}/users/${userId}`, { headers });
+    await get().signOut();
   },
 
   // Get current session token (with automatic refresh)

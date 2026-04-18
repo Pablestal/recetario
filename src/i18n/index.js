@@ -17,6 +17,8 @@ import authEN from "./locales/en/auth_en.json";
 import authES from "./locales/es/auth_es.json";
 import userProfileEN from "./locales/en/user-profile_en.json";
 import userProfileES from "./locales/es/user-profile_es.json";
+import accountEN from "./locales/en/account_en.json";
+import accountES from "./locales/es/account_es.json";
 
 // Configure translation resources
 const resources = {
@@ -28,6 +30,7 @@ const resources = {
     recipeDetails: recipeDetailsEN,
     auth: authEN,
     userProfile: userProfileEN,
+    account: accountEN,
   },
   es: {
     common: commonES,
@@ -37,6 +40,7 @@ const resources = {
     recipeDetails: recipeDetailsES,
     auth: authES,
     userProfile: userProfileES,
+    account: accountES,
   },
 };
 

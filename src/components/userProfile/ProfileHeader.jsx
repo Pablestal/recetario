@@ -2,17 +2,19 @@ import PropTypes from "prop-types";
 import { useTranslation } from "react-i18next";
 import { Avatar, Button, Typography } from "@mui/material";
 import LocationOnIcon from "@mui/icons-material/LocationOn";
-import ConstructionIcon from "@mui/icons-material/Construction";
+import { useNavigate } from "react-router-dom";
+import { routes } from "../../routes";
 
 const ProfileHeader = ({ profile, stats, tabs, isOwner, followButton }) => {
   const { t } = useTranslation("userProfile");
+  const navigate = useNavigate();
 
   return (
     <div className="user-profile__header">
       <Avatar
         src={profile?.avatar_url}
         className="user-profile__avatar"
-        sx={{ width: 96, height: 96 }}
+        sx={{ width: 108, height: 108 }}
       >
         {profile?.name?.[0]?.toUpperCase()}
       </Avatar>
@@ -36,8 +38,7 @@ const ProfileHeader = ({ profile, stats, tabs, isOwner, followButton }) => {
             <Button
               variant="outlined"
               size="small"
-              disabled
-              endIcon={<ConstructionIcon sx={{ fontSize: 16 }} />}
+              onClick={() => navigate(routes.account)}
             >
               {t("editProfile")}
             </Button>
