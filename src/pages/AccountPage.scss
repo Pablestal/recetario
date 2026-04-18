@@ -1,0 +1,26 @@
+@use "../utils/breakpoints" as bp;
+
+.account-page {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 16px;
+
+  @include bp.until(bp.$desktop) {
+    padding: 0;
+  }
+
+  &__sections {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+  }
+
+  &__card {
+    border-radius: 12px;
+    overflow: hidden;
+
+&--danger {
+      border: 1px solid rgba(211, 47, 47, 0.3);
+    }
+  }
+}

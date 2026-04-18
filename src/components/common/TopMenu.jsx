@@ -12,7 +12,7 @@ import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
 import { useLocation, useNavigate } from "react-router-dom";
 import { routes } from "../../routes";
-import LumeaLogo from "../../assets/Lumea-nobg.png";
+import LumeaLogo from "../../assets/Lumea-nobg.webp";
 import { useTranslation } from "react-i18next";
 import LanguageSelector from "./LanguageSelector";
 import { useAuthStore } from "../../stores/useAuthStore";
@@ -21,6 +21,9 @@ import RegisterDialog from "../auth/RegisterDialog";
 import LoginIcon from "@mui/icons-material/Login";
 import PersonAddIcon from "@mui/icons-material/PersonAdd";
 import ConstructionIcon from "@mui/icons-material/Construction";
+import PersonOutlineIcon from "@mui/icons-material/PersonOutline";
+import SettingsOutlinedIcon from "@mui/icons-material/SettingsOutlined";
+import LogoutIcon from "@mui/icons-material/Logout";
 import "./TopMenu.scss";
 
 const staticPages = [
@@ -38,9 +41,15 @@ const staticPages = [
     disabled: true,
   },
 ];
+const SETTING_ICONS = {
+  profile: <PersonOutlineIcon fontSize="small" />,
+  account: <SettingsOutlinedIcon fontSize="small" />,
+  logout: <LogoutIcon fontSize="small" />,
+};
+
 const settings = [
   { name: "profile" },
-  { name: "account", disabled: true },
+  { name: "account" },
   { name: "logout" },
 ];
 
@@ -360,12 +369,12 @@ const TopMenu = () => {
                     >
                       <Typography
                         sx={{
-                          textAlign: "center",
                           display: "flex",
                           alignItems: "center",
-                          gap: 0.75,
+                          gap: 1,
                         }}
                       >
+                        {SETTING_ICONS[setting.name]}
                         {t(`navigation.${setting.name}`)}
                         {setting.disabled && (
                           <ConstructionIcon sx={{ fontSize: 16 }} />

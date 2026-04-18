@@ -26,7 +26,7 @@ import PeopleAltOutlinedIcon from "@mui/icons-material/PeopleAltOutlined";
 import LocalFireDepartmentIcon from "@mui/icons-material/LocalFireDepartment";
 import BoltIcon from "@mui/icons-material/Bolt";
 import LocalDiningIcon from "@mui/icons-material/LocalDiningOutlined";
-import imageFallback from "../../assets/recipe-card-img-fallback.png";
+import imageFallback from "../../assets/recipe-card-img-fallback.webp";
 import Loading from "../common/Loading";
 import { useCollectionStore } from "../../stores/useCollectionStore";
 import { routes } from "../../routes";
